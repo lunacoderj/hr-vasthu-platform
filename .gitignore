@@ -11,7 +11,18 @@ node_modules
 dist
 dist-ssr
 *.local
-*.env
+
+# Environment Variables — prevent data leaks
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
+
+# Vercel
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +33,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+

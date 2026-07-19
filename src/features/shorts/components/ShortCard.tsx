@@ -4,6 +4,7 @@ import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import type { Video } from '../../../core/types/video';
 import { ActionBar } from './ActionBar';
 import { BottomInfoPanel } from './BottomInfoPanel';
+import { tracker } from '../../../core/services/tracker';
 
 interface ShortCardProps {
   short: Video;
@@ -13,7 +14,6 @@ interface ShortCardProps {
   onToggleMute: () => void;
   onShare: (short: Video) => void;
   onWatchFull: (short: Video) => void;
-  onAskAstrobot: (short: Video) => void;
 }
 
 export const ShortCard: React.FC<ShortCardProps> = ({
@@ -24,7 +24,6 @@ export const ShortCard: React.FC<ShortCardProps> = ({
   onToggleMute,
   onShare,
   onWatchFull,
-  onAskAstrobot
 }) => {
   const videoId = short.youtube_id || short.embed_url?.split('/embed/')[1] || '';
   const thumbnailUrl = short.thumbnail_medium || short.thumbnail_default || short.thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
@@ -37,6 +36,11 @@ export const ShortCard: React.FC<ShortCardProps> = ({
   useEffect(() => {
     if (isActive) {
       setIsPlaying(true);
+      // Track the short view event
+      tracker.trackEvent('short_view', '/shorts', null, null, {
+        video_title: short.title,
+        video_id: short.youtube_id || short.id,
+      });
       const timer = setTimeout(() => {
         sendPlayerCommand(isMuted ? 'mute' : 'unMute');
         sendPlayerCommand('playVideo');
@@ -169,7 +173,6 @@ export const ShortCard: React.FC<ShortCardProps> = ({
           short={short} 
           onShare={onShare} 
           onWatchFull={onWatchFull} 
-          onAskAstrobot={onAskAstrobot} 
         />
         
         <BottomInfoPanel 

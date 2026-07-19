@@ -5,6 +5,8 @@
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     /* Primary Colors - Warm Earth Tones */
@@ -218,5 +220,139 @@
     box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
     color: #eab308;
   }
+
+  /* ═══════ Glassmorphism Bento Grid Card ═══════ */
+  .glass-bento {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  }
+
+  .dark .glass-bento {
+    background: rgba(18, 18, 26, 0.45);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  /* ═══════ Claymorphic Vibrant Cards ═══════ */
+  .clay-card-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 12px 12px 24px rgba(5, 150, 105, 0.2), 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.5), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  .clay-card-gold {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 12px 12px 24px rgba(217, 119, 6, 0.2), 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.5), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  .clay-card-teal {
+    background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+    box-shadow: 12px 12px 24px rgba(13, 148, 136, 0.2), 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.5), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  .clay-card-rose {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    box-shadow: 12px 12px 24px rgba(225, 29, 72, 0.2), 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.5), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  .clay-card-indigo {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    box-shadow: 12px 12px 24px rgba(79, 70, 229, 0.2), 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.5), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  /* ═══════ Neomorphic Soft Light Extrusions ═══════ */
+  .neomorphic-btn {
+    background: #f3f4f6;
+    box-shadow: 5px 5px 10px #e5e7eb, -5px -5px 10px #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+  }
+
+  .dark .neomorphic-btn {
+    background: #111116;
+    box-shadow: 5px 5px 10px #08080a, -5px -5px 10px #1a1a22;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+  }
+
+  .neomorphic-btn:active, .neomorphic-btn-pressed {
+    box-shadow: inset 4px 4px 8px #d1d5db, inset -4px -4px 8px #ffffff;
+  }
+
+  .dark .neomorphic-btn:active, .dark .neomorphic-btn-pressed {
+    box-shadow: inset 4px 4px 8px #08080a, inset -4px -4px 8px #1a1a22;
+  }
+
+  .neomorphic-inset {
+    box-shadow: inset 3px 3px 6px #e5e7eb, inset -3px -3px 6px #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .neomorphic-inset {
+    box-shadow: inset 3px 3px 6px #08080a, inset -3px -3px 6px #1a1a22;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+  }
+}
+
+/* ═══════ Background Liquid Mesh Gradient Blobs ═══════ */
+.liquid-mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  animation: float-blob 20s infinite ease-in-out;
+  z-index: 0;
+}
+
+.dark .liquid-mesh-blob {
+  opacity: 0.08;
+}
+
+@keyframes float-blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* ═══════ Booking Modal Overlay ═══════ */
+.booking-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.booking-modal {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+}
+
+.dark .booking-modal {
+  background: rgba(15, 15, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
 }
 

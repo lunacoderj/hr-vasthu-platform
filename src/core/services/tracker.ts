@@ -97,6 +97,10 @@ export const tracker = {
     this.trackEvent('video_complete', window.location.pathname, null, null, { video_title: videoTitle });
   },
 
+  trackShortView(shortTitle: string, videoId: string) {
+    this.trackEvent('short_view', '/shorts', null, null, { video_title: shortTitle, video_id: videoId });
+  },
+
   trackBookDownload(bookTitle: string) {
     this.trackEvent('book_download', window.location.pathname, null, null, { book_title: bookTitle });
   },

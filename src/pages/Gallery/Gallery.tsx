@@ -5,6 +5,8 @@ import { Sparkles, ChevronDown, Award, FileCheck, Mic } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { GALLERY_ITEMS, FILTER_TABS, type GalleryItem } from './galleryData';
 import { Lightbox } from './Lightbox';
+import { supabase } from '../../core/services/supabase';
+import { useTranslation } from '../../core/hooks/useTranslation';
 import './gallery.css';
 
 /* ─── Golden Dust Background ─── */
@@ -52,6 +54,7 @@ const SacredMandala: React.FC<{ size: number; top: string; left: string; speed?:
 /* ─── Hero Section ─── */
 const GalleryHero: React.FC = () => {
   const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
+  const { t } = useTranslation();
 
   return (
     <section ref={ref} className="gallery-hero" aria-label="Gallery hero">
@@ -67,7 +70,7 @@ const GalleryHero: React.FC = () => {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(212,114,10,0.3)] bg-[rgba(212,114,10,0.08)]"
         >
           <Sparkles size={14} className="text-[#d4720a]" />
-          <span className="text-[#d4720a] text-xs font-semibold tracking-[0.2em] uppercase">The Sacred Archive</span>
+          <span className="text-[#d4720a] text-xs font-semibold tracking-[0.2em] uppercase">{t('theSacredArchive')}</span>
         </motion.div>
 
         <motion.h1
@@ -76,7 +79,7 @@ const GalleryHero: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
         >
-          Legacy of<br />Excellence
+          {t('legacyOfExcellence')}
         </motion.h1>
 
         <motion.p
@@ -85,7 +88,7 @@ const GalleryHero: React.FC = () => {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
         >
-          Awards · Certifications · Milestones
+          {t('awardsCertificationsMilestones')}
         </motion.p>
 
         <motion.div
@@ -94,7 +97,7 @@ const GalleryHero: React.FC = () => {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 1.2 }}
         >
-          <span>Explore Journey</span>
+          <span>{t('exploreJourney')}</span>
           <ChevronDown size={16} />
           <div className="scroll-indicator-line" />
         </motion.div>
@@ -104,24 +107,30 @@ const GalleryHero: React.FC = () => {
 };
 
 /* ─── Filter Bar ─── */
-const FilterBar: React.FC<{ active: string; onChange: (key: string) => void }> = ({ active, onChange }) => (
-  <div className="flex flex-wrap justify-center gap-3 px-4" role="tablist" aria-label="Gallery filters">
-    {FILTER_TABS.map((tab) => (
-      <button
-        key={tab.key}
-        className={`filter-pill ${active === tab.key ? 'active' : ''}`}
-        onClick={() => onChange(tab.key)}
-        role="tab"
-        aria-selected={active === tab.key}
-      >
-        {tab.key === 'awards' && <Award size={14} className="inline mr-1.5 -mt-0.5" />}
-        {tab.key === 'certifications' && <FileCheck size={14} className="inline mr-1.5 -mt-0.5" />}
-        {tab.key === 'speeches' && <Mic size={14} className="inline mr-1.5 -mt-0.5" />}
-        {tab.label}
-      </button>
-    ))}
-  </div>
-);
+const FilterBar: React.FC<{ active: string; onChange: (key: string) => void }> = ({ active, onChange }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex flex-wrap justify-center gap-3 px-4" role="tablist" aria-label="Gallery filters">
+      {FILTER_TABS.map((tab) => (
+        <button
+          key={tab.key}
+          className={`filter-pill ${active === tab.key ? 'active' : ''}`}
+          onClick={() => onChange(tab.key)}
+          role="tab"
+          aria-selected={active === tab.key}
+        >
+          {tab.key === 'awards' && <Award size={14} className="inline mr-1.5 -mt-0.5" />}
+          {tab.key === 'certifications' && <FileCheck size={14} className="inline mr-1.5 -mt-0.5" />}
+          {tab.key === 'speeches' && <Mic size={14} className="inline mr-1.5 -mt-0.5" />}
+          {tab.key === 'all' ? t('home') : 
+           tab.key === 'awards' ? t('awardsHonors') : 
+           tab.key === 'certifications' ? t('clientCertifications') : 
+           t('lecturesSpeeches')}
+        </button>
+      ))}
+    </div>
+  );
+};
 
 /* ─── Award Card ─── */
 const AwardCard: React.FC<{ item: GalleryItem; index: number; onClick: () => void }> = ({ item, index, onClick }) => {
@@ -254,16 +263,14 @@ const SpeechSection: React.FC<{ item: GalleryItem; onClick: () => void }> = ({ i
         >
           <div className="inline-flex items-center gap-2 text-[#d4720a] text-xs font-semibold tracking-[0.2em] uppercase">
             <Mic size={14} />
-            <span>Lectures & Speeches</span>
+            <span>{t('lecturesSpeeches')}</span>
           </div>
-          <h2 className="section-heading">Voice of<br />Vastu Wisdom</h2>
+          <h2 className="section-heading">{t('voiceOfVastuWisdom')}</h2>
           <p className="text-stone-600 dark:text-white/50 text-lg leading-relaxed">
-            Dr. Rao's powerful addresses have enlightened audiences across India and beyond, bridging the gap between
-            ancient Vedic architecture and modern scientific understanding.
+            {t('speechesDesc1')}
           </p>
           <p className="text-stone-500 dark:text-white/35 text-base leading-relaxed">
-            His captivating lectures transform complex cosmic geometry into practical, actionable knowledge that
-            transforms homes and lives.
+            {t('speechesDesc2')}
           </p>
         </motion.div>
       </div>
@@ -277,15 +284,47 @@ const SpeechSection: React.FC<{ item: GalleryItem; onClick: () => void }> = ({ i
 const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [liveItems, setLiveItems] = useState<GalleryItem[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top on mount
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // Fetch live items from Supabase
+  useEffect(() => {
+    const fetchLiveItems = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('gallery')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        if (data && data.length > 0) {
+          const mapped: GalleryItem[] = data.map((item) => ({
+            id: item.id,
+            title: item.title,
+            description: 'Vastu compliance asset details',
+            src: item.cover_image,
+            category: item.category.toLowerCase() as any,
+          }));
+          setLiveItems(mapped);
+        }
+      } catch (err) {
+        console.warn('Could not load live gallery items. Falling back to local data.', err);
+      }
+    };
+    fetchLiveItems();
+  }, []);
+
+  const allItems = useMemo(() => {
+    return liveItems;
+  }, [liveItems]);
+
   const filtered = useMemo(() => {
-    if (filter === 'all') return GALLERY_ITEMS;
-    return GALLERY_ITEMS.filter((item) => item.category === filter);
-  }, [filter]);
+    if (filter === 'all') return allItems;
+    return allItems.filter((item) => item.category === filter);
+  }, [filter, allItems]);
 
   const awards = useMemo(() => filtered.filter((i) => i.category === 'awards'), [filtered]);
   const certs = useMemo(() => filtered.filter((i) => i.category === 'certifications'), [filtered]);
@@ -330,10 +369,10 @@ const Gallery: React.FC = () => {
               <div className="max-w-7xl mx-auto px-4 mb-12">
                 <div className="flex items-center gap-3 mb-2">
                   <Award size={20} className="text-[#d4720a]" />
-                  <h2 className="section-heading text-2xl">Awards & Honors</h2>
+                  <h2 className="section-heading text-2xl">{t('awardsHonors')}</h2>
                 </div>
                 <p className="text-stone-500 dark:text-white/35 text-sm max-w-xl">
-                  International accolades recognizing decades of mastery in Vastu Science & Technology.
+                  {t('awardsHonorsSub')}
                 </p>
               </div>
               <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -359,10 +398,10 @@ const Gallery: React.FC = () => {
               <div className="max-w-7xl mx-auto px-4 mb-12">
                 <div className="flex items-center gap-3 mb-2">
                   <FileCheck size={20} className="text-[#d4720a]" />
-                  <h2 className="section-heading text-2xl">Client Certifications</h2>
+                  <h2 className="section-heading text-2xl">{t('clientCertifications')}</h2>
                 </div>
                 <p className="text-stone-500 dark:text-white/35 text-sm max-w-xl">
-                  Official Vastu compliance certifications issued to homes and businesses across India.
+                  {t('clientCertificationsSub')}
                 </p>
               </div>
               <div className="max-w-7xl mx-auto px-4 columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">

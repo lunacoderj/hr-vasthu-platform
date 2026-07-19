@@ -6,10 +6,12 @@ import { Spinner } from '../../shared/components/ui';
 import { BookCard } from './components/BookCard';
 import { bookService } from '../../core/services/book.service';
 import { type Book } from '../../core/types/book';
+import { useTranslation } from '../../core/hooks/useTranslation';
 
 export const Books: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const loadBooks = async () => {
@@ -31,10 +33,10 @@ export const Books: React.FC = () => {
       <Container size="xl">
         <div className="mb-16 max-w-2xl">
           <Typography variant="display" className="mb-4">
-            Digital Library
+            {t('digitalLibrary')}
           </Typography>
           <Typography variant="body" className="text-stone-600 dark:text-stone-400 text-lg">
-            Immerse yourself in the ancient science of Vastu Shastra. Download our expertly curated guides to help you align your home and workspace for prosperity.
+            {t('digitalLibrarySub')}
           </Typography>
         </div>
 

@@ -77,9 +77,7 @@ export const ShortsModule: React.FC = () => {
     }
   };
 
-  const handleAskAstrobot = (short: Video) => {
-    navigate(`/astrobot?context=short&videoId=${short.id}`);
-  };
+
 
   if (isLoading && shorts.length === 0) {
     return (
@@ -151,7 +149,6 @@ export const ShortsModule: React.FC = () => {
                 onToggleMute={() => setIsMuted(!isMuted)}
                 onShare={handleShare}
                 onWatchFull={handleWatchFull}
-                onAskAstrobot={handleAskAstrobot}
               />
             );
           })
