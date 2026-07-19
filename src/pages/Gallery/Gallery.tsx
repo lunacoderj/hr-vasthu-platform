@@ -286,6 +286,7 @@ const Gallery: React.FC = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [liveItems, setLiveItems] = useState<GalleryItem[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   // Scroll to top on mount
   useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -304,14 +305,17 @@ const Gallery: React.FC = () => {
           const mapped: GalleryItem[] = data.map((item) => ({
             id: item.id,
             title: item.title,
-            description: 'Vastu compliance asset details',
-            src: item.cover_image,
-            category: item.category.toLowerCase() as any,
+            description: item.description || 'Vastu compliance asset details',
+            src: item.image_url || item.cover_image,
+            category: (item.category || 'all').toLowerCase() as any,
           }));
           setLiveItems(mapped);
+        } else {
+          setLiveItems(GALLERY_ITEMS);
         }
       } catch (err) {
         console.warn('Could not load live gallery items. Falling back to local data.', err);
+        setLiveItems(GALLERY_ITEMS);
       }
     };
     fetchLiveItems();

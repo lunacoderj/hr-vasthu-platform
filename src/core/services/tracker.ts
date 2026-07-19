@@ -37,12 +37,12 @@ let geoFetched = false;
 const fetchGeo = async () => {
   if (geoFetched) return geoInfo;
   try {
-    const res = await fetch('https://ipapi.co/json/');
+    const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
     if (res.ok) {
       const data = await res.json();
       geoInfo = {
         city: data.city || 'Hyderabad',
-        country: data.country_name || 'India'
+        country: data.country || 'India'
       };
       geoFetched = true;
     }
