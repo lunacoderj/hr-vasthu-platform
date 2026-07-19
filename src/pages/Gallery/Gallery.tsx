@@ -257,11 +257,11 @@ const SpeechSection: React.FC<{ item: GalleryItem; onClick: () => void }> = ({ i
             <span>Lectures & Speeches</span>
           </div>
           <h2 className="section-heading">Voice of<br />Vastu Wisdom</h2>
-          <p className="text-white/50 text-lg leading-relaxed">
+          <p className="text-stone-600 dark:text-white/50 text-lg leading-relaxed">
             Dr. Rao's powerful addresses have enlightened audiences across India and beyond, bridging the gap between
             ancient Vedic architecture and modern scientific understanding.
           </p>
-          <p className="text-white/35 text-base leading-relaxed">
+          <p className="text-stone-500 dark:text-white/35 text-base leading-relaxed">
             His captivating lectures transform complex cosmic geometry into practical, actionable knowledge that
             transforms homes and lives.
           </p>
@@ -332,7 +332,7 @@ const Gallery: React.FC = () => {
                   <Award size={20} className="text-[#d4720a]" />
                   <h2 className="section-heading text-2xl">Awards & Honors</h2>
                 </div>
-                <p className="text-white/35 text-sm max-w-xl">
+                <p className="text-stone-500 dark:text-white/35 text-sm max-w-xl">
                   International accolades recognizing decades of mastery in Vastu Science & Technology.
                 </p>
               </div>
@@ -361,7 +361,7 @@ const Gallery: React.FC = () => {
                   <FileCheck size={20} className="text-[#d4720a]" />
                   <h2 className="section-heading text-2xl">Client Certifications</h2>
                 </div>
-                <p className="text-white/35 text-sm max-w-xl">
+                <p className="text-stone-500 dark:text-white/35 text-sm max-w-xl">
                   Official Vastu compliance certifications issued to homes and businesses across India.
                 </p>
               </div>

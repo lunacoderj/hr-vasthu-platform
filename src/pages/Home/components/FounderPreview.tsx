@@ -23,7 +23,7 @@ export const FounderPreview: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden relative shadow-2xl group border border-white/10">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden relative shadow-2xl group border border-stone-200/50 dark:border-white/10">
               {/* Golden halo glow */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#d4720a]/20 to-[#e68a1c]/10 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10" />
               <div className="absolute inset-0 bg-[#0a0a0f]/40 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
@@ -51,12 +51,12 @@ export const FounderPreview: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (idx * 0.1) }}
-                  className="bg-white/5 backdrop-blur-xl shadow-2xl rounded-2xl p-4 flex items-center gap-3 border border-white/10 magnetic"
+                  className="bg-white/40 dark:bg-white/5 backdrop-blur-xl shadow-2xl rounded-2xl p-4 flex items-center gap-3 border border-stone-200/50 dark:border-white/10 magnetic"
                 >
                   <div className="text-[#d4720a] bg-[#d4720a]/10 p-2 rounded-xl">
-                    {badge.icon}
+                     {badge.icon}
                   </div>
-                  <span className="font-bold text-white text-sm whitespace-nowrap">{badge.label}</span>
+                  <span className="font-bold text-stone-900 dark:text-white text-sm whitespace-nowrap">{badge.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -74,20 +74,20 @@ export const FounderPreview: React.FC = () => {
                 <span className="w-8 h-[2px] bg-[#d4720a] rounded-full"></span>
                 <span>The Master Architect</span>
               </div>
-              <Typography variant="h2" className="mb-6 leading-tight text-white">
+              <Typography variant="h2" className="mb-6 leading-tight text-stone-900 dark:text-white">
                 Pioneering Vastu Science & Technology
               </Typography>
-              <p className="text-stone-300 text-lg leading-relaxed mb-6 font-light">
+              <p className="text-stone-600 dark:text-stone-300 text-lg leading-relaxed mb-6 font-light">
                 Dr. Kunchala Hanumantha Rao is not merely a consultant; he is an institution. With a Doctorate in Vastu Science and the prestigious Nepal Sadbhavana Award, he has spent over two decades transforming homes and businesses by aligning them with cosmic geometry and Earth's magnetic forces.
               </p>
-              <p className="text-stone-300 text-lg leading-relaxed font-light">
+              <p className="text-stone-600 dark:text-stone-300 text-lg leading-relaxed font-light">
                 His unique philosophy strips away superstition, replacing it with a rigorous, physics-based approach to spatial harmony that has garnered millions of followers worldwide.
               </p>
             </div>
 
             <button 
               onClick={() => navigate('/about')}
-              className="px-8 py-3.5 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-full font-medium transition-all active:scale-95 flex items-center gap-2 magnetic"
+              className="px-8 py-3.5 bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 hover:bg-stone-200 dark:hover:bg-white/10 text-stone-800 dark:text-white rounded-full font-medium transition-all active:scale-95 flex items-center gap-2 magnetic"
             >
               <span>Read Full Biography</span>
               <ArrowRight size={18} />

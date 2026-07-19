@@ -128,11 +128,11 @@ export const VideoDetail: React.FC = () => {
           {/* Main Content Area (Left) */}
           <div className="w-full lg:w-[70%]">
             {/* Video Embed Player */}
-            <div className="w-full bg-black rounded-xl shadow-xl aspect-video mb-4 relative z-20">
+            <div className="w-full bg-black rounded-xl shadow-xl aspect-video mb-4 relative z-20 overflow-hidden">
               <iframe
                 src={cleanEmbedUrl}
-                className="w-full h-full rounded-xl pointer-events-auto"
-                style={{ pointerEvents: 'auto' }}
+                className="absolute inset-0 w-full h-full rounded-xl pointer-events-auto"
+                style={{ pointerEvents: 'auto', zIndex: 30 }}
                 title={video.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

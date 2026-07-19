@@ -90,16 +90,16 @@ export const Hero: React.FC = () => {
           </div>
 
           <div className="animate-stagger-item opacity-0">
-            <Typography variant="display" className="mb-6 font-serif tracking-tight text-white">
+            <Typography variant="display" className="mb-6 font-serif tracking-tight text-stone-900 dark:text-white">
               Harmonize Your Space, <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#fef9f0]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#a855f7] dark:to-[#fef9f0]">
                 Elevate Your Life.
               </span>
             </Typography>
           </div>
 
           <div className="animate-stagger-item opacity-0">
-            <p className="mb-10 text-lg md:text-xl text-stone-300 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="mb-10 text-lg md:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto font-light leading-relaxed">
               Unlock prosperity, health, and peace with expert Vastu Shastra consultation. Ancient wisdom perfectly adapted for modern living.
             </p>
           </div>
@@ -119,7 +119,7 @@ export const Hero: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onKeyDown={handleKeyDown}
-                  className="w-full pl-14 pr-16 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 focus:border-[#d4720a]/60 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#d4720a]/20 text-white placeholder-stone-500 transition-all text-lg backdrop-blur-xl"
+                  className="w-full pl-14 pr-16 py-4 rounded-full bg-white/50 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10 border border-stone-200 dark:border-white/10 focus:border-[#d4720a]/60 dark:focus:border-[#d4720a]/60 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#d4720a]/20 text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-stone-500 transition-all text-lg backdrop-blur-xl"
                 />
                 <button 
                   type="submit" 
@@ -138,7 +138,7 @@ export const Hero: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 right-0 mt-3 bg-[#111118]/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/5 overflow-hidden max-h-[400px] flex flex-col z-50"
+                    className="absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-[#111118]/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-stone-200/50 dark:border-white/5 overflow-hidden max-h-[400px] flex flex-col z-50"
                   >
                     {searchResults.length > 0 ? (
                       <div className="overflow-y-auto custom-scrollbar p-2">
@@ -151,11 +151,11 @@ export const Hero: React.FC = () => {
                             }}
                             className={`flex items-center gap-4 p-3 rounded-xl cursor-pointer transition-colors ${
                               selectedIndex === idx 
-                                ? 'bg-white/10' 
-                                : 'hover:bg-white/5'
+                                ? 'bg-stone-100 dark:bg-white/10' 
+                                : 'hover:bg-stone-50 dark:hover:bg-white/5'
                             }`}
                           >
-                            <div className="relative w-24 h-16 rounded-lg overflow-hidden shrink-0 bg-stone-800">
+                            <div className="relative w-24 h-16 rounded-lg overflow-hidden shrink-0 bg-stone-100 dark:bg-stone-800">
                               <img 
                                 src={video.thumbnail_default || video.thumbnail} 
                                 alt={video.title}
@@ -166,10 +166,10 @@ export const Hero: React.FC = () => {
                               </div>
                             </div>
                             <div className="flex-1 text-left">
-                              <h4 className="text-sm font-semibold text-white line-clamp-2">
+                              <h4 className="text-sm font-semibold text-stone-900 dark:text-white line-clamp-2">
                                 {video.title}
                               </h4>
-                              <p className="text-xs text-stone-400 mt-1">
+                              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
                                 {video.category} • {new Intl.NumberFormat('en-IN').format(video.views || 0)} views
                               </p>
                             </div>
@@ -177,7 +177,7 @@ export const Hero: React.FC = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="p-6 text-center text-stone-400">
+                      <div className="p-6 text-center text-stone-500 dark:text-stone-400">
                         No videos found matching "{searchQuery}"
                       </div>
                     )}
@@ -194,13 +194,20 @@ export const Hero: React.FC = () => {
               </button>
             </Link>
             <Link to="/about" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-3.5 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-full font-medium transition-all active:scale-95 magnetic">
+              <button className="w-full sm:w-auto px-8 py-3.5 bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 hover:bg-stone-200 dark:hover:bg-white/10 text-stone-800 dark:text-white rounded-full font-medium transition-all active:scale-95 magnetic">
                 Explore Vastu
               </button>
             </Link>
           </div>
         </div>
       </Container>
+
+      {/* Curved Divider wave matching ui.png */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-10 translate-y-[1px]">
+        <svg className="relative block w-full h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,57.05,18.3,88.43,26.85,152.6,44.3,220,53,287.9,56.44Z" className="fill-stone-100/50 dark:fill-[#111118]/40"></path>
+        </svg>
+      </div>
     </section>
   );
 };

@@ -35,13 +35,13 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
       onClick={() => onClick && onClick(video)}
     >
       <div 
-        className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-[#d4720a]/30 transition-all duration-300 p-3 hover:shadow-[0_10px_35px_rgba(212,114,10,0.15)] flex flex-col justify-between magnetic"
+        className="h-full glass-card-adaptive border border-stone-200/50 dark:border-white/10 rounded-2xl overflow-hidden hover:border-[#d4720a]/30 transition-all duration-300 p-3 hover:shadow-[0_10px_35px_rgba(212,114,10,0.15)] flex flex-col justify-between magnetic"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div>
           {/* Thumbnail / Iframe Preview */}
-          <div className="relative rounded-xl overflow-hidden aspect-video bg-stone-950/80 mb-3 border border-white/5">
+          <div className="relative rounded-xl overflow-hidden aspect-video bg-stone-950/80 mb-3 border border-stone-200/20 dark:border-white/5">
             {!isHovered ? (
               <>
                 <img 
@@ -72,23 +72,23 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
 
           {/* Details */}
           <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/10">
+            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-stone-200/50 dark:border-white/10">
               <img src={avatarUrl} alt="HR Vasthu" className="w-full h-full object-cover" />
             </div>
             
             <div className="flex-1 min-w-0">
               <h4 
-                className="text-sm font-medium text-stone-100 group-hover:text-[#d4720a] transition-colors duration-200 line-clamp-2 leading-snug" 
+                className="text-sm font-medium text-stone-900 dark:text-stone-100 group-hover:text-[#d4720a] transition-colors duration-200 line-clamp-2 leading-snug" 
                 title={video.title}
               >
                 {video.title}
               </h4>
               
-              <div className="text-xs text-stone-400 font-light mt-1">
+              <div className="text-xs text-stone-500 dark:text-stone-400 font-light mt-1">
                 HR Vasthu
               </div>
 
-              <div className="flex items-center gap-1.5 text-[11px] text-stone-400 font-light mt-0.5">
+              <div className="flex items-center gap-1.5 text-[11px] text-stone-500 dark:text-stone-400 font-light mt-0.5">
                 <span>{new Intl.NumberFormat('en-IN').format(video.views || 0)} views</span>
                 <span>•</span>
                 <span className="uppercase text-[#d4720a] font-medium">{video.language}</span>

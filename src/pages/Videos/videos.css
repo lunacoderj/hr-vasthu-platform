@@ -2,17 +2,25 @@
    YouTube Inspired Design System
 ================================ */
 
-:root{
-    --yt-bg:#0f0f0f;
-    --yt-card:#181818;
-    --yt-card-hover:#222222;
-    --yt-border:#2b2b2b;
+:root {
+    --yt-bg: transparent;
+    --yt-card: #ffffff;
+    --yt-card-hover: #f5f1ed;
+    --yt-border: #e7e5e4;
+    --yt-text: #1c1917;
+    --yt-secondary: #57534e;
+    --yt-radius: 16px;
+    --yt-transition: .25s cubic-bezier(.2,.8,.2,1);
+}
 
-    --yt-text:#f1f1f1;
-    --yt-secondary:#aaaaaa;
-
-    --yt-radius:16px;
-    --yt-transition:.25s cubic-bezier(.2,.8,.2,1);
+.dark :root,
+html.dark {
+    --yt-bg: #0f0f0f;
+    --yt-card: #181818;
+    --yt-card-hover: #222222;
+    --yt-border: #2b2b2b;
+    --yt-text: #f1f1f1;
+    --yt-secondary: #aaaaaa;
 }
 
 /* Page */
@@ -297,9 +305,7 @@ gap:8px;
 /* Hover */
 
 .video-card:hover .title{
-
-color:white;
-
+color:#d4720a;
 }
 
 /* Skeleton */

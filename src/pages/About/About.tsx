@@ -14,7 +14,7 @@ const fadeUp = {
 export const About: React.FC = () => {
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
-      
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -36,7 +36,7 @@ export const About: React.FC = () => {
               <Sparkles size={16} />
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -67,25 +67,26 @@ export const About: React.FC = () => {
             <motion.div {...fadeUp} className="relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden relative group shadow-2xl">
                 <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
-                <img 
-                  src="/Gallery/speech.png" 
-                  alt="Dr. Kunchala Hanumantha Rao delivering a speech on Vastu Science" 
+                <img
+                  src="/Gallery/speech.png"
+                  alt="Dr. Kunchala Hanumantha Rao delivering a speech on Vastu Science"
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-stone-900 to-transparent z-20">
-                  <p className="text-gold-400 font-serif text-xl italic">"Architecture is the alignment of human life with cosmic geometry."</p>
+                  <p className="text-gold-400 font-serif text-xl italic">"Architecture is the alignment of human
+                    life with cosmic geometry."</p>
                 </div>
               </div>
-              
+
               {/* Floating Badge */}
-              <div className="absolute -bottom-6 -right-6 bg-white dark:bg-stone-800 p-6 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-700 max-w-[240px]">
+              <div className="absolute -bottom-6 -right-6 z-30 bg-white dark:bg-stone-800 p-6 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-700 max-w-[240px]">
                 <div className="flex items-center gap-4 mb-2">
                   <div className="w-12 h-12 bg-gold-50 dark:bg-gold-900/30 rounded-full flex items-center justify-center text-gold-600 dark:text-gold-400">
                     <Globe size={24} />
                   </div>
                   <div>
                     <div className="font-bold text-2xl text-stone-900 dark:text-white">25+</div>
-                    <div className="text-xs text-stone-500 uppercase tracking-wider font-semibold">Years of Mastery</div>
+                    <div className="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-wider font-semibold">Years of Mastery</div>
                   </div>
                 </div>
               </div>
@@ -116,7 +117,7 @@ export const About: React.FC = () => {
         <Container size="md">
           <motion.div {...fadeUp} className="prose prose-lg dark:prose-invert prose-stone mx-auto">
             <Typography variant="h2" className="mb-8 text-center">Biography & Legacy</Typography>
-            
+
             <h3 className="text-2xl font-serif font-bold text-gold-600 dark:text-gold-500 mt-12 mb-4 border-b border-stone-200 dark:border-stone-800 pb-2">Early Vision & Foundation</h3>
             <p className="text-stone-700 dark:text-stone-300 leading-relaxed mb-6 text-lg">
               Dr. Kunchala Hanumantha Rao's journey into the profound depths of Vastu Shastra began decades ago. Driven by an insatiable curiosity about the universe's energetic influence on human habitation, he dedicated his early years to the rigorous study of ancient Vedic scriptures, specifically those detailing structural engineering and cosmic geometry (Sthapatya Veda). Dissatisfied with the superstitious practices that often clouded traditional Vastu, Dr. Rao embarked on a mission to scientifically codify these ancient laws.

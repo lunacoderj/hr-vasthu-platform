@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from './shared/components/ui';
 import { MainLayout } from './shared/components/common';
 import { useAuthStore } from './core/store/auth.store';
 import { supabase } from './core/services/supabase';
+import { tracker } from './core/services/tracker';
 
 import Books from './pages/Books/Books';
 import BookReader from './pages/Books/BookReader';
@@ -45,8 +46,20 @@ const ResponsiveBooks = () => {
   return isMobile ? <BooksMobileContainer /> : <Books />;
 };
 
+const RouteTracker = () => {
+  const location = useLocation();
+  useEffect(() => {
+    tracker.trackPageView(location.pathname + location.search);
+  }, [location]);
+  return null;
+};
+
 function App() {
   const { setUser, setLoading } = useAuthStore();
+
+  useEffect(() => {
+    tracker.initTracker();
+  }, []);
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -67,6 +80,7 @@ function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <RouteTracker />
         <ToastProvider />
         
         <Routes>
