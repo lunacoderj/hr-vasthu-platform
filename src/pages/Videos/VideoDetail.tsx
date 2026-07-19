@@ -102,12 +102,12 @@ export const VideoDetail: React.FC = () => {
   const videoId = video.youtube_id || video.embed_url?.split('/embed/')[1]?.split('?')[0] || video.watch_url?.split('v=')[1]?.split('&')[0] || '';
   
   let cleanEmbedUrl = '';
+  const currentOrigin = encodeURIComponent(window.location.origin);
   if (videoId) {
-    cleanEmbedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&rel=0&enablejsapi=1&playsinline=1`;
+    cleanEmbedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&rel=0&enablejsapi=1&playsinline=1&origin=${currentOrigin}`;
   } else if (video.embed_url) {
-    cleanEmbedUrl = video.embed_url.includes('?') 
-      ? `${video.embed_url}&playsinline=1` 
-      : `${video.embed_url}?playsinline=1`;
+    const separator = video.embed_url.includes('?') ? '&' : '?';
+    cleanEmbedUrl = `${video.embed_url}${separator}playsinline=1&origin=${currentOrigin}`;
   } else {
     cleanEmbedUrl = '';
   }
@@ -132,6 +132,7 @@ export const VideoDetail: React.FC = () => {
               <iframe
                 src={cleanEmbedUrl}
                 className="w-full h-full rounded-xl pointer-events-auto"
+                style={{ pointerEvents: 'auto' }}
                 title={video.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
