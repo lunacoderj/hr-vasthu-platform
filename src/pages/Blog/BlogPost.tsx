@@ -177,9 +177,9 @@ export const BlogPost: React.FC = () => {
 
             {/* Magazine Title Section */}
             <div className="mb-10 pb-8 border-b border-stone-200 dark:border-stone-800">
-              <h1 className="leading-tight text-[40px] md:text-[58px] text-[#4A2C17] dark:text-[#FFF9F2] font-serif font-bold mb-6">
+              <h4 className="leading-tight text-[40px] md:text-[58px] text-[#4A2C17] dark:text-[#FFF9F2] font-serif font-bold mb-6">
                 {blog.title}
-              </h1>
+              </h4>
 
               <div className="flex flex-wrap items-center gap-y-4 gap-x-6 text-sm text-stone-600 dark:text-stone-400">
                 <div className="flex items-center gap-2">
