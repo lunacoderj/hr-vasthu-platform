@@ -212,9 +212,9 @@ export const BlogPost: React.FC = () => {
             <article className="prose prose-stone dark:prose-invert max-w-none 
               prose-p:text-[8px] prose-p:leading-[1.9] prose-p:text-stone-300 dark:prose-p:text-stone-100 prose-p:font-normal
               prose-headings:font-serif prose-headings:font-bold prose-headings:text-[#4A2C17] dark:prose-headings:text-[#FFF9F2]
-              prose-h4:text-[14px] prose-h4:font-bold
-              prose-h4:text-[14px] prose-h4:mt-12 prose-h3:mb-6 prose-h3:border-b prose-h4:border-stone-200 prose-h4:pb-4 prose-h4:font-bold
-              prose-h4:text-[14px] prose-h4:mt-8 prose-h3:mb-4 prose-h3:font-bold
+              prose-h4:text-[10px] prose-h4:font-bold
+              prose-h4:text-[10px] prose-h4:mt-12 prose-h3:mb-6 prose-h3:border-b prose-h4:border-stone-200 prose-h4:pb-4 prose-h4:font-bold
+              prose-h4:text-[10px] prose-h4:mt-8 prose-h3:mb-4 prose-h3:font-bold
               prose-blockquote:border-l-4 prose-blockquote:border-[#C98A2E] prose-blockquote:bg-white dark:prose-blockquote:bg-stone-900 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-md prose-blockquote:my-8 prose-blockquote:font-serif prose-blockquote:text-xl prose-blockquote:italic prose-blockquote:text-stone-800 dark:prose-blockquote:text-stone-200
               prose-a:text-[#C98A2E] hover:prose-a:text-[#A66E1F] prose-a:font-semibold
               prose-img:rounded-2xl prose-img:shadow-xl prose-img:w-full prose-img:my-10
