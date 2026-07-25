@@ -29,7 +29,7 @@ export const BlogPost: React.FC = () => {
   const navigate = useNavigate();
   const [blog, setBlog] = useState<Blog | null>(null);
 
-  const [recentBlogs, setRecentBlogs] = useState<Blog[]>([]);
+  const [recentBlogs, setRecentBlogs] = useState<any[]>([]);
   const [suggestedBooks, setSuggestedBooks] = useState<any[]>([]);
   const [suggestedVideos, setSuggestedVideos] = useState<any[]>([]);
   const [headings, setHeadings] = useState<{ id: string, text: string }[]>([]);
@@ -80,12 +80,12 @@ export const BlogPost: React.FC = () => {
             .neq('id', blogData.id)
             .order('created_at', { ascending: false })
             .limit(5),
-          bookService.getBooks(1, 4),
+          bookService.getBooks(),
           videoService.getVideos(primaryKeyword ? { searchQuery: primaryKeyword } : undefined)
         ]);
 
         setRecentBlogs(blogsRes.data || []);
-        setSuggestedBooks((booksRes.books || []).slice(0, 3));
+        setSuggestedBooks((booksRes || []).slice(0, 3));
         setSuggestedVideos((videosRes || []).slice(0, 4));
 
       } catch (error) {
