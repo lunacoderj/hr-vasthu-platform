@@ -77,7 +77,7 @@ export const Contact: React.FC = () => {
       {/* Main Content */}
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
-          
+
           {/* Left Column: Contact Info Cards */}
           <div className="lg:col-span-5 space-y-6">
             <motion.div
@@ -87,9 +87,9 @@ export const Contact: React.FC = () => {
               className="glass-bento rounded-3xl p-8 relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              
+
               <Typography variant="h3" className="mb-8">{t('directAccess')}</Typography>
-              
+
               <div className="space-y-8 relative z-10">
                 {/* Phone / WhatsApp */}
                 <div className="flex items-start gap-5 group">
@@ -101,9 +101,9 @@ export const Contact: React.FC = () => {
                     <a href="tel:+919246624248" className="text-2xl font-serif text-stone-700 dark:text-stone-300 hover:text-gold-600 dark:hover:text-gold-500 transition-colors">
                       +91 92466 24248
                     </a>
-                    <a 
-                      href={`https://wa.me/${WHATSAPP_NUMBER}`} 
-                      target="_blank" 
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="mt-2 inline-flex items-center gap-1.5 text-sm text-green-600 dark:text-green-500 font-medium hover:underline"
                     >
@@ -120,7 +120,7 @@ export const Contact: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-1">{t('emailAddress')}</h4>
                     <a href="mailto:hrvasthu@gmail.com" className="text-lg text-stone-700 dark:text-stone-300 hover:text-indigo-600 transition-colors">
-                      hrvasthu@gmail.com
+                      hrvasthu9@gmail.com
                     </a>
                   </div>
                 </div>
@@ -133,7 +133,8 @@ export const Contact: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-1">{t('headquarters')}</h4>
                     <p className="text-lg text-stone-700 dark:text-stone-300 leading-relaxed">
-                      MVP Colony / Pedda Waltair<br />
+                      Opposite Rama Lakshmi Apartments<br />
+                      Pedda Waltair <br />
                       Visakhapatnam, Andhra Pradesh<br />
                       India — 530017
                     </p>
@@ -148,7 +149,7 @@ export const Contact: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-1">{t('consultationHours')}</h4>
                     <p className="text-lg text-stone-700 dark:text-stone-300">
-                      Mon - Sat: 9:00 AM - 6:00 PM<br />
+                      Mon - Sun: 9:00 AM - 9:00 PM<br />
                       <span className="text-sm text-stone-500">Prior appointment required for in-person visits.</span>
                     </p>
                   </div>
@@ -202,7 +203,7 @@ export const Contact: React.FC = () => {
 
               <Typography variant="h3" className="mb-2">{t('sendViaWhatsApp')}</Typography>
               <p className="text-stone-500 dark:text-stone-400 mb-8">Fill out the form and we'll redirect you to WhatsApp. Your details will also be forwarded to the admin dashboard.</p>
-              
+
               <AnimatePresence mode="wait">
                 {sendStatus === 'sent' ? (
                   <motion.div
@@ -231,22 +232,22 @@ export const Contact: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider">{t('fullName')} *</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           required
                           value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="w-full px-4 py-3 bg-stone-100/80 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-gold-500 focus:outline-none transition-all text-stone-900 dark:text-white"
                           placeholder="Your name"
                         />
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider">{t('phoneNumber')} *</label>
-                        <input 
-                          type="tel" 
+                        <input
+                          type="tel"
                           required
                           value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full px-4 py-3 bg-stone-100/80 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-gold-500 focus:outline-none transition-all text-stone-900 dark:text-white"
                           placeholder="+91"
                         />
@@ -258,7 +259,7 @@ export const Contact: React.FC = () => {
                       <input
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 bg-stone-100/80 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-gold-500 focus:outline-none transition-all text-stone-900 dark:text-white"
                         placeholder="you@example.com"
                       />
@@ -266,9 +267,9 @@ export const Contact: React.FC = () => {
 
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider">{t('consultationType')}</label>
-                      <select 
+                      <select
                         value={formData.service}
-                        onChange={(e) => setFormData({...formData, service: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         className="w-full px-4 py-3 bg-stone-100/80 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-gold-500 focus:outline-none transition-all text-stone-900 dark:text-white"
                       >
                         <option value="residential">Residential Vastu</option>
@@ -282,10 +283,10 @@ export const Contact: React.FC = () => {
 
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider">{t('additionalDetails')} <span className="text-stone-400 normal-case">(optional)</span></label>
-                      <textarea 
+                      <textarea
                         rows={4}
                         value={formData.message}
-                        onChange={(e) => setFormData({...formData, message: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         className="w-full px-4 py-3 bg-stone-100/80 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-gold-500 focus:outline-none transition-all resize-none text-stone-900 dark:text-white"
                         placeholder="Tell us briefly about the property..."
                       />
