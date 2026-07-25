@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { key: 'blog', name: 'Blog', path: '/blog' },
   { key: 'videos', name: 'Videos', path: '/videos' },
   { key: 'shorts', name: 'Shorts', path: '/shorts' },
+  { key: 'contact', name: 'Contact', path: '/contact' },
 ];
 
 export const Navbar: React.FC = () => {
@@ -38,7 +39,7 @@ export const Navbar: React.FC = () => {
                   HR <span className="text-[#d4720a] bg-clip-text text-transparent bg-gradient-to-r from-[#d4720a] to-[#e68a1c]">Vasthu</span>
                 </span>
               </Link>
-              
+
               <nav className="hidden lg:flex items-center space-x-1">
                 {NAV_LINKS.map((link) => {
                   const active = location.pathname === link.path;
@@ -46,17 +47,15 @@ export const Navbar: React.FC = () => {
                     <Link
                       key={link.path}
                       to={link.path}
-                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 relative group magnetic ${
-                        active
+                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 relative group magnetic ${active
                           ? 'text-[#d4720a]'
                           : 'text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white'
-                      }`}
+                        }`}
                     >
                       {t(link.key)}
                       {/* Premium animated bottom bar */}
-                      <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#d4720a] to-[#e68a1c] transition-transform duration-300 origin-left ${
-                        active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                      }`} />
+                      <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#d4720a] to-[#e68a1c] transition-transform duration-300 origin-left ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                        }`} />
                     </Link>
                   );
                 })}
@@ -66,7 +65,7 @@ export const Navbar: React.FC = () => {
             {/* Right: Actions */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <SearchBar />
-              
+
               <div className="hidden sm:flex items-center space-x-2 border-r border-stone-200/50 dark:border-white/5 pr-2 sm:pr-4">
                 <LanguageSwitcher />
                 <ThemeToggle />
@@ -95,8 +94,8 @@ export const Navbar: React.FC = () => {
               <ThemeToggle />
 
               {/* Camera/Shorts Shortcut */}
-              <Link 
-                to="/shorts" 
+              <Link
+                to="/shorts"
                 className="p-2 text-stone-500 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white active:scale-95 transition-transform"
                 title="Shorts"
               >
