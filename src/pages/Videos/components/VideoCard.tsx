@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { PlayCircle } from 'lucide-react';
 import { type Video } from '../../../core/types/video';
+import { Skeleton } from '../../../shared/components/ui/Skeleton';
 
 interface VideoCardProps {
   video: Video;
@@ -102,3 +103,21 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
 };
 
 export default VideoCard;
+
+export const VideoCardSkeleton: React.FC = () => {
+  return (
+    <div className="h-full glass-card-adaptive border border-stone-200/50 dark:border-white/10 rounded-2xl overflow-hidden p-3 flex flex-col justify-between">
+      <div>
+        <Skeleton className="w-full aspect-video rounded-xl mb-3" />
+        <div className="flex gap-3">
+          <Skeleton variant="circular" className="w-8 h-8 shrink-0" />
+          <div className="flex-1 min-w-0 space-y-2 py-1">
+            <Skeleton variant="text" className="w-full" />
+            <Skeleton variant="text" className="w-2/3" />
+            <Skeleton variant="text" className="w-1/3 mt-3" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

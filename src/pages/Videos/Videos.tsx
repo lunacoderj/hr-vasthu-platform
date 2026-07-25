@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
 import { Spinner, Button } from '../../shared/components/ui';
-import { VideoCard } from './components/VideoCard';
+import { VideoCard, VideoCardSkeleton } from './components/VideoCard';
 import { VideoFilters } from './components/VideoFilters';
 import { videoService } from '../../core/services/video.service';
 import { type Video } from '../../core/types/video';
@@ -84,8 +84,10 @@ export const Videos: React.FC = () => {
         </div>
 
         {isLoading ? (
-          <div className="py-24 flex justify-center items-center">
-            <Spinner size="lg" variant="primary" />
+          <div className="video-grid">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <VideoCardSkeleton key={i} />
+            ))}
           </div>
         ) : videos.length > 0 ? (
           <>

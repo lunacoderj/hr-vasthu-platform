@@ -14,3 +14,6 @@ export { Card } from './Card';
 export type { CardProps } from './Card';
 
 export { ToastProvider } from './Toast';
+
+export { StickyMarquee } from './StickyMarquee';
+export { Skeleton } from './Skeleton';

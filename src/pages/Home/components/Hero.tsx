@@ -4,6 +4,7 @@ import { ArrowRight, Compass, Search, PlayCircle } from 'lucide-react';
 import { Container } from '../../../shared/components/layout/Container';
 import Typography from '../../../shared/components/content/Typography';
 import { Button } from '../../../shared/components/ui';
+import { VasthuMandala } from '../../../shared/components/effects/VasthuMandala';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSearch } from '../../../shared/hooks/useSearch';
 import { animate, stagger } from 'animejs';
@@ -80,6 +81,9 @@ export const Hero: React.FC = () => {
     <section ref={heroRef} className="relative bg-transparent pt-24 pb-36 overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#d4720a]/10 to-[#e68a1c]/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
+      
+      {/* Luxury Vasthu Sastra Background Element */}
+      <VasthuMandala className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">

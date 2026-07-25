@@ -75,38 +75,41 @@ export const BlogList: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-200 dark:border-stone-800 flex flex-col"
+                className="h-full flex"
               >
-                {blog.cover_image && (
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={blog.cover_image} 
-                      alt={blog.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  </div>
-                )}
-                <div className="p-6 flex flex-col flex-1">
-                  <Link to={`/blog/${blog.slug}`} className="group">
+                <Link 
+                  to={`/blog/${blog.slug || blog.id}`} 
+                  className="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-200 dark:border-stone-800 flex flex-col flex-1 group"
+                >
+                  {blog.cover_image && (
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={blog.cover_image} 
+                        alt={blog.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 flex flex-col flex-1">
                     <Typography variant="h3" className="mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
                       {blog.title}
                     </Typography>
-                  </Link>
-                  <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 line-clamp-3">
-                    {blog.content.substring(0, 150).replace(/[#*`_]/g, '')}...
-                  </p>
-                  
-                  <div className="mt-auto flex items-center justify-between text-xs text-stone-500 pt-4 border-t border-stone-100 dark:border-stone-800">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar size={14} />
-                      {new Date(blog.created_at).toLocaleDateString()}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <User size={14} />
-                      {blog.author}
+                    <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 line-clamp-3">
+                      {blog.content.substring(0, 150).replace(/[#*`_]/g, '')}...
+                    </p>
+                    
+                    <div className="mt-auto flex items-center justify-between text-xs text-stone-500 pt-4 border-t border-stone-100 dark:border-stone-800">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar size={14} />
+                        {new Date(blog.created_at).toLocaleDateString()}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <User size={14} />
+                        {blog.author}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>

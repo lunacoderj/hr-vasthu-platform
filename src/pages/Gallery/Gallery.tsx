@@ -225,6 +225,7 @@ const CertCard: React.FC<{ item: GalleryItem; index: number; onClick: () => void
 /* ─── Speech Section ─── */
 const SpeechSection: React.FC<{ item: GalleryItem; onClick: () => void }> = ({ item, onClick }) => {
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const { t } = useTranslation();
 
   return (
     <section ref={ref} className="relative py-32 overflow-hidden" aria-label="Public speeches">

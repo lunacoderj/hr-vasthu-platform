@@ -54,6 +54,8 @@ const RouteTracker = () => {
   return null;
 };
 
+import { Preloader } from './shared/components/effects/Preloader';
+
 function App() {
   const { setUser, setLoading } = useAuthStore();
 
@@ -79,6 +81,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <Preloader />
       <BrowserRouter>
         <RouteTracker />
         <ToastProvider />

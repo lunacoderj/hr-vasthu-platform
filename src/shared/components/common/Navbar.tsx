@@ -13,12 +13,11 @@ import UserMenu from './UserMenu';
 
 const NAV_LINKS = [
   { key: 'home', name: 'Home', path: '/' },
+  { key: 'about', name: 'About', path: '/about' },
+  { key: 'gallery', name: 'Gallery', path: '/gallery' },
+  { key: 'blog', name: 'Blog', path: '/blog' },
   { key: 'videos', name: 'Videos', path: '/videos' },
   { key: 'shorts', name: 'Shorts', path: '/shorts' },
-  { key: 'books', name: 'Books', path: '/books' },
-  { key: 'blog', name: 'Blog', path: '/blog' },
-  { key: 'gallery', name: 'Gallery', path: '/gallery' },
-  { key: 'about', name: 'About', path: '/about' },
 ];
 
 export const Navbar: React.FC = () => {

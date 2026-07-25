@@ -3,6 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { Navbar, Footer, MobileBottomNav } from './index';
 import CosmicParticles from '../effects/CosmicParticles';
 import MagneticCursor from '../effects/MagneticCursor';
+import { StickyMarquee } from '../ui';
 import { Phone, MessageSquare, CalendarCheck, ArrowUp, X, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../../core/services/supabase';
@@ -279,13 +280,14 @@ export const MainLayout = () => {
       <main className="flex-1 flex flex-col relative z-10 pt-16">
         <Outlet />
       </main>
-      <div className="hidden md:block relative z-10">
+      <div className="hidden md:block relative z-10 pb-8">
         <Footer />
       </div>
+      <StickyMarquee />
       <MobileBottomNav />
 
       {/* ═══════ Absolute Floating CTA Dock ═══════ */}
-      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-6 z-50 flex flex-col gap-3 items-center">
+      <div className="fixed bottom-24 md:bottom-12 right-4 md:right-6 z-50 flex flex-col gap-3 items-center">
 
         {/* Book Consultation */}
         <motion.button
