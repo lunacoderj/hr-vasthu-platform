@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { key: 'blog', name: 'Blog', path: '/blog' },
   { key: 'videos', name: 'Videos', path: '/videos' },
   { key: 'shorts', name: 'Shorts', path: '/shorts' },
+  { key: 'books', name: 'Books', path: '/books' },
   { key: 'contact', name: 'Contact', path: '/contact' },
 ];
 
@@ -48,8 +49,8 @@ export const Navbar: React.FC = () => {
                       key={link.path}
                       to={link.path}
                       className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 relative group magnetic ${active
-                          ? 'text-[#d4720a]'
-                          : 'text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white'
+                        ? 'text-[#d4720a]'
+                        : 'text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white'
                         }`}
                     >
                       {t(link.key)}

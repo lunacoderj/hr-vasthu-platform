@@ -8,6 +8,8 @@ import { LibraryPreview } from './components/LibraryPreview';
 import { Helmet } from 'react-helmet-async';
 import { JsonLd } from '../../shared/components/seo/JsonLd';
 
+import { HonorsBanner } from './components/HonorsBanner';
+
 const Home: React.FC = () => {
   const orgSchema = {
     "@context": "https://schema.org",
@@ -30,6 +32,7 @@ const Home: React.FC = () => {
         <title>HR Vasthu - Expert Vastu Shastra Consultation</title>
       </Helmet>
       <JsonLd data={orgSchema} />
+      <HonorsBanner />
       <Hero />
       <FounderPreview />
       <ServicesOverview />
