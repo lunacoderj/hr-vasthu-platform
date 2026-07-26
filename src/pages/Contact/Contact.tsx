@@ -175,7 +175,7 @@ export const Contact: React.FC = () => {
 
             {/* YouTube CTA */}
             <motion.a
-              href="youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ"
+              href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: -30 }}
