@@ -86,7 +86,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
             <Link to={`/books/${book.id}`} className="w-full">
               <Button 
                 className="w-full" 
-                variant="outline" 
+                variant="secondary" 
                 icon={<BookOpen size={16} />} 
                 iconPosition="left"
               >
@@ -99,7 +99,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
               icon={isProcessing ? undefined : <Download size={16} />} 
               iconPosition="left"
               onClick={handleDownload}
-              disabled={isProcessing}
+              isDisabled={isProcessing}
             >
               {isProcessing ? "Downloading..." : "Download PDF"}
             </Button>
