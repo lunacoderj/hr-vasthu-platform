@@ -44,11 +44,23 @@ async function generateSitemap() {
     }
 
     // Fetch Blogs
-    const { data: blogs } = await supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false });
+    const { data: blogs } = await supabase.from('blogs').select('slug, created_at').eq('is_published', true).lte('created_at', new Date().toISOString()).order('created_at', { ascending: false });
     if (blogs) {
       blogs.forEach(b => {
         urls.push({
           loc: `${BASE_URL}/blog/${b.slug}`,
+          priority: 0.8,
+          changefreq: 'weekly'
+        });
+      });
+    }
+
+    // Fetch Books
+    const { data: books } = await supabase.from('books').select('id');
+    if (books) {
+      books.forEach(b => {
+        urls.push({
+          loc: `${BASE_URL}/books/${b.id}`,
           priority: 0.8,
           changefreq: 'weekly'
         });

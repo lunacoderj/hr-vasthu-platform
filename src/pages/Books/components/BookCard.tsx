@@ -1,5 +1,5 @@
-import React from 'react';
-import { BookOpen } from 'lucide-react';
+import React, { useState } from 'react';
+import { BookOpen, Download } from 'lucide-react';
 import { type Book } from '../../../core/types/book';
 import { Card, Button } from '../../../shared/components/ui';
 import Typography from '../../../shared/components/content/Typography';
@@ -13,6 +13,70 @@ interface BookCardProps {
 
 export const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const languageName = LANGUAGES.find(l => l.code === book.language)?.name || book.language;
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleDownloadPayment = () => {
+    // If we don't have Razorpay injected or API key is missing
+    if (typeof window === 'undefined' || !(window as any).Razorpay) {
+      alert("Payment system is not available right now. Please try again later.");
+      return;
+    }
+
+    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
+    
+    // Fallback behavior if no key is provided (so the site doesn't break)
+    if (!razorpayKey) {
+      console.warn("VITE_RAZORPAY_KEY is missing. In production, this will fail.");
+      alert("Payment gateway not configured. Please contact the administrator.");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    const options = {
+      key: razorpayKey,
+      amount: 9900, // 99 INR in paise
+      currency: "INR",
+      name: "HR Vasthu",
+      description: `Download ${book.title}`,
+      image: "/logo.png",
+      handler: function (response: any) {
+        // Payment Succeeded!
+        setIsProcessing(false);
+        alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}\nYour PDF is now downloading.`);
+        
+        // Force file download
+        const a = document.createElement("a");
+        a.href = book.pdfUrl;
+        a.download = `${book.title}.pdf`;
+        a.target = "_blank";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      },
+      prefill: {
+        name: "",
+        email: "",
+        contact: ""
+      },
+      theme: {
+        color: "#C98A2E" // Our Gold Color
+      },
+      modal: {
+        ondismiss: function() {
+          setIsProcessing(false);
+        }
+      }
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.on('payment.failed', function (response: any) {
+      setIsProcessing(false);
+      alert("Payment Failed: " + response.error.description);
+    });
+    
+    rzp.open();
+  };
 
   return (
     <Card className="flex flex-col h-full group" elevation="sm">
@@ -52,16 +116,28 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
             </span>
           </div>
 
-          <Link to={`/books/${book.id}`} className="w-full">
+          <div className="flex flex-col gap-3">
+            <Link to={`/books/${book.id}`} className="w-full">
+              <Button 
+                className="w-full" 
+                variant="outline" 
+                icon={<BookOpen size={16} />} 
+                iconPosition="left"
+              >
+                Read Now (Free)
+              </Button>
+            </Link>
             <Button 
               className="w-full" 
               variant="primary" 
-              icon={<BookOpen size={16} />} 
+              icon={isProcessing ? undefined : <Download size={16} />} 
               iconPosition="left"
+              onClick={handleDownloadPayment}
+              disabled={isProcessing}
             >
-              Read Now
+              {isProcessing ? "Processing..." : "Download PDF (₹99)"}
             </Button>
-          </Link>
+          </div>
         </div>
       </div>
     </Card>

@@ -29,6 +29,7 @@ export const BlogList: React.FC = () => {
           .from('blogs')
           .select('id, title, slug, content, cover_image, author, created_at')
           .eq('is_published', true)
+          .lte('created_at', new Date().toISOString())
           .order('created_at', { ascending: false });
 
         if (error) throw error;
@@ -94,9 +95,21 @@ export const BlogList: React.FC = () => {
                     <Typography variant="h3" className="mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
                       {blog.title}
                     </Typography>
-                    <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 line-clamp-3">
-                      {blog.content.substring(0, 150).replace(/[#*`_]/g, '')}...
-                    </p>
+                    
+                    {(() => {
+                      let snippet = '';
+                      try {
+                        const parsed = JSON.parse(blog.content);
+                        snippet = parsed.cards?.[0]?.text?.substring(0, 150) || '';
+                      } catch (e) {
+                        snippet = blog.content.substring(0, 150).replace(/[#*`_]/g, '');
+                      }
+                      return (
+                        <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 line-clamp-3">
+                          {snippet}...
+                        </p>
+                      );
+                    })()}
                     
                     <div className="mt-auto flex items-center justify-between text-xs text-stone-500 pt-4 border-t border-stone-100 dark:border-stone-800">
                       <div className="flex items-center gap-1.5">
