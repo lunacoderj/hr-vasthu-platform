@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BookOpen, Download } from 'lucide-react';
 import { type Book } from '../../../core/types/book';
 import { Card, Button } from '../../../shared/components/ui';
+import { supabase } from '../../../core/services/supabase';
 import Typography from '../../../shared/components/content/Typography';
 import { LANGUAGES } from '../../../core/store/language.store';
 
@@ -15,67 +16,32 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const languageName = LANGUAGES.find(l => l.code === book.language)?.name || book.language;
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleDownloadPayment = () => {
-    // If we don't have Razorpay injected or API key is missing
-    if (typeof window === 'undefined' || !(window as any).Razorpay) {
-      alert("Payment system is not available right now. Please try again later.");
-      return;
-    }
-
-    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
-    
-    // Fallback behavior if no key is provided (so the site doesn't break)
-    if (!razorpayKey) {
-      console.warn("VITE_RAZORPAY_KEY is missing. In production, this will fail.");
-      alert("Payment gateway not configured. Please contact the administrator.");
-      return;
-    }
-
+  const handleDownload = async () => {
     setIsProcessing(true);
+    try {
+      // Log the download to admin via bookings table
+      await supabase.from('bookings').insert({
+        name: 'PDF Download',
+        phone: 'N/A',
+        email: 'N/A',
+        consultation_type: book.title,
+        status: 'completed',
+        source: 'website_pdf_download',
+      });
+    } catch (e) {
+      console.error("Failed to log download", e);
+    }
 
-    const options = {
-      key: razorpayKey,
-      amount: 9900, // 99 INR in paise
-      currency: "INR",
-      name: "HR Vasthu",
-      description: `Download ${book.title}`,
-      image: "/logo.png",
-      handler: function (response: any) {
-        // Payment Succeeded!
-        setIsProcessing(false);
-        alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}\nYour PDF is now downloading.`);
-        
-        // Force file download
-        const a = document.createElement("a");
-        a.href = book.pdfUrl;
-        a.download = `${book.title}.pdf`;
-        a.target = "_blank";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      },
-      prefill: {
-        name: "",
-        email: "",
-        contact: ""
-      },
-      theme: {
-        color: "#C98A2E" // Our Gold Color
-      },
-      modal: {
-        ondismiss: function() {
-          setIsProcessing(false);
-        }
-      }
-    };
-
-    const rzp = new (window as any).Razorpay(options);
-    rzp.on('payment.failed', function (response: any) {
-      setIsProcessing(false);
-      alert("Payment Failed: " + response.error.description);
-    });
+    // Force file download
+    const a = document.createElement("a");
+    a.href = book.pdfUrl;
+    a.download = `${book.title}.pdf`;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     
-    rzp.open();
+    setIsProcessing(false);
   };
 
   return (
@@ -124,7 +90,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
                 icon={<BookOpen size={16} />} 
                 iconPosition="left"
               >
-                Read Now (Free)
+                Read Now
               </Button>
             </Link>
             <Button 
@@ -132,10 +98,10 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
               variant="primary" 
               icon={isProcessing ? undefined : <Download size={16} />} 
               iconPosition="left"
-              onClick={handleDownloadPayment}
+              onClick={handleDownload}
               disabled={isProcessing}
             >
-              {isProcessing ? "Processing..." : "Download PDF (₹99)"}
+              {isProcessing ? "Downloading..." : "Download PDF"}
             </Button>
           </div>
         </div>

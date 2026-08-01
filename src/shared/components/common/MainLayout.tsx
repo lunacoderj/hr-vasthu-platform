@@ -42,39 +42,16 @@ const BookingModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, 
         source: 'website_booking_modal',
       });
     } catch {
-      // Silently continue – best-effort database write
+      // Silently continue
     }
 
-    // --- Background WhatsApp API Notification (Placeholders) ---
-    try {
-      const WHATSAPP_API_URL = 'https://graph.facebook.com/v17.0/PLACEHOLDER_PHONE_NUMBER_ID/messages';
-      const WHATSAPP_ACCESS_TOKEN = 'PLACEHOLDER_ACCESS_TOKEN';
-      const ADMIN_WHATSAPP_NUMBER = '919246624248'; // Format: country code + number without '+'
+    // Redirect to WhatsApp manually instead of background bot
+    const ADMIN_WHATSAPP_NUMBER = '919246624248';
+    const messageText = `*New Consultation Request*\n\n*Name:* ${form.name}\n*Phone:* ${form.phone}\n*Email:* ${form.email || 'N/A'}\n*Consultation Type:* ${form.consultType}`;
+    
+    window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(messageText)}`, '_blank');
 
-      const messageText = `*New Booking Alert!* 🔔\n\n*Name:* ${form.name}\n*Phone:* ${form.phone}\n*Email:* ${form.email || 'N/A'}\n*Consultation Type:* ${form.consultType}`;
-
-      // This sends the message in the background without opening WhatsApp
-      await fetch(WHATSAPP_API_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          to: ADMIN_WHATSAPP_NUMBER,
-          type: 'text',
-          text: { body: messageText },
-        }),
-      });
-    } catch (err) {
-      console.error('Failed to send automated WhatsApp message:', err);
-    }
-
-    // Simulate network delay for animation
-    setTimeout(() => setStatus('sent'), 1200);
-    // Simulate admin acknowledging
-    setTimeout(() => setStatus('confirmed'), 3000);
+    setStatus('confirmed');
   };
 
   const handleClose = () => {
