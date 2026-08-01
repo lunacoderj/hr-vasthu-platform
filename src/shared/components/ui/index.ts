@@ -15,5 +15,6 @@ export type { CardProps } from './Card';
 
 export { ToastProvider } from './Toast';
 
+export { AnimatedBookingCTA } from './AnimatedBookingCTA';
 export { StickyMarquee } from './StickyMarquee';
 export { Skeleton } from './Skeleton';

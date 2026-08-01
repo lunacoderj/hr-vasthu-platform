@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Compass, Search, PlayCircle } from 'lucide-react';
 import { Container } from '../../../shared/components/layout/Container';
 import Typography from '../../../shared/components/content/Typography';
-import { Button } from '../../../shared/components/ui';
+import { Button, AnimatedBookingCTA } from '../../../shared/components/ui';
 import { VasthuMandala } from '../../../shared/components/effects/VasthuMandala';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSearch } from '../../../shared/hooks/useSearch';
@@ -94,12 +94,24 @@ export const Hero: React.FC = () => {
           </div>
 
           <div className="animate-stagger-item opacity-0">
-            <Typography variant="display" className="mb-6 font-serif tracking-tight text-stone-900 dark:text-white">
+            <Typography variant="display" className="mb-4 font-serif tracking-tight text-stone-900 dark:text-white">
               Harmonize Your Space, <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#a855f7] dark:to-[#fef9f0]">
                 Elevate Your Life.
               </span>
             </Typography>
+          </div>
+
+          {/* Telugu Page-Specific Subtitle */}
+          <div className="animate-stagger-item opacity-0 mb-8">
+            <div className="inline-block relative">
+              <div className="absolute inset-0 bg-gold-400/20 dark:bg-gold-500/10 blur-xl rounded-full" />
+              <div className="relative px-6 py-2 bg-white/40 dark:bg-stone-900/40 backdrop-blur-md border border-gold-500/30 rounded-2xl shadow-sm">
+                <span className="text-sm md:text-base font-bold text-stone-800 dark:text-gold-400 tracking-wide">
+                  మీ ఇంటి ప్లాన్స్ &amp; డ్రాయింగ్స్ వాస్తు ప్రకారం రూపొందించబడును
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="animate-stagger-item opacity-0">
@@ -193,9 +205,7 @@ export const Hero: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto relative z-10 animate-stagger-item opacity-0">
             <Link to="/appointment" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-[#d4720a] to-[#e68a1c] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:opacity-90 active:scale-95 magnetic">
-                Book Consultation
-              </button>
+              <AnimatedBookingCTA />
             </Link>
             <Link to="/about" className="w-full sm:w-auto">
               <button className="w-full sm:w-auto px-8 py-3.5 bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 hover:bg-stone-200 dark:hover:bg-white/10 text-stone-800 dark:text-white rounded-full font-medium transition-all active:scale-95 magnetic">

@@ -46,6 +46,10 @@ export const LanguageSwitcher: React.FC = () => {
                 onClick={() => {
                   setLanguage(lang.code as LanguageCode);
                   setIsOpen(false);
+                  
+                  // Set Google Translate cookie
+                  document.cookie = `googtrans=/en/${lang.code}; path=/;`;
+                  window.location.reload();
                 }}
                 className={`w-full text-left px-4 py-2 text-sm transition-colors ${
                   currentLanguage === lang.code

@@ -356,3 +356,36 @@
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
 }
 
+/* ═══════ Google Translate Overrides ═══════ */
+body {
+  top: 0 !important;
+}
+.skiptranslate iframe {
+  display: none !important;
+}
+#goog-gt-tt {
+  display: none !important;
+}
+.goog-te-banner-frame {
+  display: none !important;
+}
+.goog-te-spinner-pos {
+  display: none !important;
+}
+
+/* ═══════ Button Shine Animation ═══════ */
+@keyframes shine {
+  100% { left: 125%; }
+}
+.animate-shine {
+  animation: shine 1.5s infinite;
+}
+
+/* ═══════ Slow Pulse Animation ═══════ */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(212,114,10,0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(212,114,10,0.8); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite ease-in-out;
+}

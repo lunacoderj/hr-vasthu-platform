@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Camera, MessageCircle } from 'lucide-react';
+import { Camera, MessageCircle, PenTool } from 'lucide-react';
 import { Container } from '../layout/Container';
 import { useAuthStore } from '../../../core/store/auth.store';
 import { useTranslation } from '../../../core/hooks/useTranslation';
@@ -30,6 +30,16 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 w-full bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-stone-200/50 dark:border-white/5 transition-all duration-300">
+        {/* Architect Bar */}
+        <div className="bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 py-1.5 w-full hidden sm:block">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center space-x-2 text-gold-400">
+            <PenTool size={12} className="opacity-70" />
+            <span className="text-[11px] md:text-xs font-semibold tracking-wider text-center drop-shadow-[0_0_8px_rgba(212,114,10,0.6)]">
+              మీ ఇంటి ప్లాన్స్ &amp; డ్రాయింగ్స్ వాస్తు ప్రకారం రూపొందించబడును
+            </span>
+            <PenTool size={12} className="opacity-70" />
+          </div>
+        </div>
         <Container size="xl">
           {/* Desktop/Tablet Header Layout */}
           <div className="hidden md:flex h-16 items-center justify-between">

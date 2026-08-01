@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Calendar } from 'lucide-react';
 import { Container } from '../../../shared/components/layout/Container';
 import Typography from '../../../shared/components/content/Typography';
-import { Button } from '../../../shared/components/ui';
+import { Button, AnimatedBookingCTA } from '../../../shared/components/ui';
 import { Link } from 'react-router-dom';
 
 export const CallToAction: React.FC = () => {
@@ -29,11 +29,8 @@ export const CallToAction: React.FC = () => {
             Book a personal consultation today and take the first step towards a harmonious, prosperous, and balanced lifestyle.
           </p>
           
-          <Link to="/contact" className="inline-block">
-            <button className="px-8 py-3.5 bg-gradient-to-r from-[#d4720a] to-[#e68a1c] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:opacity-90 active:scale-95 flex items-center gap-2 magnetic">
-              <Calendar size={18} />
-              <span>Schedule Your Consultation</span>
-            </button>
+          <Link to="/appointment" className="inline-block mt-4">
+            <AnimatedBookingCTA />
           </Link>
         </motion.div>
       </Container>
