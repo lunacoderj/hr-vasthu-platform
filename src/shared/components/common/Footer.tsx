@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
                 </h3>
                 <div className="flex space-x-3">
                   <a
-                    href="https://www.youtube.com/@hrvasthu"
+                    href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-3.5 py-2 bg-white/5 hover:bg-red-600/20 text-stone-300 hover:text-red-400 border border-white/10 rounded-xl transition-all text-xs font-semibold"

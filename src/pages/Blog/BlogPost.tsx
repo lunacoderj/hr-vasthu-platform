@@ -472,6 +472,35 @@ export const BlogPost: React.FC = () => {
               </div>
             )}
 
+            {/* Official YouTube Channel Subscribe Card */}
+            <div className="bg-gradient-to-br from-stone-900 via-stone-900 to-red-950/40 rounded-3xl p-6 shadow-md border border-stone-800 text-white space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-gold-500 p-0.5 shrink-0 shadow-md">
+                  <div className="w-full h-full rounded-full bg-stone-950 flex items-center justify-center text-gold-400 font-bold text-xs">
+                    HR
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold flex items-center gap-1">
+                    HR Vasthu Official <ShieldCheck size={14} className="text-gold-400" />
+                  </h4>
+                  <p className="text-[10px] text-stone-400">Dr. Kunchala Hanumantha Rao</p>
+                </div>
+              </div>
+              <p className="text-xs text-stone-300 leading-relaxed">
+                Watch 1,000+ free Vedic Vastu architectural blueprints and daily video remedies.
+              </p>
+              <a
+                href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-105"
+              >
+                <Play size={14} className="fill-white" />
+                <span>Subscribe on YouTube</span>
+              </a>
+            </div>
+
           </div>
         </div>
       </Container>

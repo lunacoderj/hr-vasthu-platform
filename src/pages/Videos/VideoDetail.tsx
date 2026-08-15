@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Eye, ThumbsUp, MessageCircle, Calendar, Sparkles, BookOpen, MessageSquare, Compass, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Eye, ThumbsUp, MessageCircle, Calendar, Sparkles, BookOpen, MessageSquare, Compass, ShieldCheck, CheckCircle2, Play } from 'lucide-react';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
 import { Button, Spinner } from '../../shared/components/ui';
-import { videoService } from '../../core/services/video.service';
+import { videoService, getVideoSlug } from '../../core/services/video.service';
 import { supabase } from '../../core/services/supabase';
 import { type Video } from '../../core/types/video';
 import { JsonLd } from '../../shared/components/seo/JsonLd';
@@ -39,17 +39,40 @@ export const VideoDetail: React.FC = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const trackEvent = async (eventType: 'play' | 'pause' | 'complete', playedSeconds: number) => {
+  const trackEvent = (eventType: string, playbackPosition?: number) => {
     if (!video) return;
     try {
-      await supabase.from('video_events').insert({
+      supabase.from('video_analytics').insert({
         video_id: video.id,
         event_type: eventType,
-        watch_time_seconds: Math.floor(playedSeconds)
+        playback_position: playbackPosition || 0,
+        user_session_id: 'session_' + Math.random().toString(36).substring(2, 9),
       });
     } catch {
-      /* best effort */
+      // analytics fail-open
     }
+  };
+
+  const formatNumber = (num?: number) => {
+    if (!num) return '0';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toLocaleString();
+  };
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString('en-IN', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const parseIsoDuration = (duration?: string) => {
+    if (!duration) return 'PT10M';
+    if (duration.startsWith('PT')) return duration;
+    return 'PT10M';
   };
 
   if (isLoading) {
@@ -62,41 +85,21 @@ export const VideoDetail: React.FC = () => {
 
   if (!video) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-stone-50 dark:bg-stone-950 px-4">
-        <Typography variant="h2" className="mb-6">Video Not Found</Typography>
-        <Button variant="primary" onClick={() => navigate('/videos')} icon={<ArrowLeft size={18} />} iconPosition="left">
-          Back to All Videos
-        </Button>
-      </div>
+      <Container className="py-20 text-center">
+        <Typography variant="h2" className="mb-4">Video Not Found</Typography>
+        <p className="text-stone-500 mb-6">The requested Vastu video could not be located or may have been updated.</p>
+        <Button onClick={() => navigate('/videos')}>Back to Videos</Button>
+      </Container>
     );
   }
 
-  const formatNumber = (num?: number) => {
-    if (num === undefined) return '0';
-    return new Intl.NumberFormat('en-IN').format(num);
-  };
-
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-IN', options);
-  };
-
-  // Convert mm:ss or hh:mm:ss to ISO 8601 duration
-  const parseIsoDuration = (dur?: string) => {
-    if (!dur) return 'PT10M';
-    const parts = dur.split(':').map(Number);
-    if (parts.length === 2) return `PT${parts[0]}M${parts[1]}S`;
-    if (parts.length === 3) return `PT${parts[0]}H${parts[1]}M${parts[2]}S`;
-    return 'PT10M';
-  };
-
-  const videoThumbnail = video.thumbnail_max || video.thumbnail_high || video.thumbnail_medium || 'https://hrvasthu.com/hero.png';
-  const pageUrl = `https://hrvasthu.com/videos/${video.id}`;
+  const pageUrl = `https://hrvasthu.com/video/${getVideoSlug(video)}`;
+  const videoThumbnail = video.thumbnail_max || video.thumbnail_medium || video.thumbnail_default || 'https://hrvasthu.com/hero.png';
 
   const videoSchema = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    "name": `${video.title} | Dr. Kunchala Hanumantha Rao Vastu`,
+    "name": video.title,
     "description": video.description || `${video.title} - Authentic Vastu guidelines and remedies by Dr. Kunchala Hanumantha Rao.`,
     "thumbnailUrl": [videoThumbnail],
     "uploadDate": video.published_at || video.created_at,
@@ -159,11 +162,11 @@ export const VideoDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 py-8">
       <Helmet>
-        <title>{`${video.title} | HR Vasthu`}</title>
-        <meta name="description" content={video.description?.slice(0, 160) || video.title} />
+        <title>{`${video.title} | HR Vasthu Official`}</title>
+        <meta name="description" content={video.description?.substring(0, 160) || `${video.title} - Authentic Vastu guidance by Dr. Kunchala Hanumantha Rao.`} />
         <link rel="canonical" href={pageUrl} />
-        <meta property="og:title" content={`${video.title} | HR Vasthu`} />
-        <meta property="og:description" content={video.description?.slice(0, 160) || video.title} />
+        <meta property="og:title" content={video.title} />
+        <meta property="og:description" content={video.description?.substring(0, 160) || video.title} />
         <meta property="og:image" content={videoThumbnail} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="video.other" />
@@ -174,19 +177,22 @@ export const VideoDetail: React.FC = () => {
       <JsonLd data={faqSchema} />
       <JsonLd data={breadcrumbSchema} />
 
-      <Container size="xl">
-        {/* Breadcrumb Navigation */}
-        <div className="mb-6 flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider">
-          <Link to="/" className="hover:text-gold-500 transition-colors">Home</Link>
-          <span>/</span>
-          <Link to="/videos" className="hover:text-gold-500 transition-colors">Videos</Link>
-          <span>/</span>
-          <span className="text-gold-600 dark:text-gold-400 truncate max-w-xs">{video.title}</span>
-        </div>
+      <Container size="xl" className="pt-16 md:pt-20">
+        
+        {/* Back Link */}
+        <button 
+          onClick={() => navigate(-1)} 
+          className="flex items-center gap-2 text-stone-500 hover:text-gold-500 transition-colors mb-6 text-sm font-semibold cursor-pointer"
+        >
+          <ArrowLeft size={18} />
+          <span>Back to Lessons</span>
+        </button>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Video & Content Area (Left 70%) */}
+          
+          {/* Main Video Presentation (Left 70%) */}
           <div className="w-full lg:w-[70%] space-y-6">
+            
             {/* Player Container */}
             <div className="w-full bg-black rounded-3xl shadow-2xl aspect-video overflow-hidden border border-stone-800 relative z-10">
               <iframe
@@ -201,9 +207,45 @@ export const VideoDetail: React.FC = () => {
             </div>
 
             {/* Video Headline */}
-            <Typography variant="h1" className="text-2xl md:text-3xl font-bold font-serif text-stone-900 dark:text-white leading-snug">
+            <Typography variant="h1" className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-stone-900 dark:text-white leading-snug">
               {video.title}
             </Typography>
+
+            {/* Channel Info & Subscribe Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm">
+              <a
+                href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+              >
+                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#d4720a] to-amber-500 p-0.5 shadow-md">
+                  <div className="w-full h-full rounded-full bg-stone-950 flex items-center justify-center text-gold-400 font-bold text-sm">
+                    HR
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="font-bold text-sm text-stone-900 dark:text-white group-hover:text-gold-500 transition-colors">
+                      HR Vasthu
+                    </h3>
+                    <CheckCircle2 size={15} className="text-gold-500" />
+                  </div>
+                  <p className="text-xs text-stone-500">Dr. Kunchala Hanumantha Rao • Official Channel</p>
+                </div>
+              </a>
+
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-full text-xs font-bold shadow-md hover:scale-105 transition-all flex items-center gap-1.5"
+                >
+                  <span>Subscribe on YouTube</span>
+                </a>
+              </div>
+            </div>
 
             {/* Video Engagement Metrics */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-sm font-medium">
@@ -276,7 +318,7 @@ export const VideoDetail: React.FC = () => {
               {similarVideos.length > 0 ? (
                 similarVideos.map((sim) => (
                   <Link
-                    to={`/videos/${sim.id}`}
+                    to={`/video/${getVideoSlug(sim)}`}
                     key={sim.id}
                     className="flex gap-3 p-2.5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-gold-500/50 hover:shadow-md transition-all group"
                   >

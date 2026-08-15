@@ -15,13 +15,27 @@ export const BottomInfoPanel: React.FC<BottomInfoPanelProps> = ({ short }) => {
         
         {/* Channel Info */}
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-9 h-9 rounded-full bg-amber-600 flex items-center justify-center text-white font-bold text-sm border-2 border-white/20 shadow-lg shrink-0">
-            HR
-          </div>
-          <span className="text-white font-bold text-[15px] drop-shadow-lg tracking-wide whitespace-nowrap">HR Vasthu</span>
-          <button className="ml-2 px-3 py-1 bg-white text-black font-bold text-xs rounded-full hover:bg-stone-200 transition-colors shadow-lg shadow-black/20 shrink-0">
+          <a
+            href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 group"
+          >
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-600 to-gold-500 flex items-center justify-center text-white font-bold text-sm border-2 border-white/40 shadow-lg shrink-0 group-hover:scale-105 transition-transform">
+              HR
+            </div>
+            <span className="text-white font-bold text-[15px] drop-shadow-lg tracking-wide whitespace-nowrap group-hover:text-amber-400 transition-colors">
+              HR Vasthu
+            </span>
+          </a>
+          <a
+            href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 px-3 py-1 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-full transition-all shadow-lg shadow-red-600/30 shrink-0 hover:scale-105"
+          >
             Subscribe
-          </button>
+          </a>
         </div>
 
         {/* Description & Hashtags Toggle Area */}

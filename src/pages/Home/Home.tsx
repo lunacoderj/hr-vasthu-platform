@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       "name": "Dr. Kunchala Hanumantha Rao"
     },
     "sameAs": [
-      "https://youtube.com/@hrvasthu"
+      "https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ"
     ]
   };
 
