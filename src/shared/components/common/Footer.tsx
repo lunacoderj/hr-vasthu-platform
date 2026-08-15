@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, PlaySquare, Globe, Compass, ShieldCheck } from 'lucide-react';
 import { Container } from '../layout/Container';
 import { Newsletter } from './Newsletter';
 
@@ -8,73 +8,68 @@ const footerLinks = {
   platform: [
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
-    { name: 'Books', href: '/books' },
+    { name: 'Shorts', href: '/shorts' },
+    { name: 'Books Library', href: '/books' },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Vastu Blog', href: '/blog' },
   ],
   support: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'About Dr. Rao', href: '/about' },
+    { name: 'Contact & Location', href: '/contact' },
     { name: 'Book Appointment', href: '/appointment' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
+    { name: 'Vastu Disclaimer', href: '/disclaimer' },
   ],
 };
-
-const socialLinks = [
-  { name: 'Facebook', icon: Globe, href: '#' },
-  { name: 'Twitter', icon: Globe, href: '#' },
-  { name: 'Instagram', icon: Globe, href: '#' },
-  { name: 'YouTube', icon: Globe, href: '#' },
-];
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0a0a0f] border-t border-[#d4720a]/10 relative z-10 transition-colors">
+    <footer className="bg-[#0a0a0f] border-t border-[#d4720a]/15 relative z-10 transition-colors text-stone-300">
       <Container size="xl">
         <div className="py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
             
-            {/* Brand & Contact (4 cols) */}
+            {/* Brand & Verified Address (4 cols) */}
             <div className="lg:col-span-4 space-y-6">
               <Link to="/" className="inline-block">
                 <span className="font-serif text-2xl font-bold text-white tracking-tight">
                   HR <span className="text-[#d4720a] bg-clip-text text-transparent bg-gradient-to-r from-[#d4720a] to-[#e68a1c]">Vasthu</span>
                 </span>
               </Link>
-              <p className="text-stone-400 text-sm max-w-sm">
-                Empowering your life with ancient Vastu wisdom. Harmonize your space, attract prosperity, and align with cosmic energies.
+              <p className="text-stone-400 text-sm max-w-sm leading-relaxed">
+                Empowering lives through ancient Vedic Vastu Shastra, architectural harmony, and spatial alignment with master consultant <strong>Dr. Kunchala Hanumantha Rao</strong>.
               </p>
               
               <ul className="space-y-3 text-sm text-stone-400">
                 <li className="flex items-start space-x-3">
                   <MapPin size={18} className="text-[#d4720a] shrink-0 mt-0.5" />
-                  <span>123 Spiritual Avenue, Hyderabad, Telangana, India 500001</span>
+                  <span>Opposite Rama Lakshmi Apartments, Pedda Waltair, Visakhapatnam, Andhra Pradesh, India — 530017</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <Phone size={18} className="text-[#d4720a] shrink-0" />
-                  <a href="tel:+919246624248" className="hover:text-[#d4720a] transition-colors">+91 92466 24248</a>
+                  <a href="tel:+919246624248" className="hover:text-[#d4720a] transition-colors font-medium text-white">+91 92466 24248</a>
                 </li>
                 <li className="flex items-center space-x-3">
                   <Mail size={18} className="text-[#d4720a] shrink-0" />
-                  <span>support@hrvasthu.com</span>
+                  <a href="mailto:hrvasthu9@gmail.com" className="hover:text-[#d4720a] transition-colors">hrvasthu9@gmail.com</a>
                 </li>
               </ul>
             </div>
 
             {/* Platform Links (2 cols) */}
             <div className="lg:col-span-2">
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-                Platform
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 text-[#d4720a]">
+                Explore Vastu
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {footerLinks.platform.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-sm text-stone-400 hover:text-[#d4720a] transition-colors"
+                      className="text-sm text-stone-400 hover:text-white transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -83,17 +78,17 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
 
-            {/* Support Links (2 cols) */}
+            {/* Legal & Support Links (2 cols) */}
             <div className="lg:col-span-2">
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-                Support
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 text-[#d4720a]">
+                Consult & Legal
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {footerLinks.support.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-sm text-stone-400 hover:text-[#d4720a] transition-colors"
+                      className="text-sm text-stone-400 hover:text-white transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -102,30 +97,31 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
 
-            {/* Newsletter (4 cols) */}
-            <div className="lg:col-span-4">
+            {/* Newsletter & Official Links (4 cols) */}
+            <div className="lg:col-span-4 space-y-6">
               <Newsletter />
               
-              <div className="mt-8">
-                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-                  Follow Us
+              <div>
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-3 text-[#d4720a]">
+                  Official YouTube & Media
                 </h3>
-                <div className="flex space-x-4">
-                  {socialLinks.map((social) => {
-                    const Icon = social.icon;
-                    return (
-                      <a
-                        key={social.name}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-stone-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-[#d4720a]/20 border border-white/5"
-                        aria-label={social.name}
-                      >
-                        <Icon size={18} />
-                      </a>
-                    );
-                  })}
+                <div className="flex space-x-3">
+                  <a
+                    href="https://www.youtube.com/@hrvasthu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3.5 py-2 bg-white/5 hover:bg-red-600/20 text-stone-300 hover:text-red-400 border border-white/10 rounded-xl transition-all text-xs font-semibold"
+                  >
+                    <PlaySquare size={16} className="text-red-500" />
+                    <span>YouTube Channel</span>
+                  </a>
+                  <Link
+                    to="/appointment"
+                    className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-gold-600 to-amber-500 text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition-transform"
+                  >
+                    <Compass size={14} />
+                    <span>Book Appointment</span>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -134,13 +130,14 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-[#d4720a]/10 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-stone-500 text-center md:text-left">
-            &copy; {currentYear} HR Vasthu Digital Platform. All rights reserved.
+        <div className="py-6 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-xs text-stone-500">
+          <p className="text-center md:text-left">
+            &copy; {currentYear} HR Vasthu Digital Platform. All rights reserved. Directed by Dr. Kunchala Hanumantha Rao.
           </p>
-          <div className="flex space-x-4 text-sm text-stone-500">
-            <Link to="/privacy" className="hover:text-[#d4720a] transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-[#d4720a] transition-colors">Terms</Link>
+          <div className="flex space-x-6">
+            <Link to="/privacy" className="hover:text-stone-300 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-stone-300 transition-colors">Terms of Service</Link>
+            <Link to="/disclaimer" className="hover:text-stone-300 transition-colors">Vastu Disclaimer</Link>
           </div>
         </div>
       </Container>

@@ -67,14 +67,23 @@ async function fetchWithRetry(url: string, retries = 3) {
 
 async function getUploadPlaylistId(channelId: string) {
   console.log(`Fetching channel details for ${channelId}...`);
-  const url = `${YOUTUBE_API_BASE}/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`;
+  const url = `${YOUTUBE_API_BASE}/channels?part=contentDetails,statistics&id=${channelId}&key=${YOUTUBE_API_KEY}`;
   const data = await fetchWithRetry(url);
   
   if (!data.items || data.items.length === 0) {
     throw new Error('Channel not found');
   }
   
-  return data.items[0].contentDetails.relatedPlaylists.uploads;
+  const channelDetails = data.items[0];
+  const playlistId = channelDetails.contentDetails.relatedPlaylists.uploads;
+  
+  // Return channel stats as well
+  return {
+    playlistId,
+    subscriberCount: parseInt(channelDetails.statistics.subscriberCount || '0'),
+    totalViewCount: parseInt(channelDetails.statistics.viewCount || '0'),
+    videoCount: parseInt(channelDetails.statistics.videoCount || '0')
+  };
 }
 
 async function getAllVideoIds(playlistId: string) {
@@ -98,6 +107,9 @@ async function getAllVideoIds(playlistId: string) {
 
 async function syncVideosToSupabase(videoIds: string[]) {
   console.log(`Fetching details for ${videoIds.length} videos...`);
+  
+  let totalLikes = 0;
+  let totalComments = 0;
   
   // Process in batches of 50
   for (let i = 0; i < videoIds.length; i += 50) {
@@ -143,6 +155,12 @@ async function syncVideosToSupabase(videoIds: string[]) {
       };
     });
     
+    // Accumulate for snapshot
+    upsertData.forEach((d: any) => {
+      totalLikes += d.likes;
+      totalComments += d.comments;
+    });
+    
     // Upsert into Supabase
     const { error } = await supabase
       .from('videos')
@@ -151,23 +169,39 @@ async function syncVideosToSupabase(videoIds: string[]) {
     if (error) {
       console.error(`Error upserting batch ${i / 50 + 1}:`, error);
     } else {
-      console.log(`Successfully synced batch ${i / 50 + 1} (${batch.length} videos)`);
+      console.log(`Batch ${i / 50 + 1} upserted successfully.`);
     }
   }
   
-  console.log('✅ Video sync complete!');
+  // Return total likes and comments for the snapshot
+  return { totalLikes, totalComments };
 }
 
 async function run() {
   try {
-    const playlistId = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID as string);
+    const { playlistId, subscriberCount, totalViewCount, videoCount } = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID as string);
     const videoIds = await getAllVideoIds(playlistId);
+    const { totalLikes, totalComments } = await syncVideosToSupabase(videoIds);
     
-    if (videoIds.length > 0) {
-      await syncVideosToSupabase(videoIds);
-    } else {
-      console.log('No videos found on this channel.');
-    }
+    // Record Snapshot
+    await supabase.from('analytics_events').insert({
+      event_name: 'youtube_channel_stats',
+      path: '/scripts/youtube-sync',
+      device_type: 'server',
+      os: 'local',
+      browser: 'node',
+      payload: {
+        subscriber_count: subscriberCount,
+        total_view_count: totalViewCount,
+        total_video_count: videoCount,
+        total_likes: totalLikes,
+        total_comments: totalComments,
+        videos_synced: videoIds.length,
+        synced_at: new Date().toISOString()
+      }
+    });
+    
+    console.log('✅ Sync and Snapshot complete!');
   } catch (error) {
     console.error('❌ Sync failed:', error);
   }

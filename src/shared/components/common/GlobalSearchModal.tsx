@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, PlayCircle, BookOpen, FileText } from 'lucide-react';
+import { Search, X, PlayCircle, BookOpen, FileText, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalSearch } from '../../../shared/hooks/useGlobalSearch';
+import { VastuAIOverview } from '../ai/VastuAIOverview';
 import Typography from '../content/Typography';
 
 interface GlobalSearchModalProps {
@@ -17,17 +18,14 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   
-  // Close on Escape, handle navigation
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      // Ctrl+K or Cmd+K handled elsewhere (in App/Navbar) to open it
     };
     
     if (isOpen) {
       document.addEventListener('keydown', handleGlobalKeyDown);
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
-      // Focus input on open
+      document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = '';
@@ -43,7 +41,6 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
   const results = query.trim() ? search(query) : [];
 
-  // Reset selection when query changes
   useEffect(() => {
     setSelectedIndex(0);
   }, [query]);
@@ -78,13 +75,13 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-32 px-4">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-stone-950/70 backdrop-blur-md"
             onClick={onClose}
           />
           
@@ -93,41 +90,64 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-2xl bg-white dark:bg-stone-900 rounded-2xl shadow-2xl overflow-hidden border border-stone-200 dark:border-stone-800 flex flex-col max-h-[80vh]"
+            className="relative w-full max-w-3xl bg-white dark:bg-[#0e0e14] rounded-3xl shadow-2xl overflow-hidden border border-stone-200 dark:border-stone-800 flex flex-col max-h-[85vh]"
           >
-            <div className="flex items-center px-4 border-b border-stone-200 dark:border-stone-800 shrink-0">
-              <Search size={24} className="text-stone-400" />
+            {/* Search Input Bar */}
+            <div className="flex items-center px-6 border-b border-stone-200 dark:border-stone-800 shrink-0 bg-stone-50/50 dark:bg-stone-900/40">
+              <Search size={22} className="text-gold-500" />
               <input
                 ref={inputRef}
                 type="text"
-                placeholder={isReady ? "Search videos, books, and pages..." : "Loading search..."}
+                placeholder={isReady ? "Ask Vastu AI or search videos, books, directions..." : "Loading search..."}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-transparent border-none py-6 px-4 text-xl text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-0"
+                className="w-full bg-transparent border-none py-5 px-4 text-base md:text-lg text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-0"
               />
+              {query && (
+                <button
+                  onClick={() => setQuery('')}
+                  className="p-1 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 mr-2 text-xs font-semibold"
+                >
+                  Clear
+                </button>
+              )}
               <button 
                 onClick={onClose}
                 className="p-2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 rounded-full transition-colors"
+                aria-label="Close search"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
 
-            <div className="overflow-y-auto p-2 custom-scrollbar bg-stone-50/50 dark:bg-stone-950/50">
+            <div className="overflow-y-auto custom-scrollbar bg-stone-50/30 dark:bg-stone-950/30">
+              {/* Google-AI-Overview Style Response */}
+              {query.trim().length > 2 && (
+                <VastuAIOverview query={query} onCloseModal={onClose} />
+              )}
+
               {query.trim() === '' ? (
-                <div className="py-12 text-center text-stone-500 dark:text-stone-400">
-                  <Typography variant="body" className="mb-2">Search anything on HR Vasthu</Typography>
-                  <div className="flex items-center justify-center gap-2 text-sm">
-                    <kbd className="px-2 py-1 bg-stone-200 dark:bg-stone-800 rounded-md font-mono text-xs">↑</kbd>
-                    <kbd className="px-2 py-1 bg-stone-200 dark:bg-stone-800 rounded-md font-mono text-xs">↓</kbd>
-                    <span>to navigate</span>
-                    <kbd className="ml-2 px-2 py-1 bg-stone-200 dark:bg-stone-800 rounded-md font-mono text-xs">Enter</kbd>
-                    <span>to select</span>
+                <div className="py-12 text-center text-stone-500 dark:text-stone-400 space-y-4">
+                  <div className="flex items-center justify-center gap-2 text-gold-600 dark:text-gold-400 font-serif font-bold text-sm">
+                    <Sparkles size={16} /> Instant AI Search & Knowledge Console
+                  </div>
+                  <p className="text-xs text-stone-400 max-w-sm mx-auto">
+                    Type any query like "Kitchen Vastu", "Pooja Room", or "East Facing House" to get instant AI answers and matching video lessons.
+                  </p>
+                  <div className="flex items-center justify-center gap-2 text-xs text-stone-400">
+                    <kbd className="px-2 py-0.5 bg-stone-200 dark:bg-stone-800 rounded font-mono text-[10px]">↑</kbd>
+                    <kbd className="px-2 py-0.5 bg-stone-200 dark:bg-stone-800 rounded font-mono text-[10px]">↓</kbd>
+                    <span>navigate</span>
+                    <kbd className="ml-2 px-2 py-0.5 bg-stone-200 dark:bg-stone-800 rounded font-mono text-[10px]">Enter</kbd>
+                    <span>select</span>
                   </div>
                 </div>
               ) : results.length > 0 ? (
-                <div className="flex flex-col gap-1 pb-4">
+                <div className="p-4 space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 px-3 block mb-2">
+                    Matching Content ({results.length})
+                  </span>
                   {results.map((result, idx) => (
                     <div
                       key={result.id}
@@ -136,18 +156,18 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                         onClose();
                       }}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`flex items-center gap-4 p-3 rounded-xl cursor-pointer transition-colors ${
+                      className={`flex items-center gap-4 p-3 rounded-2xl cursor-pointer transition-all ${
                         selectedIndex === idx
-                          ? 'bg-white dark:bg-stone-800 shadow-sm border border-stone-200 dark:border-stone-700'
+                          ? 'bg-white dark:bg-stone-800 shadow-md border border-stone-200 dark:border-stone-700'
                           : 'hover:bg-white dark:hover:bg-stone-800/50 border border-transparent'
                       }`}
                     >
                       {result.image ? (
-                        <div className="w-16 h-12 rounded-md overflow-hidden shrink-0 bg-stone-200 dark:bg-stone-800 relative">
+                        <div className="w-16 h-12 rounded-xl overflow-hidden shrink-0 bg-stone-200 dark:bg-stone-800 relative">
                           <img src={result.image} alt="" className="w-full h-full object-cover" />
                         </div>
                       ) : (
-                        <div className="w-12 h-12 rounded-md bg-stone-100 dark:bg-stone-800 flex items-center justify-center shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center shrink-0">
                           {getIcon(result.type)}
                         </div>
                       )}
@@ -157,7 +177,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                           <h4 className="text-sm font-semibold text-stone-900 dark:text-stone-100 truncate">
                             {result.title}
                           </h4>
-                          <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 font-medium shrink-0">
+                          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-600 dark:text-gold-400 font-bold shrink-0">
                             {result.type}
                           </span>
                         </div>
@@ -168,11 +188,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                     </div>
                   ))}
                 </div>
-              ) : (
-                <div className="py-12 text-center text-stone-500 dark:text-stone-400">
-                  No results found for "{query}"
-                </div>
-              )}
+              ) : null}
             </div>
           </motion.div>
         </div>
@@ -180,3 +196,5 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
     </AnimatePresence>
   );
 };
+
+export default GlobalSearchModal;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Maximize2 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { ArrowLeft, Maximize2, Download, BookOpen, Share2 } from 'lucide-react';
 import { Spinner } from '../../shared/components/ui';
 import Typography from '../../shared/components/content/Typography';
 import { bookService } from '../../core/services/book.service';
 import { type Book } from '../../core/types/book';
+import { JsonLd } from '../../shared/components/seo/JsonLd';
 
 export const BookReader: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,57 +50,96 @@ export const BookReader: React.FC = () => {
     );
   }
 
-  // Uses the browser's built-in PDF viewer seamlessly inside an iframe
-  // '#toolbar=0&navpanes=0&scrollbar=0' is added to PDF URL to request browsers to hide default heavy UI 
-  // giving a cleaner "in-app" reading experience (works best in Chrome/Edge).
-  const pdfViewerUrl = `${book.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
+  const cleanPdfUrl = encodeURI(book.pdfUrl || '');
+  const pdfViewerUrl = `${cleanPdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
+  const pageUrl = `https://hrvasthu.com/books/${book.id}`;
+
+  const bookSchema = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": book.title,
+    "author": {
+      "@type": "Person",
+      "name": "Dr. Kunchala Hanumantha Rao"
+    },
+    "description": book.description || `Authoritative Vastu Shastra guide written by Dr. Kunchala Hanumantha Rao.`,
+    "inLanguage": book.language || "te",
+    "numberOfPages": book.pages || 250,
+    "publisher": {
+      "@type": "Organization",
+      "name": "HR Vasthu Digital Publications"
+    },
+    "url": pageUrl
+  };
 
   return (
     <div className="flex flex-col h-screen bg-stone-900 text-stone-50 overflow-hidden">
-      {/* Reader Header (Always visible at the top) */}
+      <Helmet>
+        <title>{`${book.title} | Read Free Vastu Book | HR Vasthu`}</title>
+        <meta name="description" content={book.description || `Read and download ${book.title} by Dr. Kunchala Hanumantha Rao.`} />
+        <link rel="canonical" href={pageUrl} />
+        <meta property="og:title" content={`${book.title} | HR Vasthu`} />
+        <meta property="og:description" content={book.description || book.title} />
+        <meta property="og:type" content="book" />
+      </Helmet>
+
+      <JsonLd data={bookSchema} />
+
+      {/* Reader Header */}
       <header className="bg-stone-950 border-b border-stone-800 p-4 flex items-center justify-between shrink-0 shadow-md z-10">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/books')}
-            className="inline-flex items-center justify-center bg-stone-800 hover:bg-stone-700 text-white rounded-full p-2 md:px-4 md:py-2 transition-colors"
+            className="inline-flex items-center justify-center bg-stone-800 hover:bg-stone-700 text-white rounded-full p-2 md:px-4 md:py-2 transition-colors cursor-pointer"
             title="Go Back"
           >
-            <ArrowLeft size={24} className="md:mr-2" />
-            <span className="hidden md:inline font-medium text-lg">Exit Reader</span>
+            <ArrowLeft size={20} className="md:mr-2" />
+            <span className="hidden md:inline font-medium text-sm">Exit Reader</span>
           </button>
           
           <div className="hidden sm:block pl-4 border-l border-stone-700">
-            <h1 className="text-xl md:text-2xl font-bold font-lora text-gold-500 truncate max-w-[500px]">
+            <h1 className="text-base md:text-lg font-bold font-serif text-gold-400 truncate max-w-[450px]">
               {book.title}
             </h1>
+            <span className="text-[10px] text-stone-400">By Dr. Kunchala Hanumantha Rao • {book.language}</span>
           </div>
         </div>
 
-        <button 
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen().catch(err => console.log(err));
-            } else {
-              if (document.exitFullscreen) {
-                document.exitFullscreen();
+        <div className="flex items-center gap-2">
+          <a
+            href={cleanPdfUrl}
+            download
+            className="p-2 md:px-3.5 md:py-1.5 bg-gold-600 hover:bg-gold-500 text-white rounded-full text-xs font-bold transition-colors flex items-center gap-1.5 shadow-md"
+            title="Download PDF"
+          >
+            <Download size={16} />
+            <span className="hidden md:inline">Download</span>
+          </a>
+
+          <button 
+            onClick={() => {
+              if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+              } else {
+                if (document.exitFullscreen) {
+                  document.exitFullscreen();
+                }
               }
-            }
-          }}
-          className="p-2 md:px-4 md:py-2 bg-stone-800 hover:bg-gold-600 hover:text-white text-stone-300 rounded-full transition-colors flex items-center"
-          title="Toggle Fullscreen"
-        >
-          <Maximize2 size={24} className="md:mr-2" />
-          <span className="hidden md:inline font-medium">Fullscreen</span>
-        </button>
+            }}
+            className="p-2 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-full transition-colors"
+            title="Toggle Fullscreen"
+          >
+            <Maximize2 size={18} />
+          </button>
+        </div>
       </header>
 
       {/* Full PDF Iframe Container */}
-      <div className="flex-1 w-full relative bg-stone-800 overflow-hidden">
+      <div className="flex-1 w-full relative bg-stone-900 overflow-hidden">
         <iframe
           src={pdfViewerUrl}
           className="absolute inset-0 w-full h-full border-none"
           title={`PDF Reader: ${book.title}`}
-          // allow="fullscreen"
         />
       </div>
     </div>

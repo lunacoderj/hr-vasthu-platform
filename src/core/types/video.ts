@@ -9,6 +9,8 @@ export interface Video {
   thumbnail?: string;
   thumbnail_medium?: string;
   thumbnail_default?: string;
+  thumbnail_high?: string;
+  thumbnail_max?: string;
   duration: string; // e.g., '10:30'
   category: string; // e.g., 'Residential', 'Commercial', 'Astrology'
   language: string; // 'en', 'hi', 'te', etc.
@@ -18,6 +20,7 @@ export interface Video {
   tags?: string[];
   hashtags?: string[];
   is_short?: boolean;
+  is_featured?: boolean;
   published_at?: string;
   created_at: string;
 }

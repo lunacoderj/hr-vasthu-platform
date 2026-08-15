@@ -121,8 +121,8 @@ export const BlogPost: React.FC = () => {
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactForm.name || !contactForm.number) return;
-    const msg = `Hi, I am ${contactForm.name}. My number is ${contactForm.number}. Please contact me regarding Vasthu.`;
-    window.open(`https://wa.me/919999999999?text=${encodeURIComponent(msg)}`, '_blank');
+    const msg = `Hi Dr. Rao, I am ${contactForm.name} (${contactForm.number}). I read your blog "${blog?.title}" and would like a Vastu consultation.`;
+    window.open(`https://wa.me/919246624248?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   if (isLoading) {
@@ -367,11 +367,11 @@ export const BlogPost: React.FC = () => {
                 <Camera size={18} />
                 <span className="text-[11px] font-bold uppercase">Follow Instagram</span>
               </a>
-              <a href="https://wa.me/919999999999" target="_blank" rel="noreferrer" className="w-full flex items-center gap-3 bg-green-50 hover:bg-green-100 text-green-600 dark:bg-green-900/20 dark:hover:bg-green-900/40 border border-green-200 dark:border-green-800/50 p-3 rounded-xl transition-colors">
+              <a href="https://wa.me/919246624248" target="_blank" rel="noreferrer" className="w-full flex items-center gap-3 bg-green-50 hover:bg-green-100 text-green-600 dark:bg-green-900/20 dark:hover:bg-green-900/40 border border-green-200 dark:border-green-800/50 p-3 rounded-xl transition-colors">
                 <MessageCircle size={18} />
                 <span className="text-[11px] font-bold uppercase">Chat on WhatsApp</span>
               </a>
-              <button onClick={() => window.open('https://wa.me/919999999999?text=I am interested in House Plans & Drawings.', '_blank')} className="w-full flex items-center gap-3 bg-blue-50 hover:bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 border border-blue-200 dark:border-blue-800/50 p-3 rounded-xl transition-colors text-left">
+              <button onClick={() => window.open('https://wa.me/919246624248?text=I am interested in House Plans & Drawings.', '_blank')} className="w-full flex items-center gap-3 bg-blue-50 hover:bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 border border-blue-200 dark:border-blue-800/50 p-3 rounded-xl transition-colors text-left cursor-pointer">
                 <Compass size={18} className="flex-shrink-0" />
                 <span className="text-[11px] font-bold uppercase leading-tight">Drawings Query</span>
               </button>

@@ -8,6 +8,7 @@ import { Phone, MessageSquare, CalendarCheck, ArrowUp, X, Send, CheckCircle2, Lo
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../../core/services/supabase';
 import { useTranslation } from '../../../core/hooks/useTranslation';
+import { VastuAIAssistant } from '../ai/VastuAIAssistant';
 
 const WHATSAPP_NUMBER = '919246624248';
 const PHONE_NUMBER = '+919246624248';
@@ -394,6 +395,9 @@ export const MainLayout = () => {
         </motion.a>
       </div>
 
+      {/* ═══════ Floating Intelligent Vastu AI Assistant ═══════ */}
+      <VastuAIAssistant />
+
       {/* Booking Modal */}
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
       
@@ -416,8 +420,8 @@ const DrawingRequestModal: React.FC<{ onClose: () => void }> = ({ onClose }) => 
     if (!form.name || !form.phone) return;
     
     // Redirect to WhatsApp
-    const message = `Hello, I am interested in House Plans & Drawings.\n\nName: ${form.name}\nPhone: ${form.phone}`;
-    const whatsappUrl = `https://wa.me/919999999999?text=${encodeURIComponent(message)}`;
+    const message = `Hello Dr. Rao, I am interested in House Plans & Architectural Drawings.\n\nName: ${form.name}\nPhone: ${form.phone}`;
+    const whatsappUrl = `https://wa.me/919246624248?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     onClose();
   };

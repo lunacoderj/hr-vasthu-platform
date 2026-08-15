@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from './shared/components/ui';
@@ -6,28 +6,39 @@ import { MainLayout } from './shared/components/common';
 import { useAuthStore } from './core/store/auth.store';
 import { supabase } from './core/services/supabase';
 import { tracker } from './core/services/tracker';
+import { Preloader } from './shared/components/effects/Preloader';
 
-import Books from './pages/Books/Books';
-import BookReader from './pages/Books/BookReader';
+// Eager load core navigation pages for instant FCP
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
-import Sandbox from './pages/Sandbox';
-import Videos from './pages/Videos/Videos';
-import VideoDetail from './pages/Videos/VideoDetail';
-import Shorts from './pages/Videos/Shorts';
-import BlogList from './pages/Blog/BlogList';
-import BlogPost from './pages/Blog/BlogPost';
 
-import { lazy, Suspense } from 'react';
+// Code-split heavy content pages
+const Books = lazy(() => import('./pages/Books/Books'));
+const BookReader = lazy(() => import('./pages/Books/BookReader'));
+const Videos = lazy(() => import('./pages/Videos/Videos'));
+const VideoDetail = lazy(() => import('./pages/Videos/VideoDetail'));
+const Shorts = lazy(() => import('./pages/Videos/Shorts'));
+const BlogList = lazy(() => import('./pages/Blog/BlogList'));
+const BlogPost = lazy(() => import('./pages/Blog/BlogPost'));
 const Gallery = lazy(() => import('./pages/Gallery/Gallery'));
+const BooksMobileContainer = lazy(() => import('./pages/Books/BooksMobileContainer'));
+const VideosMobileContainer = lazy(() => import('./pages/Videos/VideosMobileContainer'));
 
-import BooksMobileContainer from './pages/Books/BooksMobileContainer';
-import VideosMobileContainer from './pages/Videos/VideosMobileContainer';
+// Legal & Policy Pages for AdSense Compliance
+const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/Legal/TermsOfService'));
+const VastuDisclaimer = lazy(() => import('./pages/Legal/VastuDisclaimer'));
+const Appointment = lazy(() => import('./pages/Legal/Appointment'));
 
-// Simple responsive wrapper for mobile/desktop split
+const PageFallback = () => (
+  <div className="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center">
+    <div className="w-8 h-8 rounded-full border-2 border-t-gold-500 border-r-transparent border-b-gold-500/20 border-l-transparent animate-spin" />
+  </div>
+);
+
 const ResponsiveVideos = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
@@ -37,7 +48,7 @@ const ResponsiveVideos = () => {
 };
 
 const ResponsiveBooks = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
@@ -54,8 +65,6 @@ const RouteTracker = () => {
   return null;
 };
 
-import { Preloader } from './shared/components/effects/Preloader';
-
 function App() {
   const { setUser, setLoading } = useAuthStore();
 
@@ -64,13 +73,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Check active sessions and sets the user
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser((session?.user as any) || null);
       setLoading(false);
     });
 
-    // Listen for changes on auth state (logged in, signed out, etc.)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser((session?.user as any) || null);
       setLoading(false);
@@ -86,28 +93,35 @@ function App() {
         <RouteTracker />
         <ToastProvider />
         
-        <Routes>
-          {/* Main Website Layout (Navbar + Footer) */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/videos" element={<ResponsiveVideos />} />
-            <Route path="/videos/:id" element={<VideoDetail />} />
-            <Route path="/books" element={<ResponsiveBooks />} />
-            <Route path="/books/:id" element={<BookReader />} />
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/gallery" element={<Suspense fallback={<div className="min-h-screen bg-[#0a0a0f]" />}><Gallery /></Suspense>} />
-            <Route path="/sandbox" element={<Sandbox />} />
-          </Route>
+        <Suspense fallback={<PageFallback />}>
+          <Routes>
+            {/* Main Website Layout (Navbar + Footer) */}
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/videos" element={<ResponsiveVideos />} />
+              <Route path="/videos/:id" element={<VideoDetail />} />
+              <Route path="/books" element={<ResponsiveBooks />} />
+              <Route path="/books/:id" element={<BookReader />} />
+              <Route path="/blog" element={<BlogList />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/gallery" element={<Gallery />} />
+              
+              {/* AdSense Mandatory Compliance & Booking Routes */}
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/disclaimer" element={<VastuDisclaimer />} />
+              <Route path="/appointment" element={<Appointment />} />
+            </Route>
 
-          {/* Full-Screen Native Mobile Experiences (No Navbar/Footer) */}
-          <Route path="/shorts" element={<Shorts />} />
-          
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            {/* Full-Screen Native Mobile Experiences */}
+            <Route path="/shorts" element={<Shorts />} />
+            
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </HelmetProvider>
   );
