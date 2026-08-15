@@ -130,8 +130,9 @@ CREATE POLICY "Allow public inserts to analytics_events"
 ON public.analytics_events FOR INSERT TO public WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow authenticated users to read analytics_events" ON public.analytics_events;
-CREATE POLICY "Allow authenticated users to read analytics_events"
-ON public.analytics_events FOR SELECT TO authenticated USING (true);
+DROP POLICY IF EXISTS "Allow public read access to analytics_events" ON public.analytics_events;
+CREATE POLICY "Allow public read access to analytics_events"
+ON public.analytics_events FOR SELECT TO public USING (true);
 
 
 -- 5. BOOKINGS / CONSULTATIONS TABLE
@@ -154,8 +155,9 @@ CREATE POLICY "Allow public inserts to bookings"
 ON public.bookings FOR INSERT TO public WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow authenticated users to manage bookings" ON public.bookings;
-CREATE POLICY "Allow authenticated users to manage bookings"
-ON public.bookings FOR ALL TO authenticated USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Allow public read access to bookings" ON public.bookings;
+CREATE POLICY "Allow public read access to bookings"
+ON public.bookings FOR SELECT TO public USING (true);
 
 
 -- 6. VIDEO EVENTS TABLE
@@ -174,8 +176,9 @@ CREATE POLICY "Allow public to insert video events"
 ON public.video_events FOR INSERT TO public WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow authenticated users to read video events" ON public.video_events;
-CREATE POLICY "Allow authenticated users to read video events"
-ON public.video_events FOR SELECT TO authenticated USING (true);
+DROP POLICY IF EXISTS "Allow public read access to video events" ON public.video_events;
+CREATE POLICY "Allow public read access to video events"
+ON public.video_events FOR SELECT TO public USING (true);
 
 
 -- 7. PERFORMANCE & SEARCH SPEED INDEXES
