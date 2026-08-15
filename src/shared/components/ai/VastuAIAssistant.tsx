@@ -28,6 +28,77 @@ const QUICK_PROMPTS = [
   '🕉️ Pooja Room in North-East (Eshanya)'
 ];
 
+// Helper to render bold markdown and bullet formatting
+const renderInlineFormatting = (content: string) => {
+  const parts = content.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-bold text-stone-950 dark:text-gold-300">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return (
+        <em key={i} className="italic text-stone-800 dark:text-stone-200">
+          {part.slice(1, -1)}
+        </em>
+      );
+    }
+    return part;
+  });
+};
+
+const FormattedAIMessage: React.FC<{ text: string; isUser: boolean }> = ({ text, isUser }) => {
+  if (isUser) {
+    return <p className="text-white text-xs md:text-sm font-medium">{text}</p>;
+  }
+
+  const lines = text.split('\n');
+
+  return (
+    <div className="space-y-2 text-xs md:text-sm leading-relaxed">
+      {lines.map((line, lineIdx) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          return <div key={lineIdx} className="h-0.5" />;
+        }
+
+        // Headings: ### Title, ## Title, # Title
+        if (trimmed.startsWith('### ') || trimmed.startsWith('## ') || trimmed.startsWith('# ')) {
+          const headingText = trimmed.replace(/^#+\s*/, '');
+          return (
+            <h4 key={lineIdx} className="font-serif font-bold text-gold-600 dark:text-gold-400 text-xs md:text-sm pt-1">
+              {renderInlineFormatting(headingText)}
+            </h4>
+          );
+        }
+
+        // Bullet / Checklist items
+        if (/^([•\-\*]|[\u2022]|\d+\.)\s/.test(trimmed)) {
+          const itemText = trimmed.replace(/^([•\-\*]|[\u2022]|\d+\.)\s*/, '');
+          return (
+            <div key={lineIdx} className="flex items-start gap-2 pl-0.5">
+              <span className="text-gold-500 font-bold text-xs shrink-0 mt-0.5">•</span>
+              <span className="text-stone-700 dark:text-stone-300 flex-1">
+                {renderInlineFormatting(itemText)}
+              </span>
+            </div>
+          );
+        }
+
+        // Regular paragraph line
+        return (
+          <p key={lineIdx} className="text-stone-800 dark:text-stone-200">
+            {renderInlineFormatting(trimmed)}
+          </p>
+        );
+      })}
+    </div>
+  );
+};
+
 export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({ 
   isOpen: externalIsOpen, 
   onClose: externalOnClose 
@@ -160,7 +231,7 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
                 className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[92%] p-3.5 rounded-2xl leading-relaxed whitespace-pre-line ${
+                  className={`max-w-[92%] p-3.5 rounded-2xl leading-relaxed ${
                     msg.sender === 'user'
                       ? 'bg-gradient-to-r from-gold-600 to-amber-500 text-white rounded-br-none shadow-sm'
                       : 'bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 rounded-bl-none shadow-sm'
@@ -172,7 +243,8 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
                     </div>
                   )}
                   
-                  <div className="space-y-1">{msg.text}</div>
+                  {/* Clean Rich Markdown Formatter */}
+                  <FormattedAIMessage text={msg.text} isUser={msg.sender === 'user'} />
 
                   {/* Recommended YouTube Video Embeds inside Chat */}
                   {msg.recommendedVideos && msg.recommendedVideos.length > 0 && (
