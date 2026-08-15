@@ -4,7 +4,7 @@ import { Navbar, Footer, MobileBottomNav } from './index';
 import CosmicParticles from '../effects/CosmicParticles';
 import MagneticCursor from '../effects/MagneticCursor';
 import { StickyMarquee } from '../ui';
-import { Phone, MessageSquare, CalendarCheck, Sparkles, Compass, X, Send, CheckCircle2, Loader2 } from 'lucide-react';
+import { Phone, MessageSquare, CalendarCheck, Sparkles, Compass, X, Send, CheckCircle2, Loader2, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../../core/services/supabase';
 import { useTranslation } from '../../../core/hooks/useTranslation';
@@ -21,6 +21,21 @@ const CONSULT_TYPES = [
   'Apartment / Flat Vastu',
   'Temple / Religious Vastu',
   'House Plans & Drawings',
+];
+
+// Rotating Cloud Popup Messages
+const AI_CLOUD_MESSAGES = [
+  '✨ Ask Vastu AI Anything!',
+  '🧭 Have a Vastu doubt? Get Instant Answers!',
+  '🕉️ Direct AI by Dr. Hanumantha Rao',
+  '🏠 Instant Kitchen, Bedroom & Pooja Rules'
+];
+
+const BOOKING_CLOUD_MESSAGES = [
+  '📅 Book Vastu Consultation',
+  '📐 Need 100% Vastu House Plans?',
+  '📞 Talk Directly with Dr. Rao',
+  '🏡 Residential & Commercial Vastu'
 ];
 
 /* ─── Booking Modal ─── */
@@ -245,15 +260,38 @@ export const MainLayout: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
+  const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Rotating Cloud Pop-up Indexes
+  const [aiMsgIndex, setAiMsgIndex] = useState(0);
+  const [bookingMsgIndex, setBookingMsgIndex] = useState(0);
+
   const { t } = useTranslation();
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Track scroll position for Scroll-to-Top CTA
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Cycle Cloud Messages every 3.5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAiMsgIndex((prev) => (prev + 1) % AI_CLOUD_MESSAGES.length);
+      setBookingMsgIndex((prev) => (prev + 1) % BOOKING_CLOUD_MESSAGES.length);
+    }, 3500);
+    return () => clearInterval(interval);
   }, []);
 
   const handleWhatsApp = useCallback(() => {
@@ -269,6 +307,10 @@ export const MainLayout: React.FC = () => {
 
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello Dr. Rao, I would like to enquire about Vastu consultation.')}`, '_blank');
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="flex flex-col min-h-screen pb-16 md:pb-0 relative bg-stone-50 dark:bg-[#0a0a0f] text-stone-900 dark:text-stone-100 overflow-x-hidden transition-colors duration-300">
@@ -299,44 +341,140 @@ export const MainLayout: React.FC = () => {
         </div>
       </button>
 
-      {/* ═══════ Harmonized Luxury Floating Action Dock (Bottom Right) ═══════ */}
-      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-6 z-50 flex items-center gap-2.5">
-        {/* Direct WhatsApp Consultation */}
+      {/* ═══════ Luxury Floating Action Dock (Bottom Right) ═══════ */}
+      {/* Vertical Stacking Order (from Top to Bottom):
+          1. Scroll to Top
+          2. Ask Vastu AI (with animated Cloud Pop-up message)
+          3. Book Consultation (with animated Cloud Pop-up message)
+          4. WhatsApp Chat
+          5. Call Now (at the bottom/end)
+      */}
+      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-6 z-50 flex flex-col items-end gap-3">
+        
+        {/* 1. TOP-MOST: Scroll to Top Button */}
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={scrollToTop}
+              className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/90 dark:bg-stone-800/90 backdrop-blur-md text-stone-800 dark:text-stone-200 border border-stone-300 dark:border-stone-700 flex items-center justify-center shadow-lg hover:border-gold-500 transition-colors cursor-pointer"
+              title="Scroll to Top"
+              aria-label="Scroll to Top"
+            >
+              <ArrowUp size={18} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* 2. ASK VASTU AI: Button with Animated Horizontal Cloud Message */}
+        <div className="relative flex items-center">
+          {/* Popping Speech Bubble Cloud on the Left */}
+          {!aiAssistantOpen && (
+            <div className="absolute right-full mr-3.5 pointer-events-none hidden sm:flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={aiMsgIndex}
+                  initial={{ scale: 0.7, opacity: 0, x: 15 }}
+                  animate={{ scale: 1, opacity: 1, x: 0 }}
+                  exit={{ scale: 0.7, opacity: 0, x: 15 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                  className="relative bg-gradient-to-r from-amber-500/95 via-gold-500/95 to-[#d4720a]/95 text-stone-950 font-bold text-xs px-4 py-2 rounded-2xl shadow-[0_8px_25px_rgba(212,114,10,0.35)] whitespace-nowrap flex items-center gap-1.5 border border-white/40"
+                >
+                  {/* Right Triangle Pointer */}
+                  <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-[#d4720a] rotate-45" />
+                  <span>{AI_CLOUD_MESSAGES[aiMsgIndex]}</span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* AI Floating Button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setAiAssistantOpen(prev => !prev)}
+            className="relative group w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-[#d4720a] via-amber-500 to-gold-400 text-white flex items-center justify-center shadow-[0_8px_25px_rgba(212,114,10,0.45)] border border-white/30 cursor-pointer overflow-hidden"
+            title="Ask Vastu AI Assistant"
+            aria-label="Ask Vastu AI Assistant"
+          >
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            <Sparkles size={22} className="relative z-10 animate-pulse" />
+            <span className="absolute top-1 right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+            </span>
+          </motion.button>
+        </div>
+
+        {/* 3. BOOK CONSULTATION: Button with Animated Horizontal Cloud Message */}
+        <div className="relative flex items-center">
+          {/* Popping Speech Bubble Cloud on the Left */}
+          <div className="absolute right-full mr-3.5 pointer-events-none hidden sm:flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={bookingMsgIndex}
+                initial={{ scale: 0.7, opacity: 0, x: 15 }}
+                animate={{ scale: 1, opacity: 1, x: 0 }}
+                exit={{ scale: 0.7, opacity: 0, x: 15 }}
+                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                className="relative bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border border-gold-500/40 text-stone-900 dark:text-stone-100 font-bold text-xs px-4 py-2 rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.15)] whitespace-nowrap flex items-center gap-1.5"
+              >
+                {/* Right Triangle Pointer */}
+                <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-white dark:bg-stone-900 border-r border-t border-gold-500/40 rotate-45" />
+                <span className="text-gold-600 dark:text-gold-400">{BOOKING_CLOUD_MESSAGES[bookingMsgIndex]}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Booking Floating Button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setBookingOpen(true)}
+            className="w-11 h-11 md:w-13 md:h-13 rounded-full bg-stone-900 text-gold-400 border-2 border-gold-500/50 hover:border-gold-400 flex items-center justify-center shadow-lg hover:shadow-gold-500/25 transition-all cursor-pointer"
+            title="Book Consultation"
+            aria-label="Book Consultation"
+          >
+            <CalendarCheck size={20} />
+          </motion.button>
+        </div>
+
+        {/* 4. WHATSAPP CHAT: Button */}
         <motion.button
-          whileHover={{ scale: 1.08 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleWhatsApp}
-          className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-green-600 hover:bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-600/30 border border-green-400/30 cursor-pointer"
+          className="w-11 h-11 md:w-13 md:h-13 rounded-full bg-green-600 hover:bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-600/35 border border-green-400/30 cursor-pointer"
           title="Chat on WhatsApp"
+          aria-label="Chat on WhatsApp"
         >
-          <MessageSquare size={18} />
+          <MessageSquare size={19} />
         </motion.button>
 
-        {/* Direct Call Button */}
+        {/* 5. AT THE END (BOTTOM): Call Now Button */}
         <motion.a
           href={`tel:${PHONE_NUMBER}`}
-          whileHover={{ scale: 1.08 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-700/30 border border-emerald-400/30 cursor-pointer"
+          className="w-11 h-11 md:w-13 md:h-13 rounded-full bg-gradient-to-tr from-emerald-800 to-teal-600 hover:brightness-110 text-white flex items-center justify-center shadow-lg shadow-teal-900/35 border border-emerald-400/30 cursor-pointer"
           title="Direct Call"
+          aria-label="Direct Call"
         >
-          <Phone size={18} />
+          <Phone size={19} />
         </motion.a>
 
-        {/* Book Appointment CTA */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setBookingOpen(true)}
-          className="hidden sm:flex items-center gap-2 px-4 py-3 bg-stone-900 text-white border border-gold-500/40 rounded-full shadow-lg hover:border-gold-500 text-xs font-bold transition-all cursor-pointer"
-        >
-          <CalendarCheck size={16} className="text-gold-400" />
-          <span>Book Appointment</span>
-        </motion.button>
       </div>
 
       {/* ═══════ Floating Intelligent Vastu AI Assistant Chat Window ═══════ */}
-      <VastuAIAssistant />
+      <VastuAIAssistant 
+        isOpen={aiAssistantOpen} 
+        onClose={() => setAiAssistantOpen(false)} 
+      />
 
       {/* Booking Modal */}
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />

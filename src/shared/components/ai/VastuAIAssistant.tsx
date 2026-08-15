@@ -4,6 +4,11 @@ import { Sparkles, MessageCircle, X, Send, Play, Compass, Phone } from 'lucide-r
 import { Link } from 'react-router-dom';
 import { getVideoSlug } from '../../../core/services/video.service';
 
+interface VastuAIAssistantProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
 interface Message {
   id: string;
   sender: 'user' | 'ai';
@@ -23,8 +28,20 @@ const QUICK_PROMPTS = [
   '🕉️ Pooja Room in North-East (Eshanya)'
 ];
 
-export const VastuAIAssistant: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({ 
+  isOpen: externalIsOpen, 
+  onClose: externalOnClose 
+}) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+  const setIsOpen = (val: boolean) => {
+    if (externalOnClose && !val) {
+      externalOnClose();
+    } else {
+      setInternalIsOpen(val);
+    }
+  };
+
   const [inputQuery, setInputQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -97,163 +114,160 @@ export const VastuAIAssistant: React.FC = () => {
   };
 
   return (
-    <>
-      {/* Expandable Interactive AI Chat Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed bottom-24 right-4 md:right-6 z-[60] w-[92vw] sm:w-[420px] h-[580px] max-h-[80vh] bg-white dark:bg-[#0f0f15] rounded-3xl shadow-2xl border border-stone-200 dark:border-stone-800 flex flex-col overflow-hidden text-stone-900 dark:text-stone-100"
-          >
-            {/* Header */}
-            <div className="p-4 bg-gradient-to-r from-[#0a0a0f] via-[#1a1410] to-[#26170a] text-white flex items-center justify-between border-b border-stone-800">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-500 flex items-center justify-center text-white shadow-md">
-                  <Sparkles size={20} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h3 className="font-serif font-bold text-sm tracking-wide">HR Vasthu AI</h3>
-                    <span className="text-[9px] bg-gold-500/20 text-gold-400 font-mono font-bold px-1.5 py-0.5 rounded-full border border-gold-500/30">
-                      Vedic 1.5
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-stone-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Direct Knowledge of Dr. Hanumantha Rao
-                  </p>
-                </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 30, scale: 0.95 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="fixed bottom-24 md:bottom-28 right-4 md:right-6 z-[70] w-[92vw] sm:w-[420px] h-[580px] max-h-[78vh] bg-white dark:bg-[#0f0f15] rounded-3xl shadow-2xl border border-stone-200 dark:border-stone-800 flex flex-col overflow-hidden text-stone-900 dark:text-stone-100"
+        >
+          {/* Header */}
+          <div className="p-4 bg-gradient-to-r from-[#0a0a0f] via-[#1a1410] to-[#26170a] text-white flex items-center justify-between border-b border-stone-800 shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-500 flex items-center justify-center text-white shadow-md">
+                <Sparkles size={20} />
               </div>
-
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-full hover:bg-white/10 text-stone-400 hover:text-white transition-colors cursor-pointer"
-                aria-label="Close Vastu AI Assistant"
-              >
-                <X size={18} />
-              </button>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="font-serif font-bold text-sm tracking-wide">HR Vasthu AI</h3>
+                  <span className="text-[9px] bg-gold-500/20 text-gold-400 font-mono font-bold px-1.5 py-0.5 rounded-full border border-gold-500/30">
+                    Vedic 1.5
+                  </span>
+                </div>
+                <p className="text-[11px] text-stone-400 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Direct Knowledge of Dr. Hanumantha Rao
+                </p>
+              </div>
             </div>
 
-            {/* Chat Message Scrollable Container */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs md:text-sm bg-stone-50/50 dark:bg-stone-950/40">
-              {messages.map((msg) => (
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1.5 rounded-full hover:bg-white/10 text-stone-400 hover:text-white transition-colors cursor-pointer"
+              aria-label="Close Vastu AI Assistant"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Chat Message Scrollable Container */}
+          <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs md:text-sm bg-stone-50/50 dark:bg-stone-950/40">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
+              >
                 <div
-                  key={msg.id}
-                  className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
+                  className={`max-w-[92%] p-3.5 rounded-2xl leading-relaxed whitespace-pre-line ${
+                    msg.sender === 'user'
+                      ? 'bg-gradient-to-r from-gold-600 to-amber-500 text-white rounded-br-none shadow-sm'
+                      : 'bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 rounded-bl-none shadow-sm'
+                  }`}
                 >
-                  <div
-                    className={`max-w-[92%] p-3.5 rounded-2xl leading-relaxed whitespace-pre-line ${
-                      msg.sender === 'user'
-                        ? 'bg-gradient-to-r from-gold-600 to-amber-500 text-white rounded-br-none shadow-sm'
-                        : 'bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 rounded-bl-none shadow-sm'
-                    }`}
-                  >
-                    {msg.directionBadge && (
-                      <div className="mb-2 inline-flex items-center gap-1 bg-gold-500/10 text-gold-600 dark:text-gold-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-gold-500/20">
-                        <Compass size={12} /> {msg.directionBadge}
-                      </div>
-                    )}
-                    
-                    <div className="space-y-1">{msg.text}</div>
+                  {msg.directionBadge && (
+                    <div className="mb-2 inline-flex items-center gap-1 bg-gold-500/10 text-gold-600 dark:text-gold-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-gold-500/20">
+                      <Compass size={12} /> {msg.directionBadge}
+                    </div>
+                  )}
+                  
+                  <div className="space-y-1">{msg.text}</div>
 
-                    {/* Recommended YouTube Video Embeds inside Chat */}
-                    {msg.recommendedVideos && msg.recommendedVideos.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-stone-100 dark:border-stone-800/80 space-y-2">
-                        <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">
-                          Recommended Vastu Video Lessons:
-                        </span>
-                        {msg.recommendedVideos.map((video: any) => (
-                          <Link
-                            to={`/video/${getVideoSlug(video)}`}
-                            key={video.id}
-                            onClick={() => setIsOpen(false)}
-                            className="flex items-center gap-2 p-2 rounded-xl bg-stone-50 dark:bg-stone-800 hover:bg-gold-500/10 dark:hover:bg-gold-500/10 border border-stone-200/50 dark:border-stone-700 transition-colors group"
-                          >
-                            <img
-                              src={video.thumbnail_medium || video.thumbnail_max || 'https://hrvasthu.com/hero.png'}
-                              alt={video.title}
-                              className="w-14 aspect-video rounded-md object-cover shrink-0"
-                            />
-                            <div className="min-w-0 flex-1">
-                              <p className="text-[11px] font-bold line-clamp-1 group-hover:text-gold-500 text-stone-800 dark:text-stone-200">
-                                {video.title}
-                              </p>
-                              <span className="text-[9px] text-stone-400 flex items-center gap-1">
-                                <Play size={10} className="text-gold-500" /> Watch Lesson
-                              </span>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* WhatsApp Action */}
-                    {msg.whatsappUrl && (
-                      <div className="mt-3 pt-2">
-                        <a
-                          href={msg.whatsappUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors"
+                  {/* Recommended YouTube Video Embeds inside Chat */}
+                  {msg.recommendedVideos && msg.recommendedVideos.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-stone-100 dark:border-stone-800/80 space-y-2">
+                      <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">
+                        Recommended Vastu Video Lessons:
+                      </span>
+                      {msg.recommendedVideos.map((video: any) => (
+                        <Link
+                          to={`/video/${getVideoSlug(video)}`}
+                          key={video.id}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-xl bg-stone-50 dark:bg-stone-800 hover:bg-gold-500/10 dark:hover:bg-gold-500/10 border border-stone-200/50 dark:border-stone-700 transition-colors group"
                         >
-                          <MessageCircle size={14} />
-                          <span>WhatsApp Consultation with Dr. Rao</span>
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                  <span className="text-[9px] text-stone-400 mt-1 px-1">{msg.timestamp}</span>
+                          <img
+                            src={video.thumbnail_medium || video.thumbnail_max || 'https://hrvasthu.com/hero.png'}
+                            alt={video.title}
+                            className="w-14 aspect-video rounded-md object-cover shrink-0"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[11px] font-bold line-clamp-1 group-hover:text-gold-500 text-stone-800 dark:text-stone-200">
+                              {video.title}
+                            </p>
+                            <span className="text-[9px] text-stone-400 flex items-center gap-1">
+                              <Play size={10} className="text-gold-500" /> Watch Lesson
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* WhatsApp Action */}
+                  {msg.whatsappUrl && (
+                    <div className="mt-3 pt-2">
+                      <a
+                        href={msg.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors"
+                      >
+                        <MessageCircle size={14} />
+                        <span>WhatsApp Consultation with Dr. Rao</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
-              ))}
+                <span className="text-[9px] text-stone-400 mt-1 px-1">{msg.timestamp}</span>
+              </div>
+            ))}
 
-              {isLoading && (
-                <div className="flex items-center gap-2 p-3 max-w-[80%] bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 text-stone-500 text-xs">
-                  <div className="w-4 h-4 border-2 border-t-gold-500 border-r-transparent border-b-gold-500/20 border-l-transparent rounded-full animate-spin" />
-                  <span>Analyzing Vedic principles...</span>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
+            {isLoading && (
+              <div className="flex items-center gap-2 p-3 max-w-[80%] bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 text-stone-500 text-xs">
+                <div className="w-4 h-4 border-2 border-t-gold-500 border-r-transparent border-b-gold-500/20 border-l-transparent rounded-full animate-spin" />
+                <span>Analyzing Vedic principles...</span>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
 
-            {/* Quick Prompt Suggestions */}
-            <div className="px-3 py-2 bg-stone-100 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 overflow-x-auto flex gap-1.5 scrollbar-none shrink-0">
-              {QUICK_PROMPTS.map((prompt, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSendMessage(prompt)}
-                  className="px-2.5 py-1 bg-white dark:bg-stone-800 hover:bg-gold-50 dark:hover:bg-gold-900/20 text-stone-700 dark:text-stone-300 hover:text-gold-600 border border-stone-200 dark:border-stone-700 text-[10px] font-medium rounded-full whitespace-nowrap transition-colors cursor-pointer"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
-
-            {/* Input Footer */}
-            <div className="p-3 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 flex items-center gap-2">
-              <input
-                type="text"
-                value={inputQuery}
-                onChange={e => setInputQuery(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask anything about Vastu or contact details..."
-                className="flex-1 px-3.5 py-2.5 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 text-stone-900 dark:text-white"
-              />
+          {/* Quick Prompt Suggestions */}
+          <div className="px-3 py-2 bg-stone-100 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 overflow-x-auto flex gap-1.5 scrollbar-none shrink-0">
+            {QUICK_PROMPTS.map((prompt, idx) => (
               <button
-                onClick={() => handleSendMessage()}
-                disabled={!inputQuery.trim() || isLoading}
-                className="p-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-50 text-white rounded-xl transition-all shadow-md cursor-pointer"
-                title="Send message"
+                key={idx}
+                onClick={() => handleSendMessage(prompt)}
+                className="px-2.5 py-1 bg-white dark:bg-stone-800 hover:bg-gold-50 dark:hover:bg-gold-900/20 text-stone-700 dark:text-stone-300 hover:text-gold-600 border border-stone-200 dark:border-stone-700 text-[10px] font-medium rounded-full whitespace-nowrap transition-colors cursor-pointer"
               >
-                <Send size={16} />
+                {prompt}
               </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            ))}
+          </div>
+
+          {/* Input Footer */}
+          <div className="p-3 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 flex items-center gap-2 shrink-0">
+            <input
+              type="text"
+              value={inputQuery}
+              onChange={e => setInputQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
+              placeholder="Ask anything about Vastu or contact details..."
+              className="flex-1 px-3.5 py-2.5 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 text-stone-900 dark:text-white"
+            />
+            <button
+              onClick={() => handleSendMessage()}
+              disabled={!inputQuery.trim() || isLoading}
+              className="p-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-50 text-white rounded-xl transition-all shadow-md cursor-pointer"
+              title="Send message"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
