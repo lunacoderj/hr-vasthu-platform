@@ -1,6 +1,31 @@
 import { type Video, type VideoFilterOptions } from '../types/video';
 import { supabase } from './supabase';
 
+export const slugify = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[\u0C00-\u0C7F]+/g, (match) => {
+      // Keep Telugu or transliterated words if clean, otherwise URL-safe characters
+      return match;
+    })
+    .replace(/[^a-z0-9\u0C00-\u0C7F]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 100);
+};
+
+export const getVideoSlug = (video: Video): string => {
+  if (!video) return '';
+  const cleanTitle = (video.title || 'vastu-lesson')
+    .toLowerCase()
+    .replace(/[^a-z0-9\u0C00-\u0C7F]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+  
+  const shortId = video.youtube_id || video.id?.slice(0, 8) || 'video';
+  return `${cleanTitle}-${shortId}`;
+};
+
 class VideoService {
   async getVideos(options?: VideoFilterOptions): Promise<Video[]> {
     try {
@@ -11,13 +36,7 @@ class VideoService {
           query = query.eq('category', options.category);
         }
         
-        if (options.language && options.language !== 'all') {
-          // Assuming language might be added in the future, for now filtering is basic
-          // query = query.eq('language', options.language);
-        }
-        
         if (options.searchQuery) {
-          // A simple ilike on title or description
           query = query.or(`title.ilike.%${options.searchQuery}%,description.ilike.%${options.searchQuery}%`);
         }
       }
@@ -49,25 +68,54 @@ class VideoService {
     }
   }
 
-  async getVideoById(id: string): Promise<Video | null> {
+  async getVideoById(idOrSlug: string): Promise<Video | null> {
+    if (!idOrSlug) return null;
+    const cleanParam = decodeURIComponent(idOrSlug).trim();
+
     try {
-      const { data, error } = await supabase
+      // 1. Check if UUID
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanParam);
+      if (isUuid) {
+        const { data, error } = await supabase
+          .from('videos')
+          .select('*')
+          .eq('id', cleanParam)
+          .single();
+        if (!error && data) return data as Video;
+      }
+
+      // 2. Check if YouTube ID
+      const { data: byYt, error: ytErr } = await supabase
         .from('videos')
         .select('*')
-        .eq('id', id)
+        .eq('youtube_id', cleanParam)
         .single();
-        
-      if (error) throw error;
-      return data as Video;
+      if (!ytErr && byYt) return byYt as Video;
+
+      // 3. Check if slug contains youtube_id suffix or match by slug
+      const all = await this.getAllVideos();
+      for (const v of all) {
+        if (v.youtube_id && cleanParam.endsWith(v.youtube_id)) return v;
+        if (v.id && cleanParam.endsWith(v.id.slice(0, 8))) return v;
+        if (getVideoSlug(v) === cleanParam) return v;
+      }
+
+      // 4. Fuzzy fallback match on title
+      const normalizedParam = cleanParam.toLowerCase().replace(/[^a-z0-9]/g, ' ');
+      const match = all.find(v => {
+        const normTitle = v.title.toLowerCase().replace(/[^a-z0-9]/g, ' ');
+        return normTitle.includes(normalizedParam) || normalizedParam.includes(normTitle);
+      });
+
+      return match || all[0] || null;
     } catch (error) {
-      console.error('Error fetching video by id:', error);
+      console.error('Error fetching video by slug/id:', error);
       return null;
     }
   }
 
   async getAllVideos(): Promise<Video[]> {
     try {
-      // Fetch specifically needed fields to reduce payload size if we want, but select('*') is okay for < 1000 rows
       const { data, error } = await supabase
         .from('videos')
         .select('*')
@@ -128,16 +176,10 @@ class VideoService {
 
   async getSimilarVideos(video: Video, limit: number = 4): Promise<Video[]> {
     try {
-      // 1. Fetch all videos to do a client-side fuzzy match (cached by browser/framework ideally)
       const allVideos = await this.getAllVideos();
-      
-      // 2. Remove the current video from the list
       const otherVideos = allVideos.filter(v => v.id !== video.id);
 
-      // 3. Dynamic import of Fuse to avoid bloating the initial load if not needed
       const Fuse = (await import('fuse.js')).default;
-
-      // 4. Setup Fuse.js for similarity scoring
       const fuse = new Fuse(otherVideos, {
         keys: [
           { name: 'title', weight: 3 },
@@ -145,25 +187,16 @@ class VideoService {
           { name: 'hashtags', weight: 2 },
           { name: 'category', weight: 2 }
         ],
-        threshold: 0.6, // More lenient for "similar" concepts
+        threshold: 0.6,
         includeScore: true,
       });
 
-      // 5. Create a query string from the current video's features
-      const searchTerms = [
-        video.title,
-        ...(video.hashtags || []),
-        video.category
-      ].join(' ');
-
-      // 6. Perform search
+      const searchTerms = [video.title, ...(video.hashtags || []), video.category].join(' ');
       const results = fuse.search(searchTerms);
 
-      // 7. Return top matches, or fallback to same category if not enough matches
       let similar = results.map(r => r.item).slice(0, limit);
 
       if (similar.length < limit) {
-        // Fallback: fill rest with same category
         const existingIds = new Set(similar.map(v => v.id));
         const fallbacks = otherVideos.filter(v => v.category === video.category && !existingIds.has(v.id));
         similar = [...similar, ...fallbacks].slice(0, limit);

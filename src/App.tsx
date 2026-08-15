@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from './shared/components/ui';
 import { MainLayout } from './shared/components/common';
+import { ScrollToTop } from './shared/components/common/ScrollToTop';
 import { useAuthStore } from './core/store/auth.store';
 import { supabase } from './core/services/supabase';
 import { tracker } from './core/services/tracker';
@@ -90,6 +91,7 @@ function App() {
     <HelmetProvider>
       <Preloader />
       <BrowserRouter>
+        <ScrollToTop />
         <RouteTracker />
         <ToastProvider />
         
@@ -102,6 +104,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/videos" element={<ResponsiveVideos />} />
               <Route path="/videos/:id" element={<VideoDetail />} />
+              <Route path="/video/:id" element={<VideoDetail />} />
               <Route path="/books" element={<ResponsiveBooks />} />
               <Route path="/books/:id" element={<BookReader />} />
               <Route path="/blog" element={<BlogList />} />

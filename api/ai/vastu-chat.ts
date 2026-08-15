@@ -1,94 +1,151 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Vastu Directional Knowledge Base Matrix for Instant Sub-second Fallback & Context
-const VASTU_KNOWLEDGE_BASE: Record<string, {
-  direction: string;
-  element: string;
-  ruler: string;
+// Comprehensive Vastu Knowledge & Intent Knowledge Base
+const INTENT_KNOWLEDGE_BASE: Record<string, {
+  badge: string;
+  answer: string;
   tips: string[];
-  recommendation: string;
+  recommendedKeywords: string[];
 }> = {
-  pooja: {
-    direction: 'North-East (Eshanya / ఈశాన్యం)',
-    element: 'Water / Ether (జలం / ఆకాశం)',
-    ruler: 'Lord Shiva / Ishana',
+  contact: {
+    badge: '📍 Official Contact & Office Location',
+    answer: `### 📞 Dr. Kunchala Hanumantha Rao — Contact & Office Details\n\n` +
+      `You can consult **Dr. Kunchala Hanumantha Rao** (Vastu Jnani & Nepal Sadbhavana Awardee) directly for residential, commercial, and architectural Vastu guidance:\n\n` +
+      `• **Direct Phone / Call:** [+91 92466 24248](tel:+919246624248)\n` +
+      `• **WhatsApp Consultation:** [+91 92466 24248](https://wa.me/919246624248)\n` +
+      `• **Official Email:** [hrvasthu9@gmail.com](mailto:hrvasthu9@gmail.com)\n` +
+      `• **Headquarters Office Address:** Opposite Rama Lakshmi Apartments, Pedda Waltair, Visakhapatnam, Andhra Pradesh, India — 530017\n` +
+      `• **Consultation Hours:** 09:00 AM – 08:00 PM (Monday to Sunday)\n\n` +
+      `*You can send your house floor plans or plot drawings directly on WhatsApp for review.*`,
     tips: [
-      'Always face East or North while praying 🕉️',
-      'Keep the North-East zone clutter-free and lightweight ☀️',
-      'Never place the Pooja room adjacent to or beneath a toilet/bathroom 🚫'
+      'Call +91 92466 24248 for immediate telephonic consultation 📞',
+      'Share PDF/CAD house drawings on WhatsApp for floor plan verification 📐',
+      'Direct on-site visits available across India & abroad on prior appointment ✈️'
     ],
-    recommendation: 'The North-East is the sacred Eshanya corner, the highest source of positive cosmic and solar energy.'
+    recommendedKeywords: ['consultation', 'contact', 'appointment']
+  },
+  drawings: {
+    badge: '📐 Architectural Plans & Drawings',
+    answer: `### 🏛️ 100% Vastu-Compliant House Plans & Architectural Drawings\n\n` +
+      `Dr. Kunchala Hanumantha Rao provides complete scientific architectural drawing services customized to your plot dimensions:\n\n` +
+      `• **Custom Floor Plans:** Ground & multi-floor layouts designed with perfect cardinal alignments.\n` +
+      `• **Simhadwaram (Main Entrance) Coordinates:** Precision degree calculations for auspicious door placements.\n` +
+      `• **Pancha Bhoota Layouts:** Kitchen (Fire), Pooja (Water/Ether), Master Bedroom (Earth), and Toilets (Air) positioned according to Vedic Shastra.\n` +
+      `• **Corrections without Demolition:** Customized plan modifications for existing constructions.`,
+    tips: [
+      'Send your plot length, width, and road facing direction for a custom plan 📝',
+      'All drawings include structural coordinates, room dimensions, and door/window placements 🚪',
+      'Consultation available for residential homes, apartments, factories, and commercial complexes 🏢'
+    ],
+    recommendedKeywords: ['drawing', 'plan', 'house']
+  },
+  about: {
+    badge: '🎖️ About Dr. Kunchala Hanumantha Rao',
+    answer: `### 🕉️ Dr. Kunchala Hanumantha Rao — Vastu Jnani\n\n` +
+      `**Dr. Kunchala Hanumantha Rao** is an internationally acclaimed Vedic Architecture and Vastu Shastra master with over 30+ years of dedicated research.\n\n` +
+      `• **Honors:** Recipient of the prestigious **Nepal Sadbhavana Award** for outstanding contributions to traditional spatial science.\n` +
+      `• **Author:** Author of foundational books including *"The Science of Vasthu"* in Telugu and English.\n` +
+      `• **Media & Research:** Over 500+ video lessons and case studies analyzing road focus (Veedi Potu), commercial prosperity, and residential harmony.\n` +
+      `• **Philosophy:** Practical, scientific Vedic solutions focused on energy flow without destructive demolitions.`,
+    tips: [
+      'Read his free digital books in the Books section 📚',
+      'Watch 500+ verified video lectures on his YouTube channel 🎥',
+      'Get personalized guidance directly from Dr. Rao 🤝'
+    ],
+    recommendedKeywords: ['about', 'books', 'videos']
+  },
+  pooja: {
+    badge: '🧭 North-East (Eshanya / ఈశాన్యం) - Water & Ether',
+    answer: `### 🕉️ Sacred Pooja Room Vastu Guidelines\n\n` +
+      `The **North-East corner (Eshanya)** is ruled by Lord Shiva and represents the inflow of supreme cosmic energy (Ishanya Prana).\n\n` +
+      `• **Ideal Facing:** Face **East** or **North** while performing worship and meditation.\n` +
+      `• **Lightness & Purity:** Keep the North-East zone extremely clean, lightweight, and clutter-free.\n` +
+      `• **Strict Prohibitions:** Never locate the Pooja room under a staircase, adjacent to a toilet wall, or above/below a bathroom.\n` +
+      `• **Colors:** Use soft white, light yellow, or soothing cream tones.`,
+    tips: [
+      'Idols should not be pasted directly touching the wall; maintain a 1-inch gap 🪔',
+      'Place holy water / copper Kalash in the North-East corner of the Mandir 💧',
+      'Keep the Mandir elevated slightly on a wooden or marble platform 🪵'
+    ],
+    recommendedKeywords: ['pooja', 'eshanya', 'mandir']
   },
   kitchen: {
-    direction: 'South-East (Agneya / ఆగ్నేయం)',
-    element: 'Fire (అగ్ని)',
-    ruler: 'Lord Agni',
+    badge: '🔥 South-East (Agneya / ఆగ్నేయం) - Fire Element',
+    answer: `### 🍳 Kitchen Vastu Guidelines & Stove Orientation\n\n` +
+      `The kitchen must always be aligned with the **Fire Element (Agni)** in the **South-East (Agneya)** corner:\n\n` +
+      `• **Cooking Orientation:** The cook should face **East** while cooking to ensure health, longevity, and prosperity.\n` +
+      `• **Water & Fire Separation:** The kitchen sink (Water) and cooking stove (Fire) should never be placed side-by-side or directly facing each other.\n` +
+      `• **Secondary Alternative:** If South-East is unavailable, the **North-West (Vayavya)** is the best secondary location.\n` +
+      `• **Avoid Strictly:** Never build a kitchen in the North-East (Eshanya) or South-West (Niruthi).`,
     tips: [
-      'Cook facing East for health and domestic harmony 🍳',
-      'Sink (Water) and Stove (Fire) should never be placed immediately side by side 💧🔥',
-      'North-West (Vayavya) is the best alternative if South-East is occupied 🌬️'
+      'Store drinking water, water purifiers in the North-East side of the kitchen 💧',
+      'Place refrigerators in the North-West or South-West zone 🧊',
+      'Avoid dark black or blue granite countertops in the Agneya zone; use earthy or brown/maroon shades 🟤'
     ],
-    recommendation: 'South-East is ruled by Agni Deva. Placing fire elements here brings health, vitality, and wealth.'
+    recommendedKeywords: ['kitchen', 'agneya', 'cook']
   },
   entrance: {
-    direction: 'North-East, East, or North (ఉత్తరం / తూర్పు / ఈశాన్యం)',
-    element: 'Solar & Magnetic Flow (సౌర & అయస్కాంత శక్తి)',
-    ruler: 'Lord Kubera & Indra',
+    badge: '🚪 Main Entrance (Simhadwaram) - Auspicious Padas',
+    answer: `### 🌟 Main Entrance (Simhadwaram) Vastu Principles\n\n` +
+      `The main door is the primary gateway through which cosmic vitality (Prana) and wealth enter your residence:\n\n` +
+      `• **Auspicious Directions:** **East (Jayanta / Indra Padas)** and **North (Kubera / Mukhya Padas)** are the most auspicious entrance orientations.\n` +
+      `• **Proportions:** The Simhadwaram must be the largest, most majestic door in the entire house with two shutters opening clockwise inwards.\n` +
+      `• **Threshold (Gadapa):** Maintain a proper auspicious wooden threshold to prevent positive energy from leaking out.\n` +
+      `• **Avoid:** Never have a straight road focus (Veedi Potu) pointing into the entrance without remedies, and avoid shoe racks directly blocking the threshold.`,
     tips: [
-      'Main entrance (Simhadwaram) should be the largest door in the house 🚪',
-      'Keep entrance well-lit with auspicious symbols like Swastik or Om 🌟',
-      'Avoid shoe racks or heavy obstructions right in front of the main threshold 🧹'
+      'Adorn the entrance with auspicious symbols like Swastik, Om, or Toranam 🌿',
+      'Ensure the main door threshold is clean and well illuminated with warm light 💡',
+      'The main door should never make squeaking or screeching sounds when opening 🚪'
     ],
-    recommendation: 'The main door is the mouth of cosmic energy (Prana). East and North entrances attract prosperity and career growth.'
+    recommendedKeywords: ['entrance', 'simhadwaram', 'door']
   },
   bedroom: {
-    direction: 'South-West (Niruthi / నైరుతి)',
-    element: 'Earth (పృథ్వి)',
-    ruler: 'Lord Niruthi',
+    badge: '🛏️ South-West (Niruthi / నైరుతి) - Earth Element',
+    answer: `### 🛌 Master Bedroom & Sleeping Direction Vastu\n\n` +
+      `The **South-West (Niruthi)** corner represents the Earth element (Prithvi), providing heavy stability, leadership, and emotional harmony:\n\n` +
+      `• **Master Bedroom Location:** The head of the family should always occupy the South-West master bedroom to maintain family control and stability.\n` +
+      `• **Sleeping Direction:** Sleep with your head pointing towards the **South** (highest geomagnetic harmony) or **East** (intellect & memory). Never sleep with head towards the North.\n` +
+      `• **Bed Alignment:** Do not align the bed directly under an exposed concrete ceiling beam.\n` +
+      `• **Mirrors:** Ensure mirrors or dressing tables do not reflect your body while sleeping in bed.`,
     tips: [
-      'Head should point towards South or East while sleeping for restful sleep and longevity 🛌',
-      'Master bedroom must always be in the South-West to maintain family stability and authority 👑',
-      'Avoid mirrors facing the bed directly 🪞'
+      'South head orientation enhances deep sleep, blood circulation, and longevity 💤',
+      'Keep South-West walls heavy with sturdy wooden wardrobes and lockers 🚪',
+      'Children and students should study in East or North-East bedrooms 📚'
     ],
-    recommendation: 'The South-West represents stability, heavy earth energy, and leadership. Ideal for the master of the house.'
+    recommendedKeywords: ['bedroom', 'sleep', 'niruthi']
   },
   toilet: {
-    direction: 'North-West (Vayavya) or South of South-West (వాయువ్యం)',
-    element: 'Air / Elimination (వాయువు)',
-    ruler: 'Lord Vayu',
+    badge: '🌬️ North-West (Vayavya) - Elimination Zone',
+    answer: `### 🚽 Toilet & Bathroom Vastu Alignment\n\n` +
+      `Sanitary and elimination zones carry heavy negative disposal energies and must be positioned with extreme care:\n\n` +
+      `• **Best Location:** The **North-West (Vayavya)** corner or the **South-of-South-West** zone are the most suitable locations.\n` +
+      `• **Strict Taboos:** Never place a toilet in the **North-East (Eshanya)** or **South-West (Niruthi)** — this leads to severe health and financial problems.\n` +
+      `• **Commode Direction:** The commode should be aligned along the North-South axis so the user faces North or South.\n` +
+      `• **Remedy for Existing Defects:** If a toilet cannot be relocated, keep toilet doors tightly closed and place a bowl of raw sea salt in the corner to absorb negative vibrations.`,
     tips: [
-      'Never locate toilets in North-East (Eshanya) or South-West (Niruthi) ⚠️',
-      'Commode should align along North-South axis 🚽',
-      'Keep toilet doors closed and use sea salt bowls to absorb negative vibrations 🧂'
+      'Never share a common wall between your Mandir and a toilet 🚫',
+      'Place geysers and heaters in the South-East corner of the bathroom 🔥',
+      'Ensure proper ventilation windows on the North or West walls 🪟'
     ],
-    recommendation: 'Elimination zones must align with Vayavya (North-West) to dispel negative energy without disrupting positive cosmic flows.'
+    recommendedKeywords: ['toilet', 'bathroom', 'vayavya']
   },
-  borewell: {
-    direction: 'North-East (Eshanya / ఈశాన్యం)',
-    element: 'Water (జలం)',
-    ruler: 'Lord Varuna & Shiva',
+  water: {
+    badge: '🌊 Borewell & Water Sump - Eshanya / North-East',
+    answer: `### 💧 Underground Water Sump & Borewell Vastu\n\n` +
+      `Water placement determines financial liquidity and health according to Vedic architecture:\n\n` +
+      `• **Underground Water:** Borewells, underground sumps, and open wells MUST strictly be located in the **North-East (Eshanya)**.\n` +
+      `• **Overhead Water Tanks:** Overhead water storage tanks must be situated in the **South-West (Niruthi)** or **West** on top of the terrace to create the required weight.\n` +
+      `• **Heavy Prohibition:** Never dig an underground sump in the South-West, South, or South-East zones.`,
     tips: [
-      'Borewell, underground water sump, and open wells must strictly be in North-East 🌊',
-      'Never dig underground water sumps in South-West, South, or South-East 🚫',
-      'Overhead water tanks must be placed in South-West (Niruthi) on top of the terrace 🏗️'
+      'Borewell in Eshanya brings wealth, career growth, and domestic happiness 🌊',
+      'Overhead tank in Niruthi stabilizes family prosperity and leadership 🏗️',
+      'Keep water drainage flowing from South/West towards North/East 💧'
     ],
-    recommendation: 'Underground water in North-East attracts abundance and peace. Overhead tanks in South-West provide stability.'
-  },
-  staircase: {
-    direction: 'South, West, or South-West (దక్షిణం / పశ్చిమం / నైరుతి)',
-    element: 'Earth / Heavy Load (బరువు)',
-    ruler: 'Lord Yama / Niruthi',
-    tips: [
-      'Staircases should always ascend clockwise (turning left to right) 🔄',
-      'Keep odd number of steps (e.g. 15, 17, 19, 21) 🔢',
-      'Never build a staircase in North-East (Eshanya) or Center (Brahmasthan) 🚫'
-    ],
-    recommendation: 'Heavy structures like staircases and overhead tanks must sit in South or South-West to anchor the building.'
+    recommendedKeywords: ['borewell', 'water', 'sump']
   }
 };
 
 export default async function handler(req: any, res: any) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -109,33 +166,46 @@ export default async function handler(req: any, res: any) {
 
   const lowerQuery = query.toLowerCase();
 
-  // 1. Initialize Supabase
+  // 1. Identify Intent / Topic with high precision
+  let matchedKey = 'entrance';
+  if (lowerQuery.match(/contact|phone|number|address|office|location|email|vizag|visakhapatnam|call|reach|whatsapp|కలవాలి|ఫోన్|నెంబర్|చిరునామా|ఎక్కడ/)) {
+    matchedKey = 'contact';
+  } else if (lowerQuery.match(/plan|drawing|blueprint|map|cad|plot|house plan|ప్లాన్|డ్రాయింగ్|నక్ష|ఇంటి ప్లాన్/)) {
+    matchedKey = 'drawings';
+  } else if (lowerQuery.match(/about|who is|rao|hanumantha|author|credentials|award|sadbhavana|nepal|గురించి|ఎవరు/)) {
+    matchedKey = 'about';
+  } else if (lowerQuery.match(/pooja|mandir|temple|god|prayer|eshanya|ఈశాన్యం|పూజ|దేవుడి/)) {
+    matchedKey = 'pooja';
+  } else if (lowerQuery.match(/kitchen|cook|stove|agneya|gas|cylinder|sink|ఆగ్నేయం|వంట|పొయ్యి/)) {
+    matchedKey = 'kitchen';
+  } else if (lowerQuery.match(/bedroom|bed|sleep|master|niruthi|నైరుతి|పడుకునే|పడకగది/)) {
+    matchedKey = 'bedroom';
+  } else if (lowerQuery.match(/toilet|bath|commode|latrine|septic|vayavya|వాయువ్యం|లెట్రిన్|బాత్రూమ్/)) {
+    matchedKey = 'toilet';
+  } else if (lowerQuery.match(/bore|water|sump|well|tank|overhead|బోరు|సంప్|నీరు|నీళ్ళ/)) {
+    matchedKey = 'water';
+  }
+
+  const kb = INTENT_KNOWLEDGE_BASE[matchedKey] || INTENT_KNOWLEDGE_BASE.entrance;
+
+  // 2. Fetch Relevant YouTube Videos from Supabase
   const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://yqlhcyraiccrrhjfxqky.supabase.co';
   const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxbGhjeXJhaWNjcnJoamZ4cWt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc4NzIsImV4cCI6MjA5OTY3Mzg3Mn0.wqemSrMZkuoN0LD_zIWCXzgxL41D6QK75Ur82X3X_fU';
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // 2. Fetch Relevant YouTube Videos from Supabase
-  let searchKeywords = ['vastu'];
-  if (lowerQuery.includes('kitchen') || lowerQuery.includes('వంట') || lowerQuery.includes('agneya')) searchKeywords = ['kitchen', 'agneya', 'south east'];
-  else if (lowerQuery.includes('pooja') || lowerQuery.includes('పూజ') || lowerQuery.includes('mandir') || lowerQuery.includes('eshanya')) searchKeywords = ['pooja', 'eshanya', 'north east'];
-  else if (lowerQuery.includes('entrance') || lowerQuery.includes('door') || lowerQuery.includes('ద్వారం') || lowerQuery.includes('east') || lowerQuery.includes('north')) searchKeywords = ['entrance', 'door', 'east', 'north'];
-  else if (lowerQuery.includes('bedroom') || lowerQuery.includes('bed') || lowerQuery.includes('పడుకునే') || lowerQuery.includes('niruthi')) searchKeywords = ['bedroom', 'niruthi', 'south west'];
-  else if (lowerQuery.includes('toilet') || lowerQuery.includes('bathroom') || lowerQuery.includes('లెట్రిన్')) searchKeywords = ['toilet', 'bathroom', 'vayavya'];
-  else if (lowerQuery.includes('water') || lowerQuery.includes('bore') || lowerQuery.includes('బోరు') || lowerQuery.includes('సంప్')) searchKeywords = ['borewell', 'water', 'sump'];
-  else if (lowerQuery.includes('stair') || lowerQuery.includes('మెట్లు')) searchKeywords = ['staircase', 'steps'];
 
   let matchedVideos: any[] = [];
   try {
     const { data: videos } = await supabase
       .from('videos')
-      .select('id, title, thumbnail_medium, views, watch_url, embed_url, youtube_id')
+      .select('id, title, thumbnail_max, thumbnail_medium, views, watch_url, embed_url, youtube_id')
       .order('views', { ascending: false })
-      .limit(20);
+      .limit(25);
 
     if (videos && videos.length > 0) {
+      const searchTerms = kb.recommendedKeywords;
       matchedVideos = videos.filter(v => {
         const text = (v.title + ' ' + (v.description || '')).toLowerCase();
-        return searchKeywords.some(kw => text.includes(kw));
+        return searchTerms.some(term => text.includes(term));
       }).slice(0, 3);
 
       if (matchedVideos.length === 0) {
@@ -143,52 +213,33 @@ export default async function handler(req: any, res: any) {
       }
     }
   } catch (err) {
-    console.error('Error fetching videos:', err);
+    console.error('Error fetching videos in AI chat:', err);
   }
 
-  // 3. Match Knowledge Base
-  let matchedTopic = 'entrance';
-  if (lowerQuery.includes('kitchen') || lowerQuery.includes('cook') || lowerQuery.includes('stove') || lowerQuery.includes('వంట')) matchedTopic = 'kitchen';
-  else if (lowerQuery.includes('pooja') || lowerQuery.includes('temple') || lowerQuery.includes('god') || lowerQuery.includes('పూజ')) matchedTopic = 'pooja';
-  else if (lowerQuery.includes('bedroom') || lowerQuery.includes('sleep') || lowerQuery.includes('bed') || lowerQuery.includes('పడుకునే')) matchedTopic = 'bedroom';
-  else if (lowerQuery.includes('toilet') || lowerQuery.includes('bath') || lowerQuery.includes('commode') || lowerQuery.includes('లెట్రిన్')) matchedTopic = 'toilet';
-  else if (lowerQuery.includes('bore') || lowerQuery.includes('water') || lowerQuery.includes('sump') || lowerQuery.includes('బోరు')) matchedTopic = 'borewell';
-  else if (lowerQuery.includes('stair') || lowerQuery.includes('steps') || lowerQuery.includes('మెట్లు')) matchedTopic = 'staircase';
-
-  const kb = VASTU_KNOWLEDGE_BASE[matchedTopic] || VASTU_KNOWLEDGE_BASE.entrance;
-
-  // 4. Try Google Gemini API if GEMINI_API_KEY is provided, otherwise formulate expert Vedic response
+  // 3. Call Gemini 1.5 Flash API if configured
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.YOUTUBE_API_KEY;
   let aiAnswerText = '';
 
-  if (GEMINI_API_KEY) {
+  if (GEMINI_API_KEY && matchedKey !== 'contact') {
     try {
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
       const systemPrompt = `You are the Official AI Vastu Consultant representing Dr. Kunchala Hanumantha Rao (Vastu Jnani & Nepal Sadbhavana Awardee) on HR Vasthu (hrvasthu.com).
-Provide an authoritative, clear, and inspiring answer to the user's Vastu Shastra query.
-Use rich emojis (🧭, 🏠, ☀️, 🌊, 🕉️, 💡, 🚪, 🌿).
-Mention the exact Cardinal Direction (e.g. North-East Eshanya, South-East Agneya, South-West Niruthi, North-West Vayavya) and Elemental Balance (Fire, Water, Earth, Air, Space).
-If the user asks in Telugu, answer primarily in Telugu with English terms. If in English, answer in English.
-Keep it structured:
+Provide an authoritative, clear, and comprehensive answer to the user's Vastu Shastra query.
+Use rich markdown headings, bold terms, and descriptive emojis (🧭, 🏠, ☀️, 🌊, 🕉️, 💡, 🚪, 🌿).
+If asked about contact or office, provide Dr. Rao's official phone +91 92466 24248, email hrvasthu9@gmail.com, Visakhapatnam headquarters.
+Mention the exact Cardinal Direction (North-East Eshanya, South-East Agneya, South-West Niruthi, North-West Vayavya) and Elemental Balance (Fire, Water, Earth, Air, Space).
+If asked in Telugu, answer primarily in Telugu with English terms. If in English, answer in English.
+Structure:
 1. Core Vastu Principle (2-3 sentences)
-2. Key Dos & Don'ts (3 bullet points)
-3. Remedy / Practical Advice by Dr. Rao.
-End with an encouraging invitation to verify their floor plan with Dr. Rao.`;
+2. Crucial Dos and Don'ts Checklist (3-4 bullet points)
+3. Remedy / Practical Advice by Dr. Rao.`;
 
       const response = await fetch(geminiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [
-            {
-              role: 'user',
-              parts: [{ text: `${systemPrompt}\n\nUser Question: "${query}"` }]
-            }
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 600
-          }
+          contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nUser Question: "${query}"` }] }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 700 }
         })
       });
 
@@ -199,35 +250,26 @@ End with an encouraging invitation to verify their floor plan with Dr. Rao.`;
           aiAnswerText = generated;
         }
       }
-    } catch (apiErr) {
-      console.warn('Gemini API call failed, using built-in Vedic engine:', apiErr);
+    } catch (e: any) {
+      console.warn('Gemini API call warning, using built-in knowledge base:', e.message);
     }
   }
 
-  // Fallback if Gemini not called or empty
+  // Fallback to our curated Vedic Knowledge Engine
   if (!aiAnswerText) {
-    aiAnswerText = `### 🧭 Authentic Vastu Guidance for: "${query}"\n\n` +
-      `**Optimal Direction:** **${kb.direction}** (Element: *${kb.element}* | Deity: *${kb.ruler}*)\n\n` +
-      `${kb.recommendation}\n\n` +
-      `#### 💡 Key Guidelines according to Dr. Kunchala Hanumantha Rao:\n` +
-      kb.tips.map(t => `• ${t}`).join('\n') +
-      `\n\n*Note: For complete layout verification and customized remedies, consult Dr. Kunchala Hanumantha Rao directly.*`;
+    aiAnswerText = kb.answer;
   }
 
   return res.status(200).json({
     success: true,
     query,
     answer: aiAnswerText,
-    directionBadge: kb.direction,
+    directionBadge: kb.badge,
     keyPoints: kb.tips,
     recommendedVideos: matchedVideos,
-    bookDownload: {
-      title: 'The Science of Vasthu (Telugu & English Guides)',
-      url: '/books',
-    },
     whatsappCta: {
       number: '+91 92466 24248',
-      url: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I used your website AI Assistant regarding "${query}". Please guide me on my house plan.`)}`,
+      url: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I used your website AI Assistant regarding "${query}". Please guide me.`)}`,
       label: 'Consult Dr. Rao on WhatsApp'
     }
   });
