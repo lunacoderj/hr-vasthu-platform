@@ -71,7 +71,10 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
             <img 
               src={thumbnailUrl} 
               alt={video.title} 
+              width={480}
+              height={270}
               loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300 ease-out"
             />
             {/* Dark gradient shadow at bottom */}

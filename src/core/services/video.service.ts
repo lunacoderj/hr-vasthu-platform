@@ -26,10 +26,15 @@ export const getVideoSlug = (video: Video): string => {
   return `${cleanTitle}-${shortId}`;
 };
 
+const VIDEO_LIST_FIELDS = 'id, youtube_id, title, category, published_at, views, likes, duration, is_featured, is_short, thumbnail_medium, thumbnail_default, thumbnail_high, embed_url';
+
 class VideoService {
   async getVideos(options?: VideoFilterOptions): Promise<Video[]> {
     try {
-      let query = supabase.from('videos').select('*').order('published_at', { ascending: false });
+      let query = supabase
+        .from('videos')
+        .select(VIDEO_LIST_FIELDS)
+        .order('published_at', { ascending: false });
 
       if (options) {
         if (options.category && options.category !== 'All') {
@@ -118,7 +123,7 @@ class VideoService {
     try {
       const { data, error } = await supabase
         .from('videos')
-        .select('*')
+        .select(VIDEO_LIST_FIELDS)
         .order('published_at', { ascending: false });
       if (error) throw error;
       return data as Video[];
@@ -132,7 +137,7 @@ class VideoService {
     try {
       const { data, error } = await supabase
         .from('videos')
-        .select('*')
+        .select(VIDEO_LIST_FIELDS)
         .order('published_at', { ascending: false })
         .limit(limit);
       if (error) throw error;
@@ -147,7 +152,7 @@ class VideoService {
     try {
       const { data, error } = await supabase
         .from('videos')
-        .select('*')
+        .select(VIDEO_LIST_FIELDS)
         .order('views', { ascending: false })
         .limit(limit);
       if (error) throw error;
@@ -162,7 +167,7 @@ class VideoService {
     try {
       const { data, error } = await supabase
         .from('videos')
-        .select('*')
+        .select(VIDEO_LIST_FIELDS)
         .eq('is_featured', true)
         .order('published_at', { ascending: false })
         .limit(limit);

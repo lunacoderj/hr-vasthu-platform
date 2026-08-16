@@ -47,11 +47,18 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
     <Card className="flex flex-col h-full group" elevation="sm">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md mb-6 bg-stone-100 dark:bg-stone-800">
-        <img 
-          src={book.coverImage} 
-          alt={book.title} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        <picture>
+          <source srcSet={book.coverImage?.replace(/\.png$/, '.webp')} type="image/webp" />
+          <img 
+            src={book.coverImage} 
+            alt={book.title} 
+            width={400}
+            height={533}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </picture>
         <div className="absolute top-3 right-3 bg-gold-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded shadow-sm">
           {book.category}
         </div>

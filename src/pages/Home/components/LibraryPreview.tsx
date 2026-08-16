@@ -56,12 +56,19 @@ export const LibraryPreview: React.FC = () => {
               <div className="relative aspect-[3/4] mb-6 perspective-[1000px]">
                 <div className="w-full h-full relative transition-transform duration-500 transform-style-3d group-hover:rotate-y-[-10deg] group-hover:scale-105 shadow-[0_15px_35px_rgba(0,0,0,0.5)] group-hover:shadow-[0_20px_50px_rgba(212,114,10,0.15)] rounded-r-2xl rounded-l-sm border border-stone-200/50 dark:border-white/10">
                   <div className="absolute inset-0 bg-[#0a0a0f] rounded-r-2xl rounded-l-sm overflow-hidden">
-                    <img 
-                      src={book.coverImage} 
-                      alt={book.title}
-                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/90 via-transparent to-transparent"></div>
+                    <picture>
+                      <source srcSet={book.coverImage?.replace(/\.png$/, '.webp')} type="image/webp" />
+                      <img 
+                        src={book.coverImage} 
+                        alt={book.title}
+                        width={450}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                      />
+                    </picture>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/90 via-transparent to-transparent pointer-events-none"></div>
                     
                     {/* Spine Effect */}
                     <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-white/20 to-transparent z-10 border-l border-white/30"></div>

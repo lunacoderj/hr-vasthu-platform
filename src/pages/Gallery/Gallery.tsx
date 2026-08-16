@@ -172,11 +172,14 @@ const AwardCard: React.FC<{ item: GalleryItem; index: number; onClick: () => voi
           <img
             src={item.src}
             alt={item.title}
+            width={600}
+            height={450}
             loading="lazy"
+            decoding="async"
             className="w-full aspect-[4/3] object-cover"
             draggable={false}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <h3 className="text-white font-serif text-lg font-bold leading-snug">{item.title}</h3>
             <p className="text-white/50 text-xs mt-1 line-clamp-2">{item.description}</p>
@@ -207,7 +210,10 @@ const CertCard: React.FC<{ item: GalleryItem; index: number; onClick: () => void
       <img
         src={item.src}
         alt={item.title}
+        width={600}
+        height={800}
         loading="lazy"
+        decoding="async"
         className="w-full object-cover"
         draggable={false}
       />
