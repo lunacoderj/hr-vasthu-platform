@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, MessageCircle, X, Send, Play, Compass, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getVideoSlug } from '../../../core/services/video.service';
+import { getVideoSlug, videoService } from '../../../core/services/video.service';
+import { VastuAIEngine } from '../../../core/services/vastuAI.service';
 
 interface VastuAIAssistantProps {
   isOpen?: boolean;
@@ -147,6 +148,7 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
     setInputQuery('');
     setIsLoading(true);
 
+    // 1. Try serverless backend endpoint first, fallback instantly to robust VastuAIEngine
     try {
       const res = await fetch('/api/ai/vastu-chat', {
         method: 'POST',
@@ -154,28 +156,54 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
         body: JSON.stringify({ query: textToSend })
       });
 
-      if (!res.ok) throw new Error('AI service error');
-      const data = await res.json();
+      if (res.ok) {
+        const data = await res.json();
+        const aiMessage: Message = {
+          id: `ai-${Date.now()}`,
+          sender: 'ai',
+          text: data.answer,
+          directionBadge: data.directionBadge,
+          recommendedVideos: data.recommendedVideos || [],
+          whatsappUrl: data.whatsappCta?.url,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages(prev => [...prev, aiMessage]);
+        return;
+      }
+    } catch {
+      // Non-blocking fallback to local VastuAIEngine
+    }
 
-      const aiMessage: Message = {
+    // 2. Client-side Authentic Vastu Knowledge Inference
+    try {
+      const localResult = VastuAIEngine.processQuery(textToSend);
+      
+      // Match relevant video lessons
+      let matchedVids: any[] = [];
+      try {
+        const allVideos = await videoService.getAllVideos();
+        if (allVideos && allVideos.length > 0) {
+          const searchTerms = localResult.recommendedKeywords || ['vastu'];
+          matchedVids = allVideos.filter(v => {
+            const combined = ((v.title || '') + ' ' + (v.category || '')).toLowerCase();
+            return searchTerms.some(term => combined.includes(term.toLowerCase()));
+          }).slice(0, 3);
+          
+          if (matchedVids.length === 0) {
+            matchedVids = allVideos.slice(0, 3);
+          }
+        }
+      } catch {
+        /* non-critical video fetch fallback */
+      }
+
+      const fallbackAi: Message = {
         id: `ai-${Date.now()}`,
         sender: 'ai',
-        text: data.answer || "According to Vastu Shastra principles, spatial balance is achieved through proper cardinal alignment.",
-        directionBadge: data.directionBadge,
-        recommendedVideos: data.recommendedVideos || [],
-        whatsappUrl: data.whatsappCta?.url,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-
-      setMessages(prev => [...prev, aiMessage]);
-    } catch {
-      const fallbackAi: Message = {
-        id: `ai-fallback-${Date.now()}`,
-        sender: 'ai',
-        text: `### 🧭 Vastu Guidelines for: "${textToSend}"\n\n` +
-          `• Maintain proper harmony between the 5 sacred elements (Pancha Bhootas).\n` +
-          `• Contact Dr. Kunchala Hanumantha Rao at +91 92466 24248 for personalized floor plan verification.`,
-        whatsappUrl: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I inquired about "${textToSend}". Please guide me.`)}`,
+        text: localResult.answer,
+        directionBadge: localResult.directionBadge,
+        recommendedVideos: matchedVids,
+        whatsappUrl: localResult.whatsappCta.url,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages(prev => [...prev, fallbackAi]);

@@ -1,4 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
+// Dedicated Comprehensive Vedic Vastu Knowledge & Inference Engine
+// Authored according to authentic principles of Dr. Kunchala Hanumantha Rao
+
+export interface VastuAIResponse {
+  success: boolean;
+  query: string;
+  answer: string;
+  directionBadge: string;
+  keyPoints: string[];
+  recommendedKeywords: string[];
+  whatsappCta: {
+    number: string;
+    url: string;
+    label: string;
+  };
+}
 
 export interface VastuTopic {
   key: string;
@@ -111,7 +126,7 @@ export const VASTU_TOPICS: VastuTopic[] = [
     recommendedKeywords: ['locker', 'wealth', 'bedroom', 'prosperity']
   },
 
-  // 6. Wall Clocks
+  // 6. Wall Clocks & Time Alignment
   {
     key: 'wall_clocks',
     badge: '⏰ Wall Clock Vastu (గడియారాల వాస్తు అమరిక)',
@@ -233,7 +248,7 @@ export const VASTU_TOPICS: VastuTopic[] = [
     recommendedKeywords: ['colors', 'interior', 'painting', 'decor']
   },
 
-  // 12. Plot Shapes & Slopes
+  // 12. Plot Shapes, Extensions & Elevations
   {
     key: 'plot_shapes',
     badge: '📐 Plot Shapes, Slopes & Extensions (స్థల ఆకారాల వాస్తు)',
@@ -426,137 +441,72 @@ export const VASTU_TOPICS: VastuTopic[] = [
   }
 ];
 
-export default async function handler(req: any, res: any) {
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+export class VastuAIEngine {
+  /**
+   * Intelligently analyzes any query in English or Telugu and generates
+   * authoritative Vedic Vastu advice according to Dr. Kunchala Hanumantha Rao's teachings.
+   */
+  static processQuery(queryText: string): VastuAIResponse {
+    const raw = queryText.trim();
+    const lower = raw.toLowerCase();
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
-
-  const { query, language = 'en' } = req.body || {};
-  if (!query || typeof query !== 'string') {
-    return res.status(400).json({ error: 'Query string is required' });
-  }
-
-  const raw = query.trim();
-  const lower = raw.toLowerCase();
-
-  // 1. Identify Topic across all 21 Vastu Knowledge Modules
-  let matchedTopic: VastuTopic | null = null;
-  for (const topic of VASTU_TOPICS) {
-    if (topic.matchRegex.test(lower)) {
-      matchedTopic = topic;
-      break;
-    }
-  }
-
-  // 2. Fetch Relevant YouTube Videos from Supabase
-  const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://yqlhcyraiccrrhjfxqky.supabase.co';
-  const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxbGhjeXJhaWNjcnJoamZ4cWt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc4NzIsImV4cCI6MjA5OTY3Mzg3Mn0.wqemSrMZkuoN0LD_zIWCXzgxL41D6QK75Ur82X3X_fU';
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  let matchedVideos: any[] = [];
-  try {
-    const { data: videos } = await supabase
-      .from('videos')
-      .select('id, title, thumbnail_max, thumbnail_medium, views, watch_url, embed_url, youtube_id')
-      .order('views', { ascending: false })
-      .limit(30);
-
-    if (videos && videos.length > 0) {
-      const searchTerms = matchedTopic?.recommendedKeywords || ['vastu', 'house', 'direction'];
-      matchedVideos = videos.filter(v => {
-        const text = (v.title + ' ' + (v.description || '')).toLowerCase();
-        return searchTerms.some(term => text.includes(term));
-      }).slice(0, 3);
-
-      if (matchedVideos.length === 0) {
-        matchedVideos = videos.slice(0, 3);
+    // 1. Direct regex match across all 21 Vastu Knowledge Modules
+    for (const topic of VASTU_TOPICS) {
+      if (topic.matchRegex.test(lower)) {
+        return {
+          success: true,
+          query: raw,
+          answer: topic.answer,
+          directionBadge: topic.badge,
+          keyPoints: topic.tips,
+          recommendedKeywords: topic.recommendedKeywords,
+          whatsappCta: {
+            number: '+91 92466 24248',
+            url: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I inquired on HR Vasthu regarding "${raw}". Please guide me.`)}`,
+            label: 'Consult Dr. Rao on WhatsApp'
+          }
+        };
       }
     }
-  } catch (err) {
-    console.error('Error fetching videos in AI chat:', err);
-  }
 
-  // 3. Check for external Gemini API Key
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  let aiAnswerText = '';
+    // 2. Dynamic Semantic Synthesizer for mixed or novel queries
+    const detectedDirections: string[] = [];
+    if (/north-east|northeast|eshanya|ఈశాన్య/.test(lower)) detectedDirections.push('North-East (ఈశాన్యం - Water/Ether)');
+    if (/south-east|southeast|agneya|ఆగ్నేయ/.test(lower)) detectedDirections.push('South-East (ఆగ్నేయం - Fire)');
+    if (/south-west|southwest|niruthi|నైరుతి/.test(lower)) detectedDirections.push('South-West (నైరుతి - Earth)');
+    if (/north-west|northwest|vayavya|వాయువ్య/.test(lower)) detectedDirections.push('North-West (వాయువ్యం - Air)');
+    if (/north|ఉత్తర/.test(lower)) detectedDirections.push('North (ఉత్తరం - Wealth/Kubera)');
+    if (/east|తూర్పు/.test(lower)) detectedDirections.push('East (తూర్పు - Solar/Health)');
+    if (/south|దక్షిణ/.test(lower)) detectedDirections.push('South (దక్షిణం - Yama/Stability)');
+    if (/west|పశ్చిమ/.test(lower)) detectedDirections.push('West (పశ్చిమం - Varuna/Prosperity)');
 
-  if (GEMINI_API_KEY && GEMINI_API_KEY.startsWith('AIzaSy') && matchedTopic?.key !== 'contact') {
-    try {
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-      const systemPrompt = `You are the Official AI Vastu Consultant representing Dr. Kunchala Hanumantha Rao (Vastu Jnani & Nepal Sadbhavana Awardee) on HR Vasthu (hrvasthu.com).
-Provide an authoritative, clear, and comprehensive answer to the user's Vastu Shastra query.
-Use rich markdown headings, bold terms, and descriptive emojis (🧭, 🏠, ☀️, 🌊, 🕉️, 💡, 🚪, 🌿).
-If asked about contact or office, provide Dr. Rao's official phone +91 92466 24248, email hrvasthu9@gmail.com, Visakhapatnam headquarters.
-Mention the exact Cardinal Direction (North-East Eshanya, South-East Agneya, South-West Niruthi, North-West Vayavya) and Elemental Balance (Fire, Water, Earth, Air, Space).
-If asked in Telugu, answer primarily in Telugu with English terms. If in English, answer in English.
-Structure:
-1. Core Vastu Principle (2-3 sentences)
-2. Crucial Dos and Don'ts Checklist (3-4 bullet points)
-3. Remedy / Practical Advice by Dr. Rao.`;
+    const badge = detectedDirections.length > 0
+      ? `🧭 ${detectedDirections[0]}`
+      : '🧭 Authentic Vedic Architecture Analysis';
 
-      const response = await fetch(geminiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nUser Question: "${raw}"` }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 700 }
-        })
-      });
+    const dynamicAnswer = `### 🧭 Vedic Vastu Guidance for: "${raw}"\n\n` +
+      `According to the scientific Vastu Shastra principles taught by **Dr. Kunchala Hanumantha Rao**, every domestic element must honor the sacred balance of the Five Natural Elements (Pancha Bhootas):\n\n` +
+      `• **Elemental Balance (పంచభూత సమన్వయం):** Ensure heavy objects settle in the South/South-West (Earth) and lightweight sacred elements reside in the North-East (Water & Ether).\n` +
+      `• **Directional Flow:** Maintain unobstructed magnetic flow from North to South and radiant solar flow from East to West.\n` +
+      `• **Custom Verification:** For complex questions regarding "${raw}", Dr. Rao recommends verifying your exact room measurements and cardinal degree coordinates.\n\n` +
+      `*You can send your house plan or plot photo directly to Dr. Rao on WhatsApp for a personalized assessment.*`;
 
-      if (response.ok) {
-        const data = await response.json();
-        const generated = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (generated) {
-          aiAnswerText = generated;
-        }
+    return {
+      success: true,
+      query: raw,
+      answer: dynamicAnswer,
+      directionBadge: badge,
+      keyPoints: [
+        'Maintain harmony between Fire, Water, Earth, Air, and Space elements ⚖️',
+        'Keep North-East zone clean, open, and lightweight at all times 🌊',
+        'Contact Dr. Rao directly at +91 92466 24248 for personalized floor plan review 📞'
+      ],
+      recommendedKeywords: ['vastu', 'house', 'consultation'],
+      whatsappCta: {
+        number: '+91 92466 24248',
+        url: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I inquired on HR Vasthu AI regarding "${raw}". Please guide me.`)}`,
+        label: 'Consult Dr. Rao on WhatsApp'
       }
-    } catch (e: any) {
-      console.warn('Gemini API call warning, using built-in knowledge base:', e.message);
-    }
+    };
   }
-
-  // 4. Default to our curated Vedic Knowledge Engine
-  if (!aiAnswerText) {
-    if (matchedTopic) {
-      aiAnswerText = matchedTopic.answer;
-    } else {
-      // Dynamic semantic response
-      aiAnswerText = `### 🧭 Vedic Vastu Guidance for: "${raw}"\n\n` +
-        `According to the scientific Vastu Shastra principles taught by **Dr. Kunchala Hanumantha Rao**, every domestic element must honor the sacred balance of the Five Natural Elements (Pancha Bhootas):\n\n` +
-        `• **Elemental Balance (పంచభూత సమన్వయం):** Heavy grounding mass belongs in the South and South-West (Earth), while sacred lightweight elements belong in the North and North-East (Water & Ether).\n` +
-        `• **Energy Flow:** Preserve open magnetic flow from North to South and morning solar vitality from East to West.\n` +
-        `• **Custom Verification:** For detailed advice on "${raw}", Dr. Rao recommends verifying your exact room measurements and cardinal degree coordinates.\n\n` +
-        `*You can send your house plan or plot photo directly to Dr. Rao on WhatsApp for a personalized assessment.*`;
-    }
-  }
-
-  const badge = matchedTopic ? matchedTopic.badge : '🧭 Authentic Vedic Architecture Analysis';
-  const tips = matchedTopic ? matchedTopic.tips : [
-    'Maintain harmony between Fire, Water, Earth, Air, and Space elements ⚖️',
-    'Keep North-East zone clean, open, and lightweight at all times 🌊',
-    'Contact Dr. Rao directly at +91 92466 24248 for personalized floor plan review 📞'
-  ];
-
-  return res.status(200).json({
-    success: true,
-    query: raw,
-    answer: aiAnswerText,
-    directionBadge: badge,
-    keyPoints: tips,
-    recommendedVideos: matchedVideos,
-    whatsappCta: {
-      number: '+91 92466 24248',
-      url: `https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I used your website AI Assistant regarding "${raw}". Please guide me.`)}`,
-      label: 'Consult Dr. Rao on WhatsApp'
-    }
-  });
 }
