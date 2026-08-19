@@ -38,9 +38,10 @@ export const Footer: React.FC = () => {
                 <span className="font-serif text-2xl font-bold text-white tracking-tight">
                   HR <span className="text-[#d4720a] bg-clip-text text-transparent bg-gradient-to-r from-[#d4720a] to-[#e68a1c]">Vasthu</span>
                 </span>
+                <p className="text-[10px] uppercase tracking-widest text-[#d4720a] font-semibold mt-0.5">Vasthu Siddanthi Dr. Hanumanthu Rao</p>
               </Link>
               <p className="text-stone-400 text-sm max-w-sm leading-relaxed">
-                Empowering lives through ancient Vedic Vastu Shastra, architectural harmony, and spatial alignment with master consultant <strong>Dr. Kunchala Hanumantha Rao</strong>.
+                Official online platform to connect with renowned <strong>Vasthu Siddanthi Dr. Kunchala Hanumanthu Rao</strong> (వాస్తు సిద్ధాంతి). Empowering lives through authentic Vedic Vastu Shastra, personalized house plans, and spatial harmony.
               </p>
               
               <ul className="space-y-3 text-sm text-stone-400">

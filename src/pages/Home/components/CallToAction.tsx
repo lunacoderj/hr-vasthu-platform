@@ -23,10 +23,10 @@ export const CallToAction: React.FC = () => {
           className="glass-card-adaptive border border-stone-200/50 dark:border-white/10 rounded-3xl p-8 md:p-16 text-center max-w-4xl mx-auto shadow-2xl hover:border-[#d4720a]/30 transition-all duration-300"
         >
           <Typography variant="h2" className="text-stone-900 dark:text-white mb-4 font-serif">
-            Ready to Align Your Life?
+            Ready to Connect with Vasthu Siddanthi Dr. Hanumanthu Rao?
           </Typography>
           <p className="text-stone-600 dark:text-stone-300 mb-8 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Book a personal consultation today and take the first step towards a harmonious, prosperous, and balanced lifestyle.
+            Get 100% authentic Vedic Vastu guidance, personalized house plans, and remedy consultations directly from <strong>Dr. Kunchala Hanumanthu Rao</strong>.
           </p>
           
           <Link to="/appointment" className="inline-block mt-4">

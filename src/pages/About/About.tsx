@@ -23,16 +23,16 @@ export const About: React.FC = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/20 dark:bg-gold-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         </div>
 
-        <Container className="relative z-10">
+        <Container>
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center space-x-2 bg-gold-50 dark:bg-gold-900/30 text-gold-700 dark:text-gold-400 px-4 py-1.5 rounded-full text-sm font-medium mb-8 border border-gold-200 dark:border-gold-800/50 shadow-sm"
+              className="inline-flex items-center space-x-2 bg-gold-50 dark:bg-gold-900/30 text-gold-700 dark:text-gold-400 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-gold-200 dark:border-gold-800/50 shadow-sm"
             >
               <Sparkles size={16} />
-              <span className="tracking-widest uppercase text-xs font-bold">The Master of Vastu Science</span>
+              <span className="tracking-widest uppercase text-xs font-bold">Vasthu Siddanthi · Master of Vedic Architecture</span>
               <Sparkles size={16} />
             </motion.div>
 
@@ -40,13 +40,17 @@ export const About: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-serif font-bold text-stone-900 dark:text-ivory-50 mb-6 leading-tight tracking-tight"
+              className="text-5xl md:text-7xl font-serif font-bold text-stone-900 dark:text-ivory-50 mb-4 leading-tight tracking-tight"
             >
               Dr. Kunchala <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 via-gold-400 to-copper-600">
-                Hanumantha Rao
+                Hanumanthu Rao
               </span>
             </motion.h1>
+
+            <p className="text-base md:text-lg font-bold text-gold-600 dark:text-gold-400 font-serif mb-4">
+              వాస్తు సిద్ధాంతి డాక్టర్ కుంచాల హనుమంతరావు (Vastu Jnani &amp; Nepal Sadbhavana Awardee)
+            </p>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -54,7 +58,7 @@ export const About: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-stone-600 dark:text-stone-300 font-light max-w-3xl mx-auto leading-relaxed"
             >
-              A visionary bridging the ancient wisdom of Vedic architecture with modern technological science to architect harmony, prosperity, and cosmic balance.
+              Connect with visionary Vasthu Siddanthi Dr. Hanumanthu Rao — bridging the ancient wisdom of Vedic architecture with modern technological science to architect harmony, prosperity, and cosmic balance.
             </motion.p>
           </div>
         </Container>

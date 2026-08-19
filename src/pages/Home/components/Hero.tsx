@@ -85,9 +85,9 @@ export const Hero: React.FC = () => {
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#d4720a]/10 to-[#e68a1c]/10 border border-[#d4720a]/20 text-[#d4720a] px-4 py-1.5 rounded-full text-xs font-semibold mb-6 animate-stagger-item opacity-0">
-            <Compass size={16} className="animate-spin-slow" />
-            <span className="tracking-wider uppercase">{t('nepalAward')}</span>
+          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#d4720a]/15 to-[#e68a1c]/10 border border-[#d4720a]/30 text-[#d4720a] px-5 py-2 rounded-full text-xs md:text-sm font-semibold mb-6 animate-stagger-item opacity-0 shadow-sm backdrop-blur-md">
+            <Compass size={16} className="animate-spin-slow text-[#d4720a]" />
+            <span className="tracking-wide font-medium">Official Platform • Connect with Vasthu Siddanthi Dr. Hanumanthu Rao</span>
           </div>
 
           <div className="animate-stagger-item opacity-0">
@@ -99,21 +99,24 @@ export const Hero: React.FC = () => {
             </Typography>
           </div>
 
-          {/* Telugu Page-Specific Subtitle */}
-          <div className="animate-stagger-item opacity-0 mb-6">
-            <div className="inline-block relative">
+          {/* Telugu & English Authority Sub-Banner */}
+          <div className="animate-stagger-item opacity-0 mb-6 max-w-3xl">
+            <div className="inline-block relative w-full">
               <div className="absolute inset-0 bg-gold-400/20 dark:bg-gold-500/10 blur-xl rounded-full" />
-              <div className="relative px-6 py-2 bg-white/50 dark:bg-stone-900/60 backdrop-blur-md border border-gold-500/30 rounded-2xl shadow-sm">
-                <span className="text-sm md:text-base font-bold text-stone-800 dark:text-gold-400 tracking-wide">
-                  మీ ఇంటి ప్లాన్స్ &amp; డ్రాయింగ్స్ వాస్తు ప్రకారం రూపొందించబడును
-                </span>
+              <div className="relative px-6 py-3 bg-white/70 dark:bg-stone-900/80 backdrop-blur-md border border-gold-500/30 rounded-2xl shadow-md space-y-1">
+                <p className="text-sm md:text-base font-bold text-stone-900 dark:text-gold-400 tracking-wide font-serif">
+                  ప్రముఖ వాస్తు సిద్ధాంతి డాక్టర్ కుంచాల హనుమంతరావు గారి ప్రత్యక్ష సంప్రదింపుల వేదిక
+                </p>
+                <p className="text-xs md:text-sm text-stone-600 dark:text-stone-300 font-light">
+                  మీ ఇంటి ప్లాన్స్, డ్రాయింగ్స్ &amp; వాస్తు దోష నివారణ సూచనలు నేరుగా సిద్ధాంతి గారి చేతుల మీదుగా రూపొందించబడును
+                </p>
               </div>
             </div>
           </div>
 
           <div className="animate-stagger-item opacity-0">
             <p className="mb-8 text-base md:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto font-light leading-relaxed">
-              {t('transformSpace')}
+              Direct consultation with renowned <strong>Vasthu Siddanthi Dr. Kunchala Hanumanthu Rao</strong> (Nepal Sadbhavana Awardee) for 100% authentic Vedic floor plans, architectural alignment, and spatial peace.
             </p>
           </div>
 
@@ -146,19 +149,20 @@ export const Hero: React.FC = () => {
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4 animate-stagger-item opacity-0">
             <Link
-              to="/videos"
-              className="px-6 py-3 bg-stone-900 text-white border border-stone-700 hover:border-gold-500 rounded-full text-xs md:text-sm font-bold shadow-md hover:scale-105 transition-all flex items-center gap-2"
+              to="/appointment"
+              className="px-7 py-3.5 bg-gradient-to-r from-gold-600 via-amber-500 to-gold-500 text-white rounded-full text-xs md:text-sm font-bold shadow-xl hover:shadow-gold-500/20 hover:scale-105 transition-all flex items-center gap-2 border border-gold-400/30"
             >
-              <PlayCircle size={18} className="text-gold-500" />
-              <span>{t('watchFreeLessons')}</span>
+              <Sparkles size={16} className="animate-pulse" />
+              <span>Connect with Vasthu Siddanthi</span>
+              <ArrowRight size={16} />
             </Link>
 
             <Link
-              to="/appointment"
-              className="px-6 py-3 bg-gradient-to-r from-gold-600 to-amber-500 text-white rounded-full text-xs md:text-sm font-bold shadow-lg hover:scale-105 transition-all flex items-center gap-2"
+              to="/videos"
+              className="px-6 py-3.5 bg-stone-900 text-white border border-stone-700 hover:border-gold-500 rounded-full text-xs md:text-sm font-bold shadow-md hover:scale-105 transition-all flex items-center gap-2"
             >
-              <span>{t('bookConsultation')}</span>
-              <ArrowRight size={16} />
+              <PlayCircle size={18} className="text-gold-500" />
+              <span>Watch Video Lessons</span>
             </Link>
           </div>
 

@@ -30,14 +30,14 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 w-full bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-stone-200/50 dark:border-white/5 transition-all duration-300">
-        {/* Architect Bar */}
-        <div className="bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 py-1.5 w-full hidden sm:block">
+        {/* Architect & Siddanthi Bar */}
+        <div className="bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 py-1.5 w-full hidden sm:block border-b border-[#d4720a]/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center space-x-2 text-gold-400">
-            <PenTool size={12} className="opacity-70" />
-            <span className="text-[11px] md:text-xs font-semibold tracking-wider text-center drop-shadow-[0_0_8px_rgba(212,114,10,0.6)]">
-              మీ ఇంటి ప్లాన్స్ &amp; డ్రాయింగ్స్ వాస్తు ప్రకారం రూపొందించబడును
+            <PenTool size={12} className="opacity-80 text-[#d4720a]" />
+            <span className="text-[11px] md:text-xs font-semibold tracking-wider text-center drop-shadow-[0_0_8px_rgba(212,114,10,0.6)] text-stone-200">
+              <strong className="text-gold-400 font-bold">Connect with Vasthu Siddanthi Dr. Hanumanthu Rao</strong> • మీ ఇంటి ప్లాన్స్ &amp; డ్రాయింగ్స్ వాస్తు ప్రకారం రూపొందించబడును • <a href="tel:+919246624248" className="hover:text-gold-400 underline text-stone-300 ml-1">+91 92466 24248</a>
             </span>
-            <PenTool size={12} className="opacity-70" />
+            <PenTool size={12} className="opacity-80 text-[#d4720a]" />
           </div>
         </div>
         <Container size="xl">
@@ -45,10 +45,11 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex h-16 items-center justify-between">
             {/* Left: Logo & Desktop Links */}
             <div className="flex items-center gap-8">
-              <Link to="/" className="flex items-center space-x-2">
-                <span className="font-serif text-xl font-bold text-stone-900 dark:text-white tracking-tight">
+              <Link to="/" className="flex flex-col">
+                <span className="font-serif text-xl font-bold text-stone-900 dark:text-white tracking-tight leading-none">
                   HR <span className="text-[#d4720a] bg-clip-text text-transparent bg-gradient-to-r from-[#d4720a] to-[#e68a1c]">Vasthu</span>
                 </span>
+                <span className="text-[9px] uppercase tracking-widest text-[#d4720a] font-semibold">Vasthu Siddanthi</span>
               </Link>
 
               <nav className="hidden lg:flex items-center space-x-1">
@@ -93,10 +94,11 @@ export const Navbar: React.FC = () => {
           {/* Mobile Header Layout */}
           <div className="flex md:hidden h-16 items-center justify-between">
             {/* Left: Logo in Serif Gradient */}
-            <Link to="/" className="flex items-center">
-              <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
+            <Link to="/" className="flex flex-col">
+              <span className="font-serif text-xl font-bold tracking-tight text-stone-900 dark:text-white leading-none">
                 HR <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-[#d4720a] to-[#e68a1c]">Vasthu</span>
               </span>
+              <span className="text-[8px] uppercase tracking-wider text-[#d4720a] font-semibold">Vasthu Siddanthi</span>
             </Link>
 
             {/* Right: Theme Toggle, Camera/Shorts, Search, Message Shortcuts */}

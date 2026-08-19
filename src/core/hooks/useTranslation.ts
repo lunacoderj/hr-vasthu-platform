@@ -61,8 +61,8 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     youtubeChannel: 'YouTube Channel',
     watchFreeLessons: 'Watch free Vastu lessons',
     directAccess: 'Direct Access',
-    connectWithMaster: 'Connect With The Master',
-    transformSpace: "Transform your living or workspace into a magnet for cosmic prosperity. Reach out to Dr. Kunchala Hanumantha Rao for an expert consultation.",
+    connectWithMaster: 'Connect with Vasthu Siddanthi Dr. Hanumanthu Rao',
+    transformSpace: "Transform your living or workspace into a magnet for cosmic prosperity. Connect directly with renowned Vasthu Siddanthi Dr. Kunchala Hanumanthu Rao for authentic Vedic floor plans, Vastu drawings, and expert consultations.",
   },
   hi: {
 

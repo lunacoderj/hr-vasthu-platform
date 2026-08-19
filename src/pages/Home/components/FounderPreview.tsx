@@ -39,15 +39,15 @@ export const FounderPreview: React.FC = () => {
                 />
               </picture>
               <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-[#0a0a0f] to-transparent z-20">
-                <Typography variant="h3" className="text-white mb-1">Dr. Kunchala Hanumantha Rao</Typography>
-                <p className="text-[#d4720a] font-semibold tracking-wider text-sm uppercase">Vastu Jnani & Kala Samrat</p>
+                <Typography variant="h3" className="text-white mb-1">Dr. Kunchala Hanumanthu Rao</Typography>
+                <p className="text-[#d4720a] font-semibold tracking-wider text-sm uppercase">Vasthu Siddanthi &amp; Kala Samrat</p>
               </div>
             </div>
             
             {/* Badges */}
             <div className="absolute -right-8 top-1/4 hidden md:flex flex-col gap-4 z-20">
               {[
-                { icon: <Star size={20} />, label: "25+ Years" },
+                { icon: <Star size={20} />, label: "Vasthu Siddanthi" },
                 { icon: <Globe size={20} />, label: "Global Reach" },
                 { icon: <BookOpen size={20} />, label: "Author & Guide" }
               ].map((badge, idx) => (
@@ -78,26 +78,35 @@ export const FounderPreview: React.FC = () => {
             <div>
               <div className="inline-flex items-center space-x-2 text-[#d4720a] font-bold tracking-widest uppercase text-xs mb-4">
                 <span className="w-8 h-[2px] bg-[#d4720a] rounded-full"></span>
-                <span>The Master Architect</span>
+                <span>The Master Vasthu Siddanthi</span>
               </div>
               <Typography variant="h2" className="mb-6 leading-tight text-stone-900 dark:text-white">
-                Pioneering Vastu Science & Technology
+                Connect with Vasthu Siddanthi Dr. Hanumanthu Rao
               </Typography>
               <p className="text-stone-600 dark:text-stone-300 text-lg leading-relaxed mb-6 font-light">
-                Dr. Kunchala Hanumantha Rao is not merely a consultant; he is an institution. With a Doctorate in Vastu Science and the prestigious Nepal Sadbhavana Award, he has spent over two decades transforming homes and businesses by aligning them with cosmic geometry and Earth's magnetic forces.
+                Renowned <strong>Vasthu Siddanthi Dr. Kunchala Hanumanthu Rao</strong> is an internationally acclaimed Vedic Architecture authority. Honored with the prestigious <strong>Nepal Sadbhavana Award</strong> and holding a Doctorate in Vastu Science, he has transformed thousands of homes and commercial establishments across India and globally.
               </p>
               <p className="text-stone-600 dark:text-stone-300 text-lg leading-relaxed font-light">
-                His unique philosophy strips away superstition, replacing it with a rigorous, physics-based approach to spatial harmony that has garnered millions of followers worldwide.
+                His scientific approach dispels superstitions, replacing them with pure geomagnetic precision, Pancha Bhoota balance, and practical remedies without destructive demolitions.
               </p>
             </div>
 
-            <button 
-              onClick={() => navigate('/about')}
-              className="px-8 py-3.5 bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 hover:bg-stone-200 dark:hover:bg-white/10 text-stone-800 dark:text-white rounded-full font-medium transition-all active:scale-95 flex items-center gap-2 magnetic"
-            >
-              <span>Read Full Biography</span>
-              <ArrowRight size={18} />
-            </button>
+            <div className="flex flex-wrap items-center gap-4">
+              <button 
+                onClick={() => navigate('/appointment')}
+                className="px-8 py-3.5 bg-gradient-to-r from-gold-600 to-amber-500 hover:from-gold-500 text-white rounded-full font-semibold transition-all active:scale-95 flex items-center gap-2 shadow-lg shadow-gold-500/20 cursor-pointer"
+              >
+                <span>Connect with Dr. Hanumanthu Rao</span>
+                <ArrowRight size={18} />
+              </button>
+
+              <button 
+                onClick={() => navigate('/about')}
+                className="px-8 py-3.5 bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 hover:bg-stone-200 dark:hover:bg-white/10 text-stone-800 dark:text-white rounded-full font-medium transition-all active:scale-95 flex items-center gap-2 magnetic cursor-pointer"
+              >
+                <span>Full Biography</span>
+              </button>
+            </div>
           </motion.div>
 
         </div>

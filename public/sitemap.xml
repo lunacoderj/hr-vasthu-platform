@@ -57,6 +57,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://hrvasthu.com/videos/146c5fd2-baf9-48c2-9aad-daf16cfec6a0</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/rPtyYvbVzmo/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>ఇంటి బయట టాయిలెట్ ఎ క్కడ నిర్మించాలో తెలుసా? | HR Vasthu #Shorts#ToiletVastu  #telugu #realestate</video:title>
+      <video:description>ఇంటి బయట టాయిలెట్ ఎ క్కడ నిర్మించాలో తెలుసా? | HR Vasthu #Shorts
+#HRVasthu #Shorts #YouTubeShorts #Vastu #VastuShastra #VastuTips #ToiletVastu #BathroomVastu #HomeVastu #HouseVastu #GruhaVastu #Telugu</video:description>
+      <video:publication_date>2026-08-16</video:publication_date>
+    </video:video>
+  </url>
+  <url>
     <loc>https://hrvasthu.com/videos/3719813f-98c4-4280-a957-b8d008f17296</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -7166,6 +7178,12 @@ Cont: +91 - 92466 24248
 AP and </video:description>
       <video:publication_date>2020-07-26</video:publication_date>
     </video:video>
+  </url>
+  <url>
+    <loc>https://hrvasthu.com/blog/hr-vasthu-shorts-toiletvastu-telugu-realestate-rPtyYv</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hrvasthu.com/blog/hr-vasthu-shorts-Bt585a</loc>
