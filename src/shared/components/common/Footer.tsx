@@ -130,10 +130,23 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* District & City Consultation Coverage Strip */}
+        <div className="py-6 border-t border-stone-800/80 space-y-3">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold-400">
+            <Compass size={14} className="text-[#d4720a]" />
+            <span>Vasthu Consultations Across All Andhra Pradesh &amp; Telangana Districts:</span>
+          </div>
+          <p className="text-xs text-stone-400 leading-relaxed">
+            <strong>Headquarters:</strong> Visakhapatnam (Pedda Waltair, Gajuwaka, Madhurawada, Pendurthi, Anakapalli). <br className="hidden sm:block" />
+            <strong>Andhra Pradesh Districts &amp; Cities:</strong> Vijayawada, Guntur, Tirupati, Rajahmundry, Kakinada, Nellore, Kurnool, Kadapa, Anantapur, Srikakulam, Vizianagaram, Eluru, Ongole, Machilipatnam, Bhimavaram, Tenali, Proddatur, Chittoor, Nandyal, Hindupur, Srikalahasti, Narasaraopet, Bapatla, Chirala, Tadepalligudem, Tanuku, Amalapuram, Kavali, Gudur. <br className="hidden sm:block" />
+            <strong>Telangana &amp; Global:</strong> Hyderabad, Secunderabad, Warangal, Karimnagar, Khammam, Nizamabad &amp; Worldwide Digital CAD Consultations.
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="py-6 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-xs text-stone-500">
           <p className="text-center md:text-left">
-            &copy; {currentYear} HR Vasthu Digital Platform. All rights reserved. Directed by Dr. Kunchala Hanumantha Rao.
+            &copy; {currentYear} HR Vasthu Digital Platform. All rights reserved. Directed by Dr. Kunchala Hanumantha Rao (Vasthu Siddanthi).
           </p>
           <div className="flex space-x-6">
             <Link to="/privacy" className="hover:text-stone-300 transition-colors">Privacy Policy</Link>

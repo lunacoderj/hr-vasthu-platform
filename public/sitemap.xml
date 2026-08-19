@@ -57,6 +57,17 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://hrvasthu.com/videos/9369ccdb-1c35-49c5-b661-5c9973517d17</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/MD3hfkj1854/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>ఈశాన్యంలో పిల్లర్ లేకుంటే వాస్తు దోషమా? నిజం ఏంటి? | HR Vasthu #shortsvideos</video:title>
+      <video:description>#ఈశాన్యంలో పిల్లర్ లేకుంటే వాస్తు దోషమా? నిజం ఏంటి? | HR Vasthu #shortsvideosHRVasthu #Shorts #YouTubeShorts #Vastu #VastuShastra #VastuTips #Eeshanyam #EeshanyaVastu #NortheastVastu #PillarVastu #Pil</video:description>
+      <video:publication_date>2026-08-18</video:publication_date>
+    </video:video>
+  </url>
+  <url>
     <loc>https://hrvasthu.com/videos/146c5fd2-baf9-48c2-9aad-daf16cfec6a0</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

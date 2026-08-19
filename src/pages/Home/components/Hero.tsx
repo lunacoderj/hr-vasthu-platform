@@ -87,7 +87,7 @@ export const Hero: React.FC = () => {
           
           <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#d4720a]/15 to-[#e68a1c]/10 border border-[#d4720a]/30 text-[#d4720a] px-5 py-2 rounded-full text-xs md:text-sm font-semibold mb-6 animate-stagger-item opacity-0 shadow-sm backdrop-blur-md">
             <Compass size={16} className="animate-spin-slow text-[#d4720a]" />
-            <span className="tracking-wide font-medium">Official Platform • Connect with Vasthu Siddanthi Dr. Hanumanthu Rao</span>
+            <span className="tracking-wide font-medium">⭐ #1 Most Experienced Vasthu Siddanthi in Vizag &amp; All Andhra Pradesh Districts</span>
           </div>
 
           <div className="animate-stagger-item opacity-0">
@@ -105,10 +105,10 @@ export const Hero: React.FC = () => {
               <div className="absolute inset-0 bg-gold-400/20 dark:bg-gold-500/10 blur-xl rounded-full" />
               <div className="relative px-6 py-3 bg-white/70 dark:bg-stone-900/80 backdrop-blur-md border border-gold-500/30 rounded-2xl shadow-md space-y-1">
                 <p className="text-sm md:text-base font-bold text-stone-900 dark:text-gold-400 tracking-wide font-serif">
-                  ప్రముఖ వాస్తు సిద్ధాంతి డాక్టర్ కుంచాల హనుమంతరావు గారి ప్రత్యక్ష సంప్రదింపుల వేదిక
+                  విశాఖపట్నం (హెడ్ క్వార్టర్స్) తో పాటు విజయవాడ, గుంటూరు, తిరుపతి, రాజమండ్రి, కాకినాడ, నెల్లూరు, కర్నూలు &amp; ఆంధ్రప్రదేశ్ లోని అన్ని జిల్లాల్లో అత్యుత్తమ వాస్తు సేవలు
                 </p>
                 <p className="text-xs md:text-sm text-stone-600 dark:text-stone-300 font-light">
-                  మీ ఇంటి ప్లాన్స్, డ్రాయింగ్స్ &amp; వాస్తు దోష నివారణ సూచనలు నేరుగా సిద్ధాంతి గారి చేతుల మీదుగా రూపొందించబడును
+                  30+ సంవత్సరాల సుదీర్ఘ అనుభవం గల ప్రముఖ సిద్ధాంతి డాక్టర్ కుంచాల హనుమంతరావు గారి ప్రత్యక్ష సంప్రదింపులు &amp; 100% శాస్త్రీయ ప్లాన్స్
                 </p>
               </div>
             </div>
@@ -116,7 +116,7 @@ export const Hero: React.FC = () => {
 
           <div className="animate-stagger-item opacity-0">
             <p className="mb-8 text-base md:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto font-light leading-relaxed">
-              Direct consultation with renowned <strong>Vasthu Siddanthi Dr. Kunchala Hanumanthu Rao</strong> (Nepal Sadbhavana Awardee) for 100% authentic Vedic floor plans, architectural alignment, and spatial peace.
+              Direct consultation with <strong>Dr. Kunchala Hanumanthu Rao</strong> — widely acclaimed as the best and most experienced <strong>Vasthu Siddanthi in Vizag, Andhra Pradesh &amp; Telangana</strong> (Nepal Sadbhavana Awardee) for 100% authentic Vedic floor plans, architectural alignment, and spatial peace.
             </p>
           </div>
 
