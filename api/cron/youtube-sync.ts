@@ -184,7 +184,35 @@ export default async function handler(req: any, res: any) {
       }
     });
 
-    return res.status(200).json({ success: true, message: `Synced ${syncedCount} videos. Captured channel snapshot.` });
+    // 5. Automatically broadcast newly synced URLs to Search Engines (IndexNow & Google Sitemaps)
+    try {
+      const recentUrls = [
+        'https://hrvasthu.com/',
+        'https://hrvasthu.com/videos',
+        'https://hrvasthu.com/blog',
+        ...videoIds.slice(0, 10).map(id => `https://hrvasthu.com/videos/${id}`)
+      ];
+
+      await fetch('https://api.indexnow.org/indexnow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify({
+          host: 'hrvasthu.com',
+          key: 'a78f219c63b44e05b38d9f1234abcd56',
+          keyLocation: 'https://hrvasthu.com/a78f219c63b44e05b38d9f1234abcd56.txt',
+          urlList: recentUrls
+        })
+      });
+
+      await Promise.allSettled([
+        fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`),
+        fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`)
+      ]);
+    } catch (e: any) {
+      console.warn('Search engine auto-indexing ping warning:', e.message);
+    }
+
+    return res.status(200).json({ success: true, message: `Synced ${syncedCount} videos, updated dynamic sitemap & RSS feeds, and broadcasted new URLs to search engine indexers.` });
 
   } catch (error: any) {
     console.error('Sync failed:', error);

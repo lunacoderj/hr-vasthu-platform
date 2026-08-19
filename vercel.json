@@ -31,6 +31,19 @@
           "value": "*"
         }
       ]
+    },
+    {
+      "source": "/a78f219c63b44e05b38d9f1234abcd56.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -39,7 +52,15 @@
       "destination": "/api/sitemap.xml"
     },
     {
-      "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.xml|ads.txt|manifest.json|.*\\..*).*)",
+      "source": "/rss.xml",
+      "destination": "/api/rss.xml"
+    },
+    {
+      "source": "/feed.xml",
+      "destination": "/api/rss.xml"
+    },
+    {
+      "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.xml|rss.xml|feed.xml|ads.txt|manifest.json|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
