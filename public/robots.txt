@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
 
+# Google Search Console Crawler
+User-agent: Googlebot
+Allow: /
+
+# Google AdSense Crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google AdsBot Quality Crawler
+User-agent: AdsBot-Google
+Allow: /
+
 Sitemap: https://hrvasthu.com/sitemap.xml
