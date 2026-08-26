@@ -297,11 +297,37 @@ export const Drawings: React.FC = () => {
                   Loading Architectural Drawings...
                 </p>
               </div>
+            ) : drawings.length === 0 ? (
+              <div className="py-24 text-center bg-white dark:bg-white/[0.02] border border-stone-200 dark:border-white/5 rounded-3xl p-8 max-w-lg mx-auto shadow-sm">
+                <Compass size={56} className="mx-auto mb-4 text-[#d4720a]/40 animate-spin-slow" />
+                <h3 className="font-serif font-bold text-xl text-stone-900 dark:text-white">
+                  No Drawings Listed Yet
+                </h3>
+                <p className="text-xs text-stone-500 dark:text-stone-400 mt-2 leading-relaxed">
+                  Certified Vastu architectural floor plans will appear here once published from the administration portal. Need a customized plan for your plot right away?
+                </p>
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                  <a
+                    href="https://wa.me/919246624248?text=Hello%20Dr.%20Rao,%20I%20need%20a%20custom%20Vastu%20Architectural%20Drawing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
+                  >
+                    Request Custom Plan on WhatsApp
+                  </a>
+                  <a
+                    href="tel:+919246624248"
+                    className="px-5 py-2.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 text-xs font-bold transition-all cursor-pointer"
+                  >
+                    Call Helpline: +91 92466 24248
+                  </a>
+                </div>
+              </div>
             ) : filteredDrawings.length === 0 ? (
               <div className="py-24 text-center bg-white dark:bg-white/[0.02] border border-stone-200 dark:border-white/5 rounded-3xl p-8 max-w-lg mx-auto">
-                <Compass size={56} className="mx-auto mb-4 text-[#d4720a]/40 animate-spin-slow" />
+                <Compass size={56} className="mx-auto mb-4 text-[#d4720a]/40" />
                 <h3 className="font-serif font-bold text-lg text-stone-900 dark:text-white">
-                  No Drawings Found
+                  No Drawings Match Your Filters
                 </h3>
                 <p className="text-xs text-stone-500 dark:text-stone-400 mt-1.5 leading-relaxed">
                   We couldn't find any Vastu plans matching your specific filters. Try searching for different dimensions or directions.
