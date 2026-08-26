@@ -23,8 +23,11 @@ const Shorts = lazy(() => import('./pages/Videos/Shorts'));
 const BlogList = lazy(() => import('./pages/Blog/BlogList'));
 const BlogPost = lazy(() => import('./pages/Blog/BlogPost'));
 const Gallery = lazy(() => import('./pages/Gallery/Gallery'));
+const Drawings = lazy(() => import('./pages/Drawings/Drawings'));
+const DrawingDetail = lazy(() => import('./pages/Drawings/DrawingDetail'));
 const BooksMobileContainer = lazy(() => import('./pages/Books/BooksMobileContainer'));
 const VideosMobileContainer = lazy(() => import('./pages/Videos/VideosMobileContainer'));
+
 
 // Legal & Policy Pages for AdSense Compliance
 const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'));
@@ -110,6 +113,8 @@ function App() {
               <Route path="/blog" element={<BlogList />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/drawings" element={<Drawings />} />
+              <Route path="/drawings/:slug" element={<DrawingDetail />} />
               
               {/* AdSense Mandatory Compliance & Booking Routes */}
               <Route path="/privacy" element={<PrivacyPolicy />} />

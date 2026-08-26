@@ -12,7 +12,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const BASE_URL = 'https://hrvasthu.com';
 
 async function generateSitemap() {
-  console.log('Generating Video-Rich Sitemap...');
+  console.log('Generating Video-Rich & Drawing-Rich Sitemap...');
   
   const staticUrls = [
     { loc: `${BASE_URL}/`, priority: '1.0', changefreq: 'daily' },
@@ -20,7 +20,9 @@ async function generateSitemap() {
     { loc: `${BASE_URL}/videos`, priority: '0.9', changefreq: 'daily' },
     { loc: `${BASE_URL}/shorts`, priority: '0.9', changefreq: 'daily' },
     { loc: `${BASE_URL}/books`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${BASE_URL}/drawings`, priority: '0.95', changefreq: 'daily' },
     { loc: `${BASE_URL}/blog`, priority: '0.9', changefreq: 'daily' },
+    { loc: `${BASE_URL}/gallery`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${BASE_URL}/contact`, priority: '0.8', changefreq: 'monthly' },
     { loc: `${BASE_URL}/appointment`, priority: '0.8', changefreq: 'monthly' },
     { loc: `${BASE_URL}/privacy`, priority: '0.5', changefreq: 'yearly' },
@@ -29,11 +31,30 @@ async function generateSitemap() {
   ];
 
   try {
-    const [videosRes, blogsRes, booksRes] = await Promise.all([
-      supabase.from('videos').select('id, title, description, thumbnail_max, thumbnail_high, published_at').order('published_at', { ascending: false }),
-      supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false }),
-      supabase.from('books').select('id')
-    ]);
+    let videosData = [];
+    let blogsData = [];
+    let booksData = [];
+    let drawingsData = [];
+
+    try {
+      const { data } = await supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at').order('published_at', { ascending: false });
+      videosData = data || [];
+    } catch {}
+
+    try {
+      const { data } = await supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false });
+      blogsData = data || [];
+    } catch {}
+
+    try {
+      const { data } = await supabase.from('books').select('id');
+      booksData = data || [];
+    } catch {}
+
+    try {
+      const { data } = await supabase.from('drawings').select('id, slug, updated_at, created_at').order('created_at', { ascending: false });
+      drawingsData = data || [];
+    } catch {}
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -48,16 +69,16 @@ async function generateSitemap() {
   </url>\n`;
     }
 
-    if (videosRes.data) {
-      for (const v of videosRes.data) {
+    if (videosData && videosData.length > 0) {
+      for (const v of videosData) {
         const thumb = v.thumbnail_max || v.thumbnail_high || `${BASE_URL}/hero.png`;
         const title = (v.title || 'Vastu Lesson').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const desc = (v.description || v.title || 'Vastu Video').slice(0, 200).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
         xml += `  <url>
-    <loc>${BASE_URL}/videos/${v.id}</loc>
+    <loc>${BASE_URL}/videos/${v.youtube_id || v.id}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
     <video:video>
       <video:thumbnail_loc>${thumb}</video:thumbnail_loc>
       <video:title>${title}</video:title>
@@ -68,19 +89,31 @@ async function generateSitemap() {
       }
     }
 
-    if (blogsRes.data) {
-      for (const b of blogsRes.data) {
+    if (blogsData && blogsData.length > 0) {
+      for (const b of blogsData) {
         xml += `  <url>
     <loc>${BASE_URL}/blog/${b.slug}</loc>
     <lastmod>${new Date(b.created_at || Date.now()).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>\n`;
       }
     }
 
-    if (booksRes.data) {
-      for (const book of booksRes.data) {
+    if (drawingsData && drawingsData.length > 0) {
+      for (const d of drawingsData) {
+        const path = d.slug ? `/drawings/${d.slug}` : `/drawings/${d.id}`;
+        xml += `  <url>
+    <loc>${BASE_URL}${path}</loc>
+    <lastmod>${new Date(d.updated_at || d.created_at || Date.now()).toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>\n`;
+      }
+    }
+
+    if (booksData && booksData.length > 0) {
+      for (const book of booksData) {
         xml += `  <url>
     <loc>${BASE_URL}/books/${book.id}</loc>
     <changefreq>monthly</changefreq>
@@ -93,11 +126,11 @@ async function generateSitemap() {
 
     const publicDir = path.resolve(process.cwd(), 'public');
     if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir);
+      fs.mkdirSync(publicDir, { recursive: true });
     }
 
     fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml);
-    console.log('Video-Rich Sitemap successfully generated at public/sitemap.xml');
+    console.log('✅ Video-Rich and Drawing-Rich Sitemap successfully generated at public/sitemap.xml');
     
   } catch (err) {
     console.error('Error generating sitemap:', err);

@@ -32,6 +32,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'Lectures & Speeches',
 
     home: 'Home',
+    drawings: 'Drawings',
     videos: 'Videos',
     shorts: 'Shorts',
     books: 'Books',
@@ -95,6 +96,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'व्याख्यान और भाषण',
 
     home: 'होम',
+    drawings: 'ड्राइंग्स',
     videos: 'वीडियो',
     shorts: 'शॉर्ट्स',
     books: 'पुस्तकें',
@@ -158,6 +160,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'ఉపన్యాసాలు & ప్రసంగాలు',
 
     home: 'హోమ్',
+    drawings: 'డ్రాయింగ్స్',
     videos: 'వీడియోలు',
     shorts: 'షార్ట్స్',
     books: 'పుస్తకాలు',
@@ -221,6 +224,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'விரிவுரைகள் மற்றும் உரைகள்',
 
     home: 'முகப்பு',
+    drawings: 'வரைபடங்கள்',
     videos: 'வீடியோக்கள்',
     shorts: 'குறும்படங்கள்',
     books: 'புத்தகங்கள்',
@@ -284,6 +288,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'ಉಪನ್ಯಾಸಗಳು ಮತ್ತು ಭಾಷಣಗಳು',
 
     home: 'ಮುಖಪುಟ',
+    drawings: 'ರೇಖಾಚಿತ್ರಗಳು',
     videos: 'ವಿಡಿಯೋಗಳು',
     shorts: 'ಶಾರ್ಟ್ಸ್',
     books: 'ಪುಸ್ತಕಗಳು',
@@ -347,6 +352,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'പ്രഭാഷണങ്ങളും പ്രസംഗങ്ങളും',
 
     home: 'ഹോം',
+    drawings: 'ഡ്രോയിംഗുകൾ',
     videos: 'വീഡിയോകൾ',
     shorts: 'ഷോർട്ട്സ്',
     books: 'പുസ്തകങ്ങൾ',
@@ -410,6 +416,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'व्याख्याने आणि भाषणे',
 
     home: 'होम',
+    drawings: 'चित्रे व नकाशे',
     videos: 'व्हिडीओ',
     shorts: 'शॉर्ट्स',
     books: 'पुस्तके',
@@ -473,6 +480,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'વ્યાખ્યાનો અને ભાષણો',
 
     home: 'હોમ',
+    drawings: 'ડ્રોઇંગ્સ',
     videos: 'વીડિયો',
     shorts: 'શોર્ટ્સ',
     books: 'પુસ્તકો',
@@ -536,6 +544,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'বক্তৃতা ও ভাষণ',
 
     home: 'হোম',
+    drawings: 'নকশা ও প্ল্যান',
     videos: 'ভিডিও',
     shorts: 'শর্টস',
     books: 'বইপত্র',
@@ -599,6 +608,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'ਲੈਕਚਰ ਅਤੇ ਭਾਸ਼ਣ',
 
     home: 'ਹੋਮ',
+    drawings: 'ਡਰਾਇੰਗਜ਼',
     videos: 'ਵੀਡੀਓ',
     shorts: 'ਸ਼ਾਰਟਸ',
     books: 'ਕਿਤਾਬਾਂ',
@@ -662,6 +672,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'لیکچرز اور تقاریر',
 
     home: 'ہوم',
+    drawings: 'ڈرائنگز',
     videos: 'ویڈیوز',
     shorts: 'شارٹس',
     books: 'کتابیں',
@@ -725,6 +736,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     lecturesSpeeches: 'ବକ୍ତୃତା ଏବଂ ଭାଷଣ',
 
     home: 'ହୋମ୍',
+    drawings: 'ଡ୍ରଇଙ୍ଗ୍ସ',
     videos: 'ଭିଡିଓ',
     shorts: 'ସର୍ଟସ',
     books: 'ବହିପତ୍ର',

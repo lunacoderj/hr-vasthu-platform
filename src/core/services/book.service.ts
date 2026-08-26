@@ -1,33 +1,6 @@
 import { type Book } from '../types/book';
 import { supabase } from './supabase';
 
-const MOCK_BOOKS: Book[] = [
-  {
-    id: '1',
-    title: 'The Science of Vasthu',
-    description: 'A comprehensive guide to understanding the ancient science of architecture and spatial geometry.',
-    coverImage: '/books/telugu-book-cover.png',
-    pdfUrl: '/books/vasthu telugu book.pdf',
-    language: 'Telugu',
-    pages: 342,
-    category: 'Vasthu',
-    isFree: true,
-    price: 0
-  },
-  {
-    id: '2',
-    title: 'Sacred Geometry Explained',
-    description: 'Learn how to apply sacred geometry in your home for harmony and peace.',
-    coverImage: '/books/english-book-cover.png',
-    pdfUrl: '/books/vijayabata Vaasthu Book English.pdf',
-    language: 'English',
-    pages: 215,
-    category: 'Vasthu',
-    isFree: false,
-    price: 499
-  }
-];
-
 class BookService {
   async getBooks(): Promise<Book[]> {
     try {
@@ -51,10 +24,10 @@ class BookService {
           price: b.price
         }));
       }
-      return MOCK_BOOKS;
+      return [];
     } catch (error) {
       console.error('Failed to fetch books from Supabase:', error);
-      return MOCK_BOOKS;
+      return [];
     }
   }
 
@@ -81,10 +54,10 @@ class BookService {
           price: data.price
         };
       }
-      return MOCK_BOOKS.find(b => b.id === id) || null;
+      return null;
     } catch (error) {
       console.error(`Failed to fetch book with id ${id}:`, error);
-      return MOCK_BOOKS.find(b => b.id === id) || null;
+      return null;
     }
   }
 }

@@ -8,10 +8,11 @@ export default async function handler(req: any, res: any) {
   const BASE_URL = 'https://hrvasthu.com';
 
   try {
-    const [videosRes, blogsRes, booksRes] = await Promise.all([
-      supabase.from('videos').select('id, title, description, thumbnail_max, thumbnail_high, published_at, duration').order('published_at', { ascending: false }),
+    const [videosRes, blogsRes, booksRes, drawingsRes] = await Promise.all([
+      supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at, duration').order('published_at', { ascending: false }),
       supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false }),
-      supabase.from('books').select('id, created_at')
+      supabase.from('books').select('id, created_at'),
+      supabase.from('drawings').select('id, slug, updated_at, created_at').order('created_at', { ascending: false }).catch(() => ({ data: [] }))
     ]);
 
     const staticPages = [
@@ -20,7 +21,9 @@ export default async function handler(req: any, res: any) {
       { loc: `${BASE_URL}/videos`, priority: '0.9', changefreq: 'daily' },
       { loc: `${BASE_URL}/shorts`, priority: '0.9', changefreq: 'daily' },
       { loc: `${BASE_URL}/books`, priority: '0.8', changefreq: 'weekly' },
+      { loc: `${BASE_URL}/drawings`, priority: '0.95', changefreq: 'daily' },
       { loc: `${BASE_URL}/blog`, priority: '0.9', changefreq: 'daily' },
+      { loc: `${BASE_URL}/gallery`, priority: '0.8', changefreq: 'weekly' },
       { loc: `${BASE_URL}/contact`, priority: '0.8', changefreq: 'monthly' },
       { loc: `${BASE_URL}/appointment`, priority: '0.8', changefreq: 'monthly' },
       { loc: `${BASE_URL}/privacy`, priority: '0.5', changefreq: 'yearly' },
@@ -50,9 +53,9 @@ export default async function handler(req: any, res: any) {
         const desc = (v.description || v.title || 'Vastu Video').slice(0, 200).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
         xml += `  <url>
-    <loc>${BASE_URL}/videos/${v.id}</loc>
+    <loc>${BASE_URL}/videos/${v.youtube_id || v.id}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
     <video:video>
       <video:thumbnail_loc>${thumb}</video:thumbnail_loc>
       <video:title>${title}</video:title>
@@ -70,7 +73,20 @@ export default async function handler(req: any, res: any) {
     <loc>${BASE_URL}/blog/${b.slug}</loc>
     <lastmod>${new Date(b.created_at || Date.now()).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+  </url>\n`;
+      }
+    }
+
+    // Drawing Architectural Blueprint Pages
+    if (drawingsRes?.data && Array.isArray(drawingsRes.data)) {
+      for (const d of drawingsRes.data) {
+        const path = d.slug ? `/drawings/${d.slug}` : `/drawings/${d.id}`;
+        xml += `  <url>
+    <loc>${BASE_URL}${path}</loc>
+    <lastmod>${new Date(d.updated_at || d.created_at || Date.now()).toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>\n`;
       }
     }
@@ -89,7 +105,7 @@ export default async function handler(req: any, res: any) {
     xml += `</urlset>`;
 
     res.setHeader('Content-Type', 'text/xml');
-    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.setHeader('Cache-Control', 'public, max-age=1800, s-maxage=1800');
     return res.status(200).send(xml);
 
   } catch (err: any) {

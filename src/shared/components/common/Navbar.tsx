@@ -13,6 +13,7 @@ import UserMenu from './UserMenu';
 
 const NAV_LINKS = [
   { key: 'home', name: 'Home', path: '/' },
+  { key: 'drawings', name: 'Drawings', path: '/drawings' },
   { key: 'about', name: 'About', path: '/about' },
   { key: 'gallery', name: 'Gallery', path: '/gallery' },
   { key: 'blog', name: 'Blog', path: '/blog' },

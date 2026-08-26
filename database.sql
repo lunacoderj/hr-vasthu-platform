@@ -181,7 +181,101 @@ CREATE POLICY "Allow public read access to video events"
 ON public.video_events FOR SELECT TO public USING (true);
 
 
--- 7. PERFORMANCE & SEARCH SPEED INDEXES
+-- 7. DRAWINGS TABLE (HR VASTHU DRAWINGS, 3D ELEVATIONS & BLUEPRINTS)
+CREATE TABLE IF NOT EXISTS public.drawings (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  title text NOT NULL,
+  description text,
+  image_url text NOT NULL, -- 2D Vastu drawing blueprint / floor plan
+  constructed_image_url text, -- AI Generated 3D Constructed building exterior view
+  pdf_url text, -- Downloadable high-resolution CAD drawing PDF
+  price numeric DEFAULT 99, -- 99/100 INR standard unlocking price
+  facing text DEFAULT 'East',
+  category text DEFAULT 'Residential Plans',
+  dimensions text DEFAULT '30x40 ft (1200 sq.ft)',
+  floors text DEFAULT 'Ground Floor',
+  bedrooms text DEFAULT '2 BHK',
+  is_featured boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
+-- Ensure newly added columns exist if table was already created
+DO $$ 
+BEGIN 
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='drawings' AND column_name='constructed_image_url') THEN
+    ALTER TABLE public.drawings ADD COLUMN constructed_image_url text;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='drawings' AND column_name='pdf_url') THEN
+    ALTER TABLE public.drawings ADD COLUMN pdf_url text;
+  END IF;
+END $$;
+
+ALTER TABLE public.drawings ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read access to drawings" ON public.drawings;
+CREATE POLICY "Allow public read access to drawings"
+ON public.drawings FOR SELECT TO public USING (true);
+
+DROP POLICY IF EXISTS "Allow authenticated users to insert drawings" ON public.drawings;
+CREATE POLICY "Allow authenticated users to insert drawings"
+ON public.drawings FOR INSERT TO authenticated WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow authenticated users to update drawings" ON public.drawings;
+CREATE POLICY "Allow authenticated users to update drawings"
+ON public.drawings FOR UPDATE TO authenticated USING (true);
+
+DROP POLICY IF EXISTS "Allow authenticated users to delete drawings" ON public.drawings;
+CREATE POLICY "Allow authenticated users to delete drawings"
+ON public.drawings FOR DELETE TO authenticated USING (true);
+
+-- Fallback policies for public demo/admin operations if needed
+DROP POLICY IF EXISTS "Allow public inserts to drawings" ON public.drawings;
+CREATE POLICY "Allow public inserts to drawings"
+ON public.drawings FOR INSERT TO public WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow public updates to drawings" ON public.drawings;
+CREATE POLICY "Allow public updates to drawings"
+ON public.drawings FOR UPDATE TO public USING (true);
+
+DROP POLICY IF EXISTS "Allow public deletes to drawings" ON public.drawings;
+CREATE POLICY "Allow public deletes to drawings"
+ON public.drawings FOR DELETE TO public USING (true);
+
+
+-- 8. DRAWING ORDERS & CASHFREE PAYMENTS TABLE
+CREATE TABLE IF NOT EXISTS public.drawing_orders (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  drawing_id uuid REFERENCES public.drawings(id) ON DELETE SET NULL,
+  order_id text UNIQUE NOT NULL,
+  payment_session_id text,
+  cf_order_id text,
+  customer_name text NOT NULL,
+  customer_phone text NOT NULL,
+  customer_email text,
+  amount numeric DEFAULT 99 NOT NULL,
+  currency text DEFAULT 'INR',
+  payment_status text DEFAULT 'PENDING', -- 'PENDING', 'SUCCESS', 'PAID', 'FAILED'
+  payment_method text,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+ALTER TABLE public.drawing_orders ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read access to drawing_orders" ON public.drawing_orders;
+CREATE POLICY "Allow public read access to drawing_orders"
+ON public.drawing_orders FOR SELECT TO public USING (true);
+
+DROP POLICY IF EXISTS "Allow public inserts to drawing_orders" ON public.drawing_orders;
+CREATE POLICY "Allow public inserts to drawing_orders"
+ON public.drawing_orders FOR INSERT TO public WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow public update access to drawing_orders" ON public.drawing_orders;
+CREATE POLICY "Allow public update access to drawing_orders"
+ON public.drawing_orders FOR UPDATE TO public USING (true);
+
+
+-- 9. PERFORMANCE & SEARCH SPEED INDEXES
 CREATE INDEX IF NOT EXISTS idx_videos_published_at ON public.videos(published_at DESC);
 CREATE INDEX IF NOT EXISTS idx_videos_is_featured ON public.videos(is_featured);
 CREATE INDEX IF NOT EXISTS idx_videos_is_short ON public.videos(is_short);
@@ -189,3 +283,10 @@ CREATE INDEX IF NOT EXISTS idx_blogs_slug ON public.blogs(slug);
 CREATE INDEX IF NOT EXISTS idx_blogs_published ON public.blogs(is_published, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_created ON public.analytics_events(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_bookings_created ON public.bookings(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_drawings_created ON public.drawings(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_drawings_facing ON public.drawings(facing);
+CREATE INDEX IF NOT EXISTS idx_drawings_category ON public.drawings(category);
+CREATE INDEX IF NOT EXISTS idx_drawing_orders_order_id ON public.drawing_orders(order_id);
+CREATE INDEX IF NOT EXISTS idx_drawing_orders_created ON public.drawing_orders(created_at DESC);
+
+

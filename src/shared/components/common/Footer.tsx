@@ -7,6 +7,7 @@ import { Newsletter } from './Newsletter';
 const footerLinks = {
   platform: [
     { name: 'Home', href: '/' },
+    { name: 'Vasthu Drawings & Plans', href: '/drawings' },
     { name: 'Videos', href: '/videos' },
     { name: 'Shorts', href: '/shorts' },
     { name: 'Books Library', href: '/books' },

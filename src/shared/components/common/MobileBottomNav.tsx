@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Play, LayoutGrid, BookOpen, MessageCircle } from 'lucide-react';
+import { Home, Play, Compass, BookOpen, MessageCircle } from 'lucide-react';
 
 const NAV_ITEMS = [
   { name: 'Home', path: '/', icon: Home },
+  { name: 'Drawings', path: '/drawings', icon: Compass },
   { name: 'Videos', path: '/videos', icon: Play, matchPrefix: ['/videos', '/shorts'] },
-  { name: 'Gallery', path: '/gallery', icon: LayoutGrid },
-  { name: 'Books', path: '/books', icon: BookOpen, matchPrefix: ['/books', '/blog'] },
+  { name: 'Books', path: '/books', icon: BookOpen, matchPrefix: ['/books', '/blog', '/gallery'] },
   { name: 'Contact', path: '/contact', icon: MessageCircle },
 ];
 
