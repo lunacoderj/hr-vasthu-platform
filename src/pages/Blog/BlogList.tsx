@@ -100,13 +100,21 @@ export const BlogList: React.FC = () => {
                       let snippet = '';
                       try {
                         const parsed = JSON.parse(blog.content);
-                        snippet = parsed.cards?.[0]?.text?.substring(0, 150) || '';
+                        if (parsed.body_markdown) {
+                          snippet = parsed.body_markdown
+                            .replace(/^[#*`_>-].*$/gm, '')
+                            .replace(/\n+/g, ' ')
+                            .trim()
+                            .substring(0, 160);
+                        } else if (parsed.cards?.[0]?.text) {
+                          snippet = parsed.cards[0].text.substring(0, 160);
+                        }
                       } catch (e) {
-                        snippet = blog.content.substring(0, 150).replace(/[#*`_]/g, '');
+                        snippet = blog.content.substring(0, 160).replace(/[#*`_]/g, '');
                       }
                       return (
                         <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 line-clamp-3">
-                          {snippet}...
+                          {snippet || 'Comprehensive Vedic Vastu Shastra analysis and floor plan guidelines.'}...
                         </p>
                       );
                     })()}

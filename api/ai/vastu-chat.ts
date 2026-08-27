@@ -466,7 +466,7 @@ export default async function handler(req: any, res: any) {
   try {
     const { data: videos } = await supabase
       .from('videos')
-      .select('id, title, thumbnail_max, thumbnail_medium, views, watch_url, embed_url, youtube_id')
+      .select('id, title, description, thumbnail_max, thumbnail_medium, views, watch_url, embed_url, youtube_id')
       .order('views', { ascending: false })
       .limit(30);
 

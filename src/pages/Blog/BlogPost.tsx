@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { supabase } from '../../core/services/supabase';
 import { bookService } from '../../core/services/book.service';
 import { videoService, getVideoSlug } from '../../core/services/video.service';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
 import { Spinner } from '../../shared/components/ui';
-import { Calendar, User, Clock, Star, Phone, MessageCircle, Play, ChevronRight, Video, Camera, Send, Compass, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Calendar, User, Clock, MessageCircle, Play, ChevronDown, Video, Compass, ShieldCheck, HelpCircle } from 'lucide-react';
 import { JsonLd } from '../../shared/components/seo/JsonLd';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
@@ -16,12 +18,14 @@ interface BlogCard {
   subtitle: string;
   text: string;
   image?: string;
-  linkUrl?: string;
-  linkLabel?: string;
 }
 
 interface StructuredContent {
-  cards: BlogCard[];
+  body_markdown?: string;
+  inline_images?: string[];
+  youtube_id?: string;
+  cards?: BlogCard[];
+  faqs?: { question: string; answer: string }[];
 }
 
 interface Blog {
@@ -45,6 +49,7 @@ export const BlogPost: React.FC = () => {
   const [suggestedBooks, setSuggestedBooks] = useState<any[]>([]);
   const [suggestedVideos, setSuggestedVideos] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const [contactForm, setContactForm] = useState({ name: '', number: '' });
 
@@ -72,11 +77,11 @@ export const BlogPost: React.FC = () => {
         if (blogError) throw blogError;
         setBlog(blogData);
 
-        let parsed = null;
+        let parsed: StructuredContent = {};
         try {
           parsed = JSON.parse(blogData.content);
         } catch {
-          parsed = { cards: [] };
+          parsed = { body_markdown: blogData.content };
         }
         setParsedContent(parsed);
 
@@ -86,7 +91,7 @@ export const BlogPost: React.FC = () => {
         const [blogsRes, booksRes, videosRes] = await Promise.all([
           supabase
             .from('blogs')
-            .select('id, title, slug, cover_image, content, created_at')
+            .select('id, title, slug, cover_image, created_at')
             .eq('is_published', true)
             .lte('created_at', new Date().toISOString())
             .neq('id', blogData.id)
@@ -129,7 +134,7 @@ export const BlogPost: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#FFF9F2] dark:bg-stone-950 pt-24 flex flex-col justify-center items-center text-center px-4">
         <Typography variant="h2" className="mb-4 text-stone-900 dark:text-white">Article Not Found</Typography>
-        <button onClick={() => navigate('/blog')} className="mt-4 px-6 py-2.5 bg-[#C98A2E] text-white font-bold rounded-full hover:shadow-lg transition-all">
+        <button onClick={() => navigate('/blog')} className="mt-4 px-6 py-2.5 bg-[#C98A2E] text-white font-bold rounded-full hover:shadow-lg transition-all cursor-pointer">
           Back to Blog List
         </button>
       </div>
@@ -138,6 +143,17 @@ export const BlogPost: React.FC = () => {
 
   const pageUrl = `https://hrvasthu.com/blog/${blog.slug || blog.id}`;
   const heroImage = blog.cover_image || 'https://hrvasthu.com/hero.png';
+
+  const faqs = parsedContent?.faqs || [
+    {
+      question: `What are the core Vastu principles for ${blog.title}?`,
+      answer: `According to Dr. Kunchala Hanumantha Rao, proper cardinal geometry, balancing the 5 elements (Pancha Bhootas), and positioning key functional zones ensure peace, prosperity, and vitality.`
+    },
+    {
+      question: "How to rectify structural defects without demolition?",
+      answer: "Authentic Vedic remedies include color balancing, brass/copper metallic wire energizers, directional mirrors, and elemental shifts that neutralize negative vibrations without tearing down walls."
+    }
+  ];
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -159,40 +175,30 @@ export const BlogPost: React.FC = () => {
         "url": "https://hrvasthu.com/logo.png"
       }
     },
-    "description": `${blog.title} - Comprehensive Vedic Vastu Shastra analysis, directional alignments, and remedies by Dr. Kunchala Hanumantha Rao.`
+    "description": `${blog.title} — Comprehensive Vedic Vastu Shastra analysis, directional alignments, and scientific non-demolition remedies by Dr. Kunchala Hanumantha Rao.`
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `What are the core Vastu principles for ${blog.title}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `According to Dr. Kunchala Hanumantha Rao, proper cardinal geometry, balancing the 5 elements (Pancha Bhootas), and positioning key functional zones ensure peace, prosperity, and vitality.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How to rectify structural defects without demolition?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Authentic Vedic remedies include color balancing, brass/copper metallic wire energizers, directional mirrors, and elemental shifts that neutralize negative vibrations without tearing down walls."
-        }
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
       }
-    ]
+    }))
   };
 
   return (
     <div className="min-h-screen bg-[#FFFDF9] dark:bg-[#0a0a0f] text-stone-800 dark:text-stone-200 transition-colors pb-24">
       <Helmet>
         <title>{`${blog.title} | HR Vasthu Blog`}</title>
-        <meta name="description" content={`${blog.title} - Authentic Vastu guidance by Dr. Kunchala Hanumantha Rao.`} />
+        <meta name="description" content={`${blog.title} — Comprehensive Vedic Vastu guidance by Dr. Kunchala Hanumantha Rao.`} />
         <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content={`${blog.title} | HR Vasthu`} />
-        <meta property="og:description" content={`${blog.title} - Authentic Vastu guidance.`} />
+        <meta property="og:description" content={`${blog.title} — Comprehensive Vedic Vastu guidance.`} />
         <meta property="og:image" content={heroImage} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="article" />
@@ -217,7 +223,7 @@ export const BlogPost: React.FC = () => {
 
         <div className="flex flex-col lg:flex-row gap-10">
           
-          {/* Main Article Content (80%) */}
+          {/* Main Article Content (75%) */}
           <div className="w-full lg:w-[75%] flex flex-col gap-8">
             
             {/* Header Area */}
@@ -248,8 +254,16 @@ export const BlogPost: React.FC = () => {
               )}
             </div>
 
-            {/* Custom Structured Cards from Content JSON */}
-            {parsedContent && parsedContent.cards && parsedContent.cards.length > 0 && (
+            {/* Render In-Depth Article Content */}
+            {parsedContent?.body_markdown ? (
+              <div className="bg-white dark:bg-stone-900/80 p-6 md:p-10 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-sm">
+                <div className="prose prose-stone dark:prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-stone-950 dark:prose-headings:text-white prose-a:text-[#d4720a] prose-img:rounded-2xl prose-img:shadow-lg prose-table:border-collapse prose-th:bg-stone-100 dark:prose-th:bg-stone-800 prose-th:p-3 prose-td:p-3 prose-td:border-b prose-td:border-stone-200 dark:prose-td:border-stone-800 leading-relaxed">
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                    {parsedContent.body_markdown}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            ) : parsedContent?.cards && parsedContent.cards.length > 0 ? (
               <div className="flex flex-col gap-6">
                 {parsedContent.cards.map((card, idx) => (
                   <div 
@@ -265,119 +279,83 @@ export const BlogPost: React.FC = () => {
                   </div>
                 ))}
               </div>
+            ) : (
+              <div className="bg-white dark:bg-stone-900/80 p-6 md:p-10 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-sm">
+                <p className="text-base text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-line">
+                  {blog.content}
+                </p>
+              </div>
             )}
 
-            {/* ── Comprehensive 1200+ Word Pillar Deep-Dive Content ── */}
-            <div className="bg-white dark:bg-stone-900/60 p-8 md:p-10 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-sm space-y-8 text-sm md:text-base text-stone-800 dark:text-stone-200 leading-relaxed">
-              
-              {/* Section 1: Vedic Geometry */}
-              <section className="space-y-4">
-                <h2 className="text-xl md:text-2xl font-bold font-serif text-stone-900 dark:text-white flex items-center gap-2">
-                  <Compass size={22} className="text-[#d4720a]" /> The Sacred Science of Vedic Spatial Harmony
-                </h2>
-                <p>
-                  Vastu Shastra is the world's most ancient scientific discipline governing architecture, energy distribution, and geomagnetic orientation. According to <strong>Dr. Kunchala Hanumantha Rao</strong>, every physical plot or built structure acts as a living microcosm that interacts continuously with solar radiation, geomagnetic flow (from North to South), and cosmic vital energy (Prana).
-                </p>
-                <p>
-                  When a building aligns harmoniously with the <strong>Ashta-Dikpalakas</strong> (the eight celestial guardians of cardinal directions) and balances the <strong>Pancha Bhootas</strong> (Earth, Water, Fire, Air, Space), the residents experience uninterrupted career stability, sound physical health, and harmonious family relations.
-                </p>
-              </section>
+            {/* Dynamic Interactive FAQs Section */}
+            {faqs.length > 0 && (
+              <div className="bg-white dark:bg-stone-900/80 p-6 md:p-10 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-sm space-y-6">
+                <div className="flex items-center gap-2">
+                  <HelpCircle size={22} className="text-[#d4720a]" />
+                  <h3 className="text-xl md:text-2xl font-bold font-serif text-stone-900 dark:text-white">
+                    Frequently Asked Questions
+                  </h3>
+                </div>
 
-              {/* Section 2: Cardinal Energy Matrix */}
-              <section className="space-y-4">
-                <h3 className="text-lg md:text-xl font-bold font-serif text-stone-900 dark:text-white">
-                  🧭 Detailed Cardinal Orientation & Elemental Balance
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
-                    <h4 className="font-bold text-xs uppercase text-blue-600 dark:text-blue-400 mb-1">North-East (Eshanya)</h4>
-                    <p className="text-xs text-stone-600 dark:text-stone-300">
-                      Ruled by Water & Ether. Supreme gateway of positive energy. Ideal for Pooja Mandir, underground water sump, and open balconies. Must always remain light and clean.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
-                    <h4 className="font-bold text-xs uppercase text-orange-600 dark:text-orange-400 mb-1">South-East (Agneya)</h4>
-                    <p className="text-xs text-stone-600 dark:text-stone-300">
-                      Ruled by Fire (Lord Agni). Optimal zone for the kitchen stove, electrical meters, and heating elements. The cook should always face East.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
-                    <h4 className="font-bold text-xs uppercase text-amber-700 dark:text-amber-400 mb-1">South-West (Niruthi)</h4>
-                    <p className="text-xs text-stone-600 dark:text-stone-300">
-                      Ruled by Earth. Provides heavy gravitational anchor and authority. Ideal for Master Bedroom, heavy wardrobes, and overhead water tanks.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
-                    <h4 className="font-bold text-xs uppercase text-teal-600 dark:text-teal-400 mb-1">North-West (Vayavya)</h4>
-                    <p className="text-xs text-stone-600 dark:text-stone-300">
-                      Ruled by Air (Lord Vayu). Ideal for guest bedrooms, vehicles, finished goods storage, and properly positioned sanitation zones.
-                    </p>
+                <div className="space-y-3">
+                  {faqs.map((faq, index) => {
+                    const isOpen = openFaqIndex === index;
+                    return (
+                      <div 
+                        key={index} 
+                        className="rounded-2xl border border-stone-200 dark:border-stone-800 overflow-hidden bg-stone-50 dark:bg-stone-950/40"
+                      >
+                        <button
+                          onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                          className="w-full p-4 md:p-5 flex items-center justify-between text-left font-serif font-bold text-sm md:text-base text-stone-900 dark:text-white hover:text-[#d4720a] transition-colors cursor-pointer"
+                        >
+                          <span>{faq.question}</span>
+                          <ChevronDown 
+                            size={18} 
+                            className={`text-stone-400 transition-transform duration-300 shrink-0 ml-2 ${isOpen ? 'rotate-180 text-[#d4720a]' : ''}`} 
+                          />
+                        </button>
+                        {isOpen && (
+                          <div className="px-4 md:px-5 pb-5 text-sm text-stone-600 dark:text-stone-300 leading-relaxed border-t border-stone-200/60 dark:border-stone-800/60 pt-3">
+                            {faq.answer}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Author Attribution & Consultation Box */}
+            <div className="p-6 md:p-8 rounded-3xl bg-gradient-to-r from-[#d4720a]/10 via-amber-500/10 to-[#e68a1c]/10 border border-[#d4720a]/30 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#d4720a] to-amber-500 p-0.5 shrink-0 shadow-lg">
+                  <div className="w-full h-full rounded-full bg-stone-950 flex items-center justify-center text-gold-400 font-bold text-lg font-serif">
+                    HR
                   </div>
                 </div>
-              </section>
-
-              {/* Section 3: Dos & Don'ts Checklist */}
-              <section className="space-y-4">
-                <h3 className="text-lg md:text-xl font-bold font-serif text-stone-900 dark:text-white flex items-center gap-2">
-                  <ShieldCheck size={20} className="text-emerald-500" /> Essential Vastu Checklist for Homeowners
-                </h3>
-                <ul className="space-y-2.5 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 font-bold">✓</span>
-                    <span><strong>Main Door Alignment:</strong> Place the Simhadwaram in auspicious Jayanta or Indra Padas with a proper raised threshold.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 font-bold">✓</span>
-                    <span><strong>Center of the House (Brahmasthan):</strong> Must remain open, unburdened, and free from pillars, staircases, or heavy walls.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span><strong>Avoid Conflicting Elements:</strong> Never locate the kitchen directly under or above a bedroom or beside a toilet wall.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span><strong>No Heavy Loads in Eshanya:</strong> Avoid building septic tanks, staircases, or placing heavy overhead tanks in the North-East.</span>
-                  </li>
-                </ul>
-              </section>
-
-              {/* Section 4: Practical Non-Demolition Remedies */}
-              <section className="space-y-4">
-                <h3 className="text-lg md:text-xl font-bold font-serif text-stone-900 dark:text-white">
-                  💡 Remedies without Structural Demolition
-                </h3>
-                <p>
-                  In modern apartments and pre-constructed houses, tearing down concrete columns or walls is rarely feasible. Dr. Rao specializes in <strong>scientific non-destructive remedies</strong>:
-                </p>
-                <p>
-                  1. <strong>Metallic Energy Harmonizers:</strong> Utilizing copper and brass strips buried along threshold lines to correct energetic imbalances.<br />
-                  2. <strong>Color Spectrum Corrections:</strong> Painting specific walls with harmonic shades (warm earth tones in Niruthi, pure whites in Eshanya).<br />
-                  3. <strong>Sea Salt Purification:</strong> Placing natural Himalayan/sea salt crystals in elimination corners to continuously neutralize negative astral vibrations.
-                </p>
-              </section>
-
-              {/* Consultation Call to Action Banner */}
-              <div className="p-6 rounded-3xl bg-gradient-to-r from-[#d4720a]/10 via-amber-500/10 to-[#e68a1c]/10 border border-[#d4720a]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <h4 className="font-bold text-stone-950 dark:text-white text-base">
-                    Need Personalized Floor Plan Verification?
+                <div>
+                  <h4 className="font-serif font-bold text-base md:text-lg text-stone-950 dark:text-white flex items-center gap-1.5">
+                    Dr. Kunchala Hanumantha Rao <ShieldCheck size={18} className="text-gold-500" />
                   </h4>
-                  <p className="text-xs text-stone-600 dark:text-stone-300">
-                    Connect directly with Dr. Kunchala Hanumantha Rao for custom drawings and on-site assessments.
+                  <p className="text-xs text-stone-600 dark:text-stone-400">
+                    Vasthu Siddanthi • Master of Vedic Architecture • Nepal Sadbhavana Awardee
                   </p>
                 </div>
-                <a
-                  href={`https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I read your article "${blog.title}" and would like a floor plan consultation.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-gradient-to-r from-gold-600 to-amber-500 hover:from-gold-500 text-white text-xs font-bold rounded-xl shadow-lg transition-transform hover:scale-105 shrink-0 flex items-center gap-2"
-                >
-                  <MessageCircle size={16} />
-                  <span>WhatsApp Consultation</span>
-                </a>
               </div>
 
+              <a
+                href={`https://wa.me/919246624248?text=${encodeURIComponent(`Hello Dr. Rao, I read your article "${blog.title}" and would like a floor plan consultation.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 bg-gradient-to-r from-gold-600 to-amber-500 hover:from-gold-500 text-white text-xs font-bold rounded-2xl shadow-lg transition-transform hover:scale-105 shrink-0 flex items-center gap-2 cursor-pointer"
+              >
+                <MessageCircle size={16} />
+                <span>WhatsApp Floor Plan Review</span>
+              </a>
             </div>
+
           </div>
 
           {/* Sidebar Area (25%) */}
@@ -488,7 +466,7 @@ export const BlogPost: React.FC = () => {
                 </div>
               </div>
               <p className="text-xs text-stone-300 leading-relaxed">
-                Watch 1,000+ free Vedic Vastu architectural blueprints and daily video remedies.
+                Watch 500+ free Vedic Vastu architectural blueprints and daily video remedies.
               </p>
               <a
                 href="https://www.youtube.com/channel/UCgCijg9nTzivoeszshGjzzQ?sub_confirmation=1"
