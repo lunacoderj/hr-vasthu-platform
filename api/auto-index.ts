@@ -17,29 +17,47 @@ export default async function handler(req: any, res: any) {
       urls = req.body.urls;
     }
 
-    // If no specific URLs provided, fetch the latest 10 blogs and videos
+    // If no specific URLs provided, compile all published URLs (IndexNow supports up to 10,000 URLs per POST)
     if (urls.length === 0) {
-      const [blogsRes, videosRes] = await Promise.all([
-        supabase.from('blogs').select('slug').eq('is_published', true).order('created_at', { ascending: false }).limit(5),
-        supabase.from('videos').select('id').order('published_at', { ascending: false }).limit(5)
+      const [blogsRes, videosRes, booksRes] = await Promise.all([
+        supabase.from('blogs').select('slug').eq('is_published', true).order('created_at', { ascending: false }).limit(1000),
+        supabase.from('videos').select('id, youtube_id').order('published_at', { ascending: false }).limit(1000),
+        supabase.from('books').select('id').limit(100)
       ]);
 
+      const staticUrls = [
+        `${BASE_URL}/`,
+        `${BASE_URL}/about`,
+        `${BASE_URL}/videos`,
+        `${BASE_URL}/shorts`,
+        `${BASE_URL}/books`,
+        `${BASE_URL}/drawings`,
+        `${BASE_URL}/blog`,
+        `${BASE_URL}/gallery`,
+        `${BASE_URL}/contact`,
+        `${BASE_URL}/appointment`,
+        `${BASE_URL}/privacy`,
+        `${BASE_URL}/terms`,
+        `${BASE_URL}/disclaimer`
+      ];
+
       const blogUrls = (blogsRes.data || []).map(b => `${BASE_URL}/blog/${b.slug}`);
-      const videoUrls = (videosRes.data || []).map(v => `${BASE_URL}/videos/${v.id}`);
+      const videoUrls = (videosRes.data || []).map(v => `${BASE_URL}/videos/${v.youtube_id || v.id}`);
+      const bookUrls = (booksRes.data || []).map(bk => `${BASE_URL}/books/${bk.id}`);
 
       urls = [
-        `${BASE_URL}/`,
-        `${BASE_URL}/blog`,
-        `${BASE_URL}/videos`,
+        ...staticUrls,
         ...blogUrls,
-        ...videoUrls
+        ...videoUrls,
+        ...bookUrls
       ];
     }
 
     const results: any = {
-      submittedUrls: urls,
+      submittedUrlsCount: urls.length,
+      sampleUrls: urls.slice(0, 10),
       indexNow: null,
-      sitemapPings: []
+      bingDirect: null
     };
 
     // 1. IndexNow API Broadcast (Bing, Yandex, Seznam, Naver)

@@ -37,17 +37,17 @@ async function generateSitemap() {
     let drawingsData = [];
 
     try {
-      const { data } = await supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at').order('published_at', { ascending: false });
+      const { data } = await supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at').order('published_at', { ascending: false }).limit(1000);
       videosData = data || [];
     } catch {}
 
     try {
-      const { data } = await supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false });
+      const { data } = await supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false }).limit(1000);
       blogsData = data || [];
     } catch {}
 
     try {
-      const { data } = await supabase.from('books').select('id');
+      const { data } = await supabase.from('books').select('id').limit(100);
       booksData = data || [];
     } catch {}
 
@@ -55,6 +55,24 @@ async function generateSitemap() {
       const { data } = await supabase.from('drawings').select('id, slug, updated_at, created_at').order('created_at', { ascending: false });
       drawingsData = data || [];
     } catch {}
+
+    // Fallback to static Sthapatya Veda Drawing Bundles if DB table is offline
+    if (!drawingsData || drawingsData.length === 0) {
+      try {
+        const bundlePath = path.resolve(process.cwd(), 'src/core/data/drawing-bundles.ts');
+        if (fs.existsSync(bundlePath)) {
+          const raw = fs.readFileSync(bundlePath, 'utf8');
+          const slugMatches = [...raw.matchAll(/"slug":\s*"([^"]+)"/g)];
+          const slugs = new Set();
+          for (const m of slugMatches) {
+            slugs.add(m[1]);
+          }
+          drawingsData = Array.from(slugs).map(slug => ({ slug, updated_at: new Date().toISOString() }));
+        }
+      } catch (err) {
+        console.warn('Could not read drawing bundles file:', err.message);
+      }
+    }
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

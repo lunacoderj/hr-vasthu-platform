@@ -8,6 +8,10 @@
     {
       "path": "/api/cron/publish-scheduled-blogs",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/auto-index",
+      "schedule": "0 12 * * *"
     }
   ],
   "headers": [

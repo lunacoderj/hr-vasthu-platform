@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { DRAWING_BUNDLES } from '../src/core/data/drawing-bundles';
 
 export default async function handler(req: any, res: any) {
   const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://yqlhcyraiccrrhjfxqky.supabase.co';
@@ -9,10 +10,10 @@ export default async function handler(req: any, res: any) {
 
   try {
     const [videosRes, blogsRes, booksRes, drawingsRes] = await Promise.all([
-      supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at, duration').order('published_at', { ascending: false }),
-      supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false }),
-      supabase.from('books').select('id, created_at'),
-      supabase.from('drawings').select('id, slug, updated_at, created_at').order('created_at', { ascending: false }).catch(() => ({ data: [] }))
+      supabase.from('videos').select('id, youtube_id, title, description, thumbnail_max, thumbnail_high, published_at, duration').order('published_at', { ascending: false }).limit(1000),
+      supabase.from('blogs').select('slug, created_at').eq('is_published', true).order('created_at', { ascending: false }).limit(1000),
+      supabase.from('books').select('id, created_at').limit(100),
+      supabase.from('drawings').select('id, slug, updated_at, created_at').order('created_at', { ascending: false })
     ]);
 
     const staticPages = [
@@ -79,12 +80,17 @@ export default async function handler(req: any, res: any) {
     }
 
     // Drawing Architectural Blueprint Pages
-    if (drawingsRes?.data && Array.isArray(drawingsRes.data)) {
-      for (const d of drawingsRes.data) {
+    const drawingsList = (drawingsRes?.data && Array.isArray(drawingsRes.data) && drawingsRes.data.length > 0)
+      ? drawingsRes.data
+      : (DRAWING_BUNDLES as any[]);
+
+    if (drawingsList && Array.isArray(drawingsList)) {
+      for (const d of drawingsList) {
         const path = d.slug ? `/drawings/${d.slug}` : `/drawings/${d.id}`;
+        const lastMod = new Date(d.updated_at || d.createdAt || d.created_at || Date.now()).toISOString().split('T')[0];
         xml += `  <url>
     <loc>${BASE_URL}${path}</loc>
-    <lastmod>${new Date(d.updated_at || d.created_at || Date.now()).toISOString().split('T')[0]}</lastmod>
+    <lastmod>${lastMod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>\n`;
