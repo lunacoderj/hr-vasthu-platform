@@ -5,12 +5,15 @@
 data/
 data/quarantine-articles/
 generated-data/
-scripts/
 *.sql
 *.py
 
-# ═══ Local HTML Dashboards (keep only root index.html) ═══
+# ═══ Local HTML Dashboards & Offline Dev Scripts (Keep build scripts) ═══
 scripts/*.html
+scripts/*.json
+scripts/*.ts
+scripts/pipeline/
+!scripts/generate-sitemap.js
 *.bak
 *.tmp
 *.log
