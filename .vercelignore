@@ -1,22 +1,26 @@
 # Vercel Deployment Ignore File — HR Vaasthu Production Platform
 # Keeps production bundle ultra-light, secure, and prevents data leaks
 
-# ═══ Offline Data & Large Scrap Dumps ═══
-data/
-data/quarantine-articles/
-generated-data/
+# ═══ Offline Data & Large Scrap Dumps (Root only) ═══
+/data/
+/generated-data/
 *.sql
 *.py
 
-# ═══ Local HTML Dashboards & Offline Dev Scripts (Keep build scripts) ═══
-scripts/*.html
-scripts/*.json
-scripts/*.ts
-scripts/pipeline/
-!scripts/generate-sitemap.js
+# ═══ Local HTML Dashboards & Offline Dev Scripts ═══
+/scripts/*.html
+/scripts/*.json
+/scripts/*.ts
+/scripts/pipeline/
+!/scripts/generate-sitemap.js
 *.bak
 *.tmp
 *.log
+
+# ═══ Protect Source & Build Assets ═══
+!/src/**
+!/api/**
+!/public/**
 
 # ═══ Environment Secrets & Credentials ═══
 .env
