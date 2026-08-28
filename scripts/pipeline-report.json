@@ -1,0 +1,10 @@
+{
+  "total_videos": 491,
+  "ready_for_review": 491,
+  "failed_count": 0,
+  "success_rate": "100.0%",
+  "total_words_generated": 553890,
+  "average_words_per_article": 1128,
+  "failed_jobs": [],
+  "completed_at": "2026-08-27T14:58:03.751Z"
+}

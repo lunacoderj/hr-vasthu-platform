@@ -385,3 +385,16 @@ body {
 .animate-pulse-slow {
   animation: pulse-slow 3s infinite ease-in-out;
 }
+
+/* ═══════ Anti-Theft Drawing Security Rules ═══════ */
+.no-save-image, 
+img.select-none,
+[data-protected-drawing="true"] {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  -webkit-touch-callout: none !important;
+  pointer-events: none !important;
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.8" />
+    </pattern>
+    <style>
+      .cad-title { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 800; fill: #0f172a; letter-spacing: 0.5px; }
+      .cad-sub { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; fill: #64748b; }
+      .room-text { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 14px; font-weight: 700; fill: #1e293b; }
+      .room-sub { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 11px; fill: #475569; }
+      .highlight-text { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; font-weight: 800; fill: #ffffff; }
+      .dimension-text { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #ef4444; }
+      .compass-text { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 900; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="1000" height="700" fill="#ffffff" />
+  <rect width="1000" height="700" fill="url(#grid)" />
+  <rect x="25" y="25" width="950" height="650" fill="none" stroke="#0f172a" stroke-width="2" />
+
+  <!-- Header Banner -->
+  <rect x="25" y="25" width="950" height="65" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+  <text x="50" y="55" class="cad-title">ARCHITECTURAL CAD SITE BLUEPRINT: SUBTERRANEAN PLUMBING ZONING</text>
+  <text x="50" y="75" class="cad-sub">Verified Sthapatya Veda Setbacks & Setback Offsets • Dr. Kunchala Hanumantha Rao (HR Vasthu)</text>
+
+  <!-- Compass Rose -->
+  <g transform="translate(900, 140)">
+    <circle r="38" fill="#ffffff" stroke="#0f172a" stroke-width="2" />
+    <path d="M 0 -32 L 7 0 L 0 5 L -7 0 Z" fill="#ef4444" />
+    <path d="M 0 32 L 7 0 L 0 -5 L -7 0 Z" fill="#64748b" />
+    <path d="M 32 0 L 0 7 L -5 0 L 0 -7 Z" fill="#64748b" />
+    <path d="M -32 0 L 0 7 L 5 0 L 0 -7 Z" fill="#64748b" />
+    <text x="0" y="-18" text-anchor="middle" class="compass-text" fill="#ef4444">N</text>
+    <text x="22" y="4" text-anchor="middle" class="compass-text">E</text>
+    <text x="0" y="26" text-anchor="middle" class="compass-text">S</text>
+    <text x="-22" y="4" text-anchor="middle" class="compass-text">W</text>
+  </g>
+
+  <!-- Outer Compound Wall -->
+  <rect x="120" y="130" width="700" height="500" fill="#f1f5f9" stroke="#334155" stroke-width="3" stroke-dasharray="8,4" rx="4" />
+  <text x="470" y="120" text-anchor="middle" class="room-sub" fill="#64748b">NORTH APPROACH ROAD (ఉత్తర రోడ్డు)</text>
+
+  <!-- Main Residential Building Plinth Footprint -->
+  <rect x="260" y="240" width="460" height="320" fill="#ffffff" stroke="#0f172a" stroke-width="3" rx="6" />
+  
+  <!-- Interior Room Layout Grid -->
+  <!-- Master Bedroom (SW) -->
+  <rect x="260" y="400" width="230" height="160" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="375" y="470" text-anchor="middle" class="room-text">MASTER BEDROOM</text>
+  <text x="375" y="490" text-anchor="middle" class="room-sub">South-West (నైరుతి)</text>
+
+  <!-- Kitchen (SE) -->
+  <rect x="490" y="400" width="230" height="160" fill="#ffedd5" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="605" y="470" text-anchor="middle" class="room-text">KITCHEN (ఆగ్నేయం)</text>
+  <text x="605" y="490" text-anchor="middle" class="room-sub">Agni Tattva (Face East)</text>
+
+  <!-- Living Hall / Brahmasthanam -->
+  <rect x="260" y="240" width="230" height="160" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="375" y="310" text-anchor="middle" class="room-text">LIVING / DINING</text>
+  <text x="375" y="330" text-anchor="middle" class="room-sub">North-West Wing</text>
+
+  <!-- Pooja Room / Water Sump (NE) -->
+  <rect x="490" y="240" width="230" height="160" fill="#e0f2fe" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="605" y="310" text-anchor="middle" class="room-text">POOJA / BALCONY</text>
+  <text x="605" y="330" text-anchor="middle" class="room-sub">North-East (ఈశాన్యం)</text>
+
+  <!-- HIGHLIGHTED ASSET 1: SEPTIC TANK IN NORTH-WEST -->
+  <rect x="145" y="150" width="95" height="70" fill="#ff725e" stroke="#dc2626" stroke-width="2.5" rx="4" />
+  <text x="192" y="180" text-anchor="middle" class="highlight-text">SEPTIC TANK</text>
+  <text x="192" y="200" text-anchor="middle" class="highlight-text" style="font-size:11px;">వాయువ్యం (NW)</text>
+
+  <!-- HIGHLIGHTED ASSET 2: DRINKING WATER SUMP IN NORTH-EAST -->
+  <rect x="705" y="150" width="95" height="70" fill="#0284c7" stroke="#0369a1" stroke-width="2.5" rx="4" />
+  <text x="752" y="180" text-anchor="middle" class="highlight-text">WATER SUMP</text>
+  <text x="752" y="200" text-anchor="middle" class="highlight-text" style="font-size:11px;">ఈశాన్యం (NE)</text>
+
+  <!-- Setback Dimension Dimension Callouts -->
+  <!-- Setback from house to septic tank -->
+  <line x1="240" y1="185" x2="260" y2="240" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2" />
+  <text x="240" y="225" class="dimension-text">Offset: 3'-5'</text>
+
+  <!-- Distance between Sump and Septic -->
+  <line x1="240" y1="185" x2="705" y2="185" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="470" y="175" text-anchor="middle" class="dimension-text">MINIMUM SAFE SEPARATION: 20 - 25 FEET</text>
+
+  <!-- Footer Legend -->
+  <rect x="120" y="640" width="700" height="30" fill="#ffffff" stroke="#cbd5e1" rx="4" />
+  <text x="470" y="660" text-anchor="middle" class="cad-sub">■ Red: Waste System (North-West) | ■ Blue: Drinking Water (North-East) | ■ Pink: Earth Core (South-West)</text>
+</svg>

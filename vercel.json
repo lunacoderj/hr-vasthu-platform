@@ -1,15 +1,55 @@
 {
+  "version": 2,
   "crons": [
     {
       "path": "/api/cron/youtube-sync",
       "schedule": "0 0 * * *"
     },
     {
-      "path": "/api/cron/ai-blog-generator",
-      "schedule": "0 2,8,14 * * *"
+      "path": "/api/cron/publish-scheduled-blogs",
+      "schedule": "0 6 * * *"
     }
   ],
   "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/drawings/covers/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
     {
       "source": "/ads.txt",
       "headers": [

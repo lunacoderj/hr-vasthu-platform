@@ -103,7 +103,7 @@ export class BlogGeneratorService {
     // Check if Gemini API is available
     if (GEMINI_API_KEY && GEMINI_API_KEY.startsWith('AIzaSy')) {
       try {
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const prompt = `You are the lead editor and Vedic architecture scholar for Dr. Kunchala Hanumantha Rao (Vastu Jnani, recipient of the prestigious Nepal Sadbhavana Award, operating from Visakhapatnam, Andhra Pradesh, with 30+ years of empirical experience).
 

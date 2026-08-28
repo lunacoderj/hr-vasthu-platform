@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HR Vasthu — Master Batch Review Dashboard</title>
+  <style>
+    :root { --cream: #fff9ef; --paper: #fffdf8; --ink: #193b3a; --coral: #ff725e; --teal: #50c6bb; --green: #2e7d32; --border: rgba(25, 59, 58, 0.12); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--cream); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; padding: 40px 20px; }
+    .container { max-width: 1200px; margin: auto; }
+    .header { background: white; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+    .metric-box { background: var(--paper); padding: 18px; border-radius: 12px; border: 1px solid var(--border); }
+    .metric-box strong { display: block; font-size: 24px; color: var(--coral); }
+    .metric-box span { font-size: 13px; color: #647573; }
+    .card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 25px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-right: 5px; }
+    .badge-pass { background: #e8f5e9; color: var(--green); }
+    .badge-topic { background: #fff0ed; color: var(--coral); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+    .gallery-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 style="font-size: 28px; color: var(--ink);">🏛️ HR Vasthu — Master Batch Quality Review Dashboard</h1>
+      <p style="color: #647573; margin-top: 5px;">Batch Offset: 0 to 10 • Strict Quality Gating & Local Quarantine</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <strong>10 / 10</strong>
+          <span>100% Quality Pass Gate</span>
+        </div>
+        <div class="metric-box">
+          <strong>52,808</strong>
+          <span>Total Meaningful Words</span>
+        </div>
+        <div class="metric-box">
+          <strong>5,281</strong>
+          <span>Average Meaningful Words/Post</span>
+        </div>
+        <div class="metric-box">
+          <strong>0 Published</strong>
+          <span>Live Site Quarantine Maintained</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="font-size: 22px; margin-bottom: 20px;">📋 Batch Article Inspection Cards (10 Posts)</h2>
+
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">వాస్తు ప్రకారం పడమర రోడ్ ఉన్నప్పుడు ఇంటి నిర్మాణం ఏ విధంగా చేపట్టాలి?</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: iIlfew9QN5c</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#1. వాస్తు ప్రకారం పడమర రోడ్ ఉన్నప్పుడు ఇంటి నిర్మాణం ఏ విధంగా చేపట్టాలి?#vastu #astrology #vastushasthr</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,292</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/iIlfew9QN5c/cad-site-plan-iIlfew9QN5c.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/iIlfew9QN5c/technical-cross-section-iIlfew9QN5c.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/iIlfew9QN5c/exterior-driveway-compound-setback-319805.webp" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">మీ ఇంటికి కోసం ఉచిత వాస్తు సలహాలు ఇవ్వబడును. Vasthu</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: Py7ktGhYMeE</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#2. మీ ఇంటికి కోసం ఉచిత వాస్తు సలహాలు ఇవ్వబడును. #Free Vasthu #Consultancy #teluguvastu #vasthu #house</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,279</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/Py7ktGhYMeE/cad-site-plan-Py7ktGhYMeE.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/Py7ktGhYMeE/technical-cross-section-Py7ktGhYMeE.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/Py7ktGhYMeE/exterior-driveway-compound-setback-293741.webp" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">Hrvasthu 2026 calendar - ads</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: tpvW5t1hgL0</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#3. Hrvasthu 2026 calendar#youtube #instagram #facebook #followers -#business ads#telugu</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,269</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/tpvW5t1hgL0/cad-site-plan-tpvW5t1hgL0.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/tpvW5t1hgL0/technical-cross-section-tpvW5t1hgL0.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">నైరుతి రోడ్ పోటు ఉంటె నష్టాలు ఏమిటి ? ఎటువంటి జాగ్రత్తలు తీసుకోవాలి?</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: Vt1TCASIxlQ</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#4. నైరుతి రోడ్ పోటు ఉంటె  నష్టాలు ఏమిటి ? ఎటువంటి జాగ్రత్తలు  తీసుకోవాలి? #teluguvastu #vasthu</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,279</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/Vt1TCASIxlQ/cad-site-plan-Vt1TCASIxlQ.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/Vt1TCASIxlQ/technical-cross-section-Vt1TCASIxlQ.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">దక్షిణ రోడ్ ఉన్నప్పుడు సింహా ద్వారం ఎక్కడ పెట్టాలి</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: u_RGP5vZK2A</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#5. దక్షిణ రోడ్ ఉన్నప్పుడు సింహా ద్వారం ఎక్కడ పెట్టాలి || south road main entrance door ||</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,254</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/u_RGP5vZK2A/cad-site-plan-u_RGP5vZK2A.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/u_RGP5vZK2A/technical-cross-section-u_RGP5vZK2A.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">In which direction should a septic tank be placed for a house?</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: 9gvLrapR98c</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#6. In which direction should a septic tank be placed for a house? #teluguvastu #septictank #vastu</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,290</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/9gvLrapR98c/cad-site-plan-9gvLrapR98c.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/9gvLrapR98c/technical-cross-section-9gvLrapR98c.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">ఇంటి బయట బాత్రూమ్ ఏ దిశలో ఎక్కడ నిర్మించాలి?</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: x_HR2FSCKgQ</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#7. ఇంటి బయట బాత్రూమ్ ఏ దిశలో ఎక్కడ నిర్మించాలి? ||  best place to bathroom in house||</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,290</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/x_HR2FSCKgQ/cad-site-plan-x_HR2FSCKgQ.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/x_HR2FSCKgQ/technical-cross-section-x_HR2FSCKgQ.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">దక్షిణ రోడ్ వుంటే ఇంటి నిర్మాణం ఏ విధంగా చెయ్యాలి? |South Road House Construction |vastu in telugu |</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: olFaiiZfPyA</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#8. దక్షిణ రోడ్ వుంటే ఇంటి నిర్మాణం ఏ విధంగా చెయ్యాలి? |South Road House Construction |vastu in telugu |</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,286</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/olFaiiZfPyA/cad-site-plan-olFaiiZfPyA.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/olFaiiZfPyA/technical-cross-section-olFaiiZfPyA.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">వాస్తు ప్రకారం సెప్టిక్ ట్యాంక్ నిర్మాణం ఎక్కడ చేపడితే ఎటువంటి లాభ నష్టాలు ఉంటాయి | |</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: tuVApQZCOhQ</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#9. వాస్తు ప్రకారం సెప్టిక్ ట్యాంక్ నిర్మాణం ఎక్కడ చేపడితే ఎటువంటి లాభ నష్టాలు ఉంటాయి | #Septic #Tank |</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,277</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/tuVApQZCOhQ/cad-site-plan-tuVApQZCOhQ.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/tuVApQZCOhQ/technical-cross-section-tuVApQZCOhQ.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <div>
+            <span class="badge badge-pass">STATUS: PASS</span>
+            <span class="badge badge-topic">టాయిలెట్స్ ఎక్కడ ఏ దిశలో పెట్టాలి? toilets which direction should they be placed</span>
+            <span class="badge" style="background:#eef2ff; color:#3730a3;">YouTube ID: FugOjgZ9SJY</span>
+            <h3 style="font-size: 20px; margin-top: 8px;">#10. టాయిలెట్స్ ఎక్కడ ఏ దిశలో పెట్టాలి?   toilets  which direction should they be placed #Vastu#vasthuai</h3>
+          </div>
+          <div style="text-align: right;">
+            <strong style="font-size: 20px; color: var(--coral);">5,292</strong>
+            <span style="display: block; font-size: 12px; color: #647573;">Meaningful Words</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #647573; margin-bottom: 15px;"><strong>Dynamic Sections:</strong> 11 sections • <strong>Duplicate Paragraphs:</strong> 0 • <strong>Verified Images:</strong> 3</p>
+
+        <h4 style="font-size: 14px; margin-top: 15px;">🖼️ Verified Visual Modalities on Disk:</h4>
+        <div class="gallery-grid">
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/FugOjgZ9SJY/cad-site-plan-FugOjgZ9SJY.svg" alt="Technical 2D CAD architectural site blueprint demonstrating directional setbacks, North-West septic tank, and North-East water sump">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">CAD_SITE_PLAN_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical 2D CAD architectural site blueprint demonstrating directional setbacks...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="/blog-assets/FugOjgZ9SJY/technical-cross-section-FugOjgZ9SJY.svg" alt="Technical engineering cross-section diagram showing 2-chamber baffle wall, anaerobic sludge settlement, inlet/outlet gradient, and rooftop vent cowl">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">TECHNICAL_CROSS_SECTION_SVG</p>
+              <p style="font-size: 11px; color: #647573;">Technical engineering cross-section diagram showing 2-chamber baffle wall, anaer...</p>
+            </div>
+          
+            <div class="gallery-card">
+              <img src="" alt="Photorealistic architectural view of residential driveway and compound wall setback landscaping">
+              <p style="font-size: 12px; font-weight: bold; margin-top: 8px;">PHOTOREALISTIC_AI_SCENE</p>
+              <p style="font-size: 11px; color: #647573;">Photorealistic architectural view of residential driveway and compound wall setb...</p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+</body>
+</html>

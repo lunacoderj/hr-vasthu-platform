@@ -40,20 +40,24 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
       transition={{ duration: 0.3 }}
       className="group relative flex flex-col h-full bg-[#fdfcf9] dark:bg-[#111118] border border-stone-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-[#d4720a]/40 dark:hover:border-[#d4720a]/40 transition-all duration-300"
     >
-      {/* ═══ 1. VISUAL HERO (3D AI VISUAL vs SERVER-BLURRED PREVIEW) ═══ */}
+      {/* ═══ 1. VISUAL HERO (3D AI VISUAL vs 90% BLURRED 2D BLUEPRINT) ═══ */}
       <div 
-        className="relative aspect-[4/3] bg-stone-900 overflow-hidden cursor-pointer"
+        className="relative aspect-[4/3] bg-stone-950 overflow-hidden cursor-pointer"
         onClick={handleCardClick}
       >
         <img
           src={currentDisplayImage}
           alt={drawing.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            activeViewMode === '2d' 
+              ? 'blur-[22px] scale-115 opacity-65 select-none pointer-events-none' 
+              : 'group-hover:scale-105'
+          }`}
           loading="lazy"
         />
 
         {/* Ambient Dark Scrim */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
         {/* Direction Badge */}
         <div className="absolute top-3.5 left-3.5 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 flex items-center gap-1.5 shadow-md">
@@ -68,6 +72,21 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
           </span>
         </div>
 
+        {/* 90% Blurred Blueprint Lock Watermark Overlay */}
+        {activeViewMode === '2d' && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-xs pointer-events-none text-center">
+            <div className="p-3 rounded-full bg-black/75 border border-amber-400 text-amber-400 shadow-2xl mb-1.5 transform scale-110">
+              <Lock size={22} />
+            </div>
+            <span className="text-xs font-black uppercase tracking-wider text-white drop-shadow-md">
+              Protected Sthapatya Veda Plan
+            </span>
+            <span className="text-[10px] text-amber-300 font-bold mt-0.5">
+              90% Blurred Blueprint • Unlock for ₹{price}
+            </span>
+          </div>
+        )}
+
         {/* 3D vs 2D Blurred Switcher Pill */}
         <div 
           onClick={(e) => e.stopPropagation()} 
@@ -76,7 +95,7 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
           <button
             type="button"
             onClick={() => setActiveViewMode('3d')}
-            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
               activeViewMode === '3d' 
                 ? 'bg-amber-500 text-stone-950 shadow-sm' 
                 : 'text-stone-300 hover:text-white'
@@ -87,13 +106,13 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
           <button
             type="button"
             onClick={() => setActiveViewMode('2d')}
-            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
               activeViewMode === '2d' 
                 ? 'bg-[#0f766e] text-white shadow-sm' 
                 : 'text-stone-300 hover:text-white'
             }`}
           >
-            <Lock size={10} /> Blurred Blueprint
+            <Lock size={10} /> 90% Blurred Plan
           </button>
         </div>
 

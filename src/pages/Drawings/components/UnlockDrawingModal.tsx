@@ -8,11 +8,12 @@ import {
   Download, 
   MessageCircle, 
   Sparkles, 
-  ArrowRight,
-  Loader2,
-  AlertCircle,
+  ArrowRight, 
+  Phone,
   Compass,
-  FileText
+  FileText,
+  Building,
+  Check
 } from 'lucide-react';
 import { type Drawing } from '../../../core/types/drawing';
 import { drawingService } from '../../../core/services/drawing.service';
@@ -33,6 +34,7 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
   const [mobileNumber, setMobileNumber] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [customerName, setCustomerName] = useState('');
+  const [cityLocation, setCityLocation] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(true);
   const [marketingConsent, setMarketingConsent] = useState(false);
   
@@ -56,7 +58,6 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
 
   const price = drawing.price || 99;
 
-  // Handle Mobile Number formatting (+91 prefix handling)
   const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^\d+]/g, '');
     setMobileNumber(raw);
@@ -66,7 +67,6 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
     e.preventDefault();
     setErrorMessage('');
 
-    // Clean mobile digits
     const digitsOnly = mobileNumber.replace(/\D/g, '');
     const clean10 = digitsOnly.length === 12 && digitsOnly.startsWith('91') 
       ? digitsOnly.slice(2) 
@@ -85,11 +85,11 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
     setStatusStep('processing');
 
     try {
-      // 1. Create order on backend (authoritative DB price lookup)
+      // 1. Mandatory Lead Capture & Order Initialization
       const orderRes = await drawingService.createOrder({
         drawingId: drawing.id,
         mobile: clean10,
-        email: emailAddress.trim() || undefined,
+        email: emailAddress.trim() || cityLocation.trim() || undefined,
         name: customerName.trim() || undefined,
         marketingConsent,
       });
@@ -101,9 +101,21 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
       setOrderId(orderRes.orderId);
       setStatusStep('verifying');
 
-      // 2. Gateway Checkout & Verification
-      // In live environment: Cashfree JS SDK opens checkout modal.
-      // In sandbox/dev environment: backend verifies and issues entitlement token.
+      // 2. Launch Cashfree Checkout SDK if available
+      if (typeof (window as any).Cashfree !== 'undefined' && orderRes.paymentSessionId && !orderRes.isMock) {
+        try {
+          const cashfreeMode = (import.meta as any).env?.VITE_CASHFREE_ENV || 'sandbox';
+          const cashfree = (window as any).Cashfree({ mode: cashfreeMode });
+          await cashfree.checkout({
+            paymentSessionId: orderRes.paymentSessionId,
+            redirectTarget: '_modal',
+          });
+        } catch (cfErr) {
+          console.warn('[Cashfree Modal] SDK modal checkout notice:', cfErr);
+        }
+      }
+
+      // 3. Verify Payment with server
       const verifyRes = await drawingService.verifyPayment(orderRes.orderId, drawing.id);
 
       if (!verifyRes.success || !verifyRes.entitlementToken) {
@@ -112,7 +124,7 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
 
       setEntitlementToken(verifyRes.entitlementToken);
 
-      // 3. Request 60-second Signed Download URL using Entitlement Token
+      // 4. Request Temporary Download URL
       const dlRes = await drawingService.getSecureDownloadUrl(drawing.id, verifyRes.entitlementToken);
       
       if (dlRes.success && dlRes.downloadUrl) {
@@ -122,8 +134,8 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
           onPaymentSuccess(drawing.id);
         }
 
-        // 4. Automatic Download Trigger (with fallback button)
-        triggerBrowserDownload(dlRes.downloadUrl, dlRes.fileName || 'HR-Vasthu-House-Plan.png');
+        // Automatic Download Trigger
+        triggerBrowserDownload(dlRes.downloadUrl, dlRes.fileName || `${drawing.title}.jpg`);
       } else {
         setStatusStep('success');
       }
@@ -149,247 +161,282 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
     }
   };
 
-  const whatsappMessage = `Hello Dr. Hanumanthu Rao garu, I purchased the Vastu drawing "${drawing.title}" (Order ID: ${orderId}). Please share the HD CAD files and consultation notes on WhatsApp.`;
-  const whatsappUrl = `https://api.whatsapp.com/send?phone=919246624248&text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappMessage = encodeURIComponent(
+    `Hello Dr. Hanumanthu Rao garu, I am purchasing the Vastu drawing: "${drawing.title}" (${drawing.facing} Facing, ₹${price}). Name: ${customerName || 'Customer'}, Mobile: ${mobileNumber || 'N/A'}. Please share the complete unlocked CAD package on WhatsApp.`
+  );
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={statusStep === 'processing' || statusStep === 'verifying' ? undefined : onClose}
-          className="fixed inset-0 bg-black/85 backdrop-blur-md"
-        />
-
-        {/* Modal Dialog Window */}
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/80 backdrop-blur-md font-['DM_Sans',sans-serif]"
+        onClick={statusStep === 'processing' || statusStep === 'verifying' ? undefined : onClose}
+      >
+        {/* ═══ SMART 80vw × 90vh RESPONSIVE 2-COLUMN MAGAZINE CARD ═══ */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative max-w-md w-full bg-[#fdfcf9] dark:bg-[#12121a] border border-stone-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+          className="relative w-[96vw] sm:w-[92vw] md:w-[86vw] lg:w-[80vw] max-w-5xl h-[90vh] max-h-[880px] bg-white dark:bg-[#12121a] rounded-3xl shadow-2xl border border-amber-300/40 dark:border-white/10 overflow-hidden flex flex-col md:flex-row my-auto"
         >
-          {/* Header Strip */}
-          <div className="p-5 border-b border-stone-200 dark:border-white/10 bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 text-white flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-[#d4720a] to-[#e68a1c] text-white shadow-md">
-                <Lock size={16} />
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#d4720a]">
-                  HR Vasthu Certified Digital Store
-                </span>
-                <h3 className="font-serif font-bold text-base line-clamp-1">
-                  Unlock Drawing (₹{price})
-                </h3>
-              </div>
+          {/* Close Button - Always Visible at Top Right */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white border border-white/20 transition-all transform hover:scale-110 shadow-lg cursor-pointer"
+            title="Close"
+          >
+            <X size={18} />
+          </button>
+
+          {/* ═══ LEFT COLUMN: 3D CONCEPTUAL HOUSE VISUAL & SPECS (45% Width on Desktop) ═══ */}
+          <div className="w-full md:w-[45%] h-56 md:h-full bg-stone-950 relative overflow-hidden flex flex-col justify-between p-6 shrink-0">
+            {/* Background 3D House Image */}
+            <img
+              src={drawing.aiPreviewPath || drawing.imageUrl}
+              alt={drawing.title}
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none opacity-80"
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+            />
+            {/* Gradient Scrim */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/30 pointer-events-none" />
+
+            {/* Top Badges */}
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[10px] font-black uppercase tracking-widest bg-amber-500 text-stone-950 px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+                <Sparkles size={11} /> 3D Elevation
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-wider bg-black/70 backdrop-blur-xs text-amber-300 px-3 py-1 rounded-full border border-amber-400/30">
+                {drawing.facing} Facing
+              </span>
             </div>
 
-            {statusStep !== 'processing' && statusStep !== 'verifying' && (
-              <button
-                onClick={onClose}
-                className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-              >
-                <X size={18} />
-              </button>
-            )}
+            {/* Bottom Info Overlay */}
+            <div className="relative z-10 space-y-2 text-white">
+              <div className="flex items-center gap-2 text-xs font-mono text-amber-300">
+                <Compass size={14} className="text-[#d4720a]" />
+                <span>{drawing.dimensions || `${drawing.plotWidth}×${drawing.plotLength} ft`}</span>
+                <span>•</span>
+                <span>{drawing.floors || 'Ground Floor'}</span>
+              </div>
+              
+              <h3 className="font-serif font-bold text-lg md:text-xl text-white line-clamp-2 leading-tight">
+                {drawing.title}
+              </h3>
+
+              <p className="text-[11px] text-stone-300 line-clamp-2 leading-relaxed hidden sm:block">
+                {drawing.description}
+              </p>
+
+              {/* Price Tag Box */}
+              <div className="p-3 rounded-2xl bg-black/70 backdrop-blur-md border border-amber-400/30 flex items-center justify-between">
+                <div>
+                  <span className="text-[9px] uppercase font-bold text-stone-400 block">Complete Drawing Pack</span>
+                  <span className="text-xl font-black text-white font-serif">₹{price} <span className="text-[10px] font-normal text-stone-400">One-time Fee</span></span>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2.5 py-1 rounded-lg">
+                  Instant CAD Download
+                </span>
+              </div>
+            </div>
           </div>
 
-          {/* Body Content */}
-          <div className="p-5 sm:p-6 space-y-4">
+          {/* ═══ RIGHT COLUMN: LEAD CAPTURE, CASHFREE CHECKOUT & DIRECT ACTIONS (55% Width) ═══ */}
+          <div className="w-full md:w-[55%] flex-1 overflow-y-auto p-5 sm:p-8 flex flex-col justify-between bg-white dark:bg-[#12121a] text-stone-900 dark:text-white">
+            
             {statusStep === 'form' && (
               <form onSubmit={handlePay} className="space-y-4">
-                {/* Product Summary */}
-                <div className="p-3.5 rounded-2xl bg-stone-100 dark:bg-white/5 border border-stone-200 dark:border-white/10 flex items-center gap-3">
-                  <img
-                    src={drawing.aiPreviewPath || drawing.imageUrl}
-                    alt={drawing.title}
-                    className="w-16 h-14 object-cover rounded-xl bg-stone-900 shrink-0 border border-white/10"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <span className="text-[10px] uppercase font-bold text-[#d4720a] flex items-center gap-1">
-                      <Compass size={11} /> {drawing.facing} Facing • {drawing.dimensions || `${drawing.plotWidth}×${drawing.plotLength} ft`}
-                    </span>
-                    <h4 className="font-bold text-xs text-stone-900 dark:text-white truncate">
-                      {drawing.title}
-                    </h4>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-[11px] text-stone-500 dark:text-stone-400">
-                        High-Res CAD Blueprint
-                      </span>
-                      <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
-                        ₹{price}
-                      </span>
-                    </div>
-                  </div>
+                {/* Header */}
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#d4720a] bg-[#d4720a]/10 px-2.5 py-0.5 rounded-full inline-block mb-1.5">
+                    ✦ Secure Instant Unlock
+                  </span>
+                  <h2 className="font-serif text-xl sm:text-2xl font-bold leading-tight">
+                    Enter Details to Unlock Drawing (₹{price})
+                  </h2>
+                  <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
+                    Fill the quick details below. You will receive the high-resolution CAD drawing files immediately.
+                  </p>
                 </div>
 
                 {errorMessage && (
-                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
-                    <AlertCircle size={15} className="shrink-0" />
-                    <span>{errorMessage}</span>
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs">
+                    {errorMessage}
                   </div>
                 )}
 
-                {/* Customer Details Inputs */}
-                <div className="space-y-3">
+                {/* Form Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider block">
-                      Mobile Number *
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-300 block mb-1">
+                      Your Full Name *
                     </label>
-                    <div className="relative mt-1">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500 dark:text-stone-400 select-none">
-                        +91
-                      </div>
-                      <input
-                        required
-                        type="tel"
-                        maxLength={13}
-                        value={mobileNumber}
-                        onChange={handleMobileChange}
-                        placeholder="9876543210"
-                        className="w-full pl-12 pr-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-300 dark:border-white/15 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none text-stone-900 dark:text-white font-medium"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      required
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="e.g. Ramesh Varma"
+                      className="w-full px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-200 dark:border-white/10 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none"
+                    />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider block">
-                      Email Address (For PDF Delivery)
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-300 block mb-1">
+                      Mobile Number (+91) *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={mobileNumber}
+                      onChange={handleMobileChange}
+                      placeholder="e.g. 9876543210"
+                      maxLength={13}
+                      className="w-full px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-200 dark:border-white/10 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none font-mono"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-300 block mb-1">
+                      Email Address (Optional)
                     </label>
                     <input
                       type="email"
                       value={emailAddress}
                       onChange={(e) => setEmailAddress(e.target.value)}
-                      placeholder="user@gmail.com"
-                      className="w-full mt-1 px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-300 dark:border-white/15 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none text-stone-900 dark:text-white font-medium"
+                      placeholder="e.g. ramesh@gmail.com"
+                      className="w-full px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-200 dark:border-white/10 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider block">
-                      Full Name (Optional)
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-300 block mb-1">
+                      City / Location
                     </label>
                     <input
                       type="text"
-                      value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="e.g. Ramesh Kumar"
-                      className="w-full mt-1 px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-300 dark:border-white/15 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none text-stone-900 dark:text-white font-medium"
+                      value={cityLocation}
+                      onChange={(e) => setCityLocation(e.target.value)}
+                      placeholder="e.g. Visakhapatnam, Hyderabad"
+                      className="w-full px-3.5 py-2.5 bg-stone-50 dark:bg-white/5 border border-stone-200 dark:border-white/10 rounded-xl text-xs focus:ring-2 focus:ring-[#d4720a] focus:outline-none"
                     />
                   </div>
                 </div>
 
-                {/* Consent Checkboxes */}
-                <div className="space-y-2 pt-1 border-t border-stone-200 dark:border-white/10">
-                  <label className="flex items-start gap-2.5 cursor-pointer text-[11px] text-stone-700 dark:text-stone-300">
+                {/* Checkbox */}
+                <div className="space-y-1.5 pt-1">
+                  <label className="flex items-center gap-2 text-xs text-stone-600 dark:text-stone-400 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={agreedToTerms}
                       onChange={(e) => setAgreedToTerms(e.target.checked)}
-                      className="mt-0.5 rounded border-stone-300 text-[#d4720a] focus:ring-[#d4720a]"
+                      className="rounded text-[#d4720a] focus:ring-[#d4720a]"
                     />
-                    <span>
-                      I agree to the <strong>purchase and delivery terms</strong> for HR Vasthu digital blueprints.
-                    </span>
-                  </label>
-
-                  <label className="flex items-start gap-2.5 cursor-pointer text-[11px] text-stone-500 dark:text-stone-400">
-                    <input
-                      type="checkbox"
-                      checked={marketingConsent}
-                      onChange={(e) => setMarketingConsent(e.target.checked)}
-                      className="mt-0.5 rounded border-stone-300 text-[#d4720a] focus:ring-[#d4720a]"
-                    />
-                    <span>
-                      Send me HR Vasthu updates, astrological muhurtham dates, and offers (Optional).
-                    </span>
+                    <span>I agree to receive the drawing package via instant download and WhatsApp.</span>
                   </label>
                 </div>
 
-                {/* Continue to Pay Button */}
+                {/* Main Cashfree Pay CTA Button */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer mt-3"
+                  className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-xs uppercase tracking-wider shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Lock size={15} />
-                  <span>Continue to Pay ₹{price}</span>
+                  <span>Pay ₹{price} &amp; Unlock Full Drawing Pack</span>
                   <ArrowRight size={15} />
                 </button>
 
-                <div className="flex items-center justify-center gap-1.5 text-[10px] text-stone-400 pt-1">
-                  <ShieldCheck size={12} className="text-emerald-500" />
-                  <span>256-Bit SSL Encrypted • Powered by Cashfree Payments</span>
+                {/* Direct Alternative Contacts Strip */}
+                <div className="pt-3 border-t border-stone-100 dark:border-white/10 space-y-2">
+                  <span className="text-[10px] text-stone-400 text-center block font-bold uppercase tracking-wider">
+                    Or Consult Dr. Rao Directly
+                  </span>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href={`https://wa.me/919246624248?text=${whatsappMessage}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-102"
+                    >
+                      <MessageCircle size={13} /> WhatsApp
+                    </a>
+
+                    <a
+                      href="tel:+919246624248"
+                      className="py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-transform hover:scale-102"
+                    >
+                      <Phone size={13} /> Call Office
+                    </a>
+                  </div>
                 </div>
               </form>
             )}
 
+            {/* Processing / Verifying State */}
             {(statusStep === 'processing' || statusStep === 'verifying') && (
-              <div className="py-12 text-center space-y-4">
-                <Loader2 size={44} className="mx-auto text-[#d4720a] animate-spin" />
-                <h4 className="font-serif font-bold text-lg text-stone-900 dark:text-white">
-                  {statusStep === 'processing' ? 'Creating Secure Order...' : 'Verifying Payment & Issuing Entitlement...'}
-                </h4>
-                <p className="text-xs text-stone-500 dark:text-stone-400 max-w-xs mx-auto leading-relaxed">
-                  Please hold on while your transaction is securely processed and verified with the Cashfree gateway.
-                </p>
-                <div className="inline-block px-3 py-1 bg-stone-100 dark:bg-white/5 rounded-full text-[11px] font-mono text-stone-500 dark:text-stone-400">
-                  {orderId ? `Order: ${orderId}` : 'Connecting to gateway...'}
+              <div className="my-auto text-center space-y-4 py-12">
+                <div className="w-16 h-16 mx-auto rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 animate-pulse">
+                  <Lock size={28} />
                 </div>
+                <h3 className="font-serif text-xl font-bold">
+                  {statusStep === 'processing' ? 'Connecting to Secure Gateway...' : 'Verifying Payment & Preparing Drawing Pack...'}
+                </h3>
+                <p className="text-xs text-stone-500 max-w-sm mx-auto">
+                  Please do not close or refresh this window. Generating your cryptographic download entitlement token.
+                </p>
               </div>
             )}
 
+            {/* Success State */}
             {statusStep === 'success' && (
-              <div className="py-3 text-center space-y-4">
-                <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto shadow-inner border border-emerald-500/30">
+              <div className="my-auto text-center space-y-5 py-6">
+                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500">
                   <CheckCircle2 size={32} />
                 </div>
 
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">
-                    Payment Verified
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-500/10 px-3 py-1 rounded-full">
+                    Payment Verified (₹{price})
                   </span>
-                  <h4 className="font-serif font-bold text-xl text-stone-900 dark:text-white mt-0.5">
-                    ₹{price} Payment Successful!
-                  </h4>
-                  <p className="text-xs text-stone-600 dark:text-stone-400 mt-1">
-                    Your authenticated cryptographic download entitlement has been issued.
+                  <h3 className="font-serif text-2xl font-bold text-stone-900 dark:text-white">
+                    Drawing Pack Unlocked!
+                  </h3>
+                  <p className="text-xs text-stone-500 max-w-sm mx-auto">
+                    Your complete high-resolution CAD drawing pack has been unlocked and downloaded.
                   </p>
-                  {orderId && (
-                    <p className="text-[10px] font-mono text-stone-400 mt-1">
-                      Order ID: {orderId}
-                    </p>
-                  )}
                 </div>
 
-                {/* Primary Download Button */}
-                <div className="space-y-3 pt-2">
-                  <button
-                    onClick={() => downloadUrl && triggerBrowserDownload(downloadUrl, 'HR-Vasthu-House-Plan.png')}
-                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Download size={18} />
-                    <span>Download CAD Drawing File</span>
-                  </button>
+                <div className="space-y-2 max-w-sm mx-auto">
+                  {downloadUrl && (
+                    <button
+                      onClick={() => triggerBrowserDownload(downloadUrl, `${drawing.title}.jpg`)}
+                      className="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-102 uppercase tracking-wider cursor-pointer"
+                    >
+                      <Download size={15} /> Download Again
+                    </button>
+                  )}
 
                   <a
-                    href={whatsappUrl}
+                    href={`https://wa.me/919246624248?text=${whatsappMessage}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-bold text-xs shadow-md flex items-center justify-center gap-2"
+                    className="w-full py-3 px-4 bg-stone-100 dark:bg-white/10 hover:bg-stone-200 dark:hover:bg-white/20 text-stone-900 dark:text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors"
                   >
-                    <MessageCircle size={15} />
-                    <span>WhatsApp Support &amp; Copy</span>
+                    <MessageCircle size={14} className="text-emerald-500" /> Share on WhatsApp for Vastu Consultation
                   </a>
                 </div>
-
-                <p className="text-[11px] text-stone-400 pt-1">
-                  Signed download URL active for 60 seconds. Lifetime entitlement stored against your mobile.
-                </p>
               </div>
             )}
+
+            {/* Security Guarantee Strip */}
+            <div className="pt-4 border-t border-stone-100 dark:border-white/10 flex items-center justify-between text-[10px] text-stone-400">
+              <span className="flex items-center gap-1">
+                <ShieldCheck size={13} className="text-emerald-500" /> 256-bit Encrypted Checkout
+              </span>
+              <span>HR Vasthu Certified</span>
+            </div>
+
           </div>
         </motion.div>
       </div>

@@ -1,0 +1,1588 @@
+{
+  "generatedAt": "2026-08-27T19:52:41.420Z",
+  "totalFilesScanned": 122,
+  "totalGroupedFiles": 121,
+  "totalBundlesCreated": 38,
+  "unmatchedFilesCount": 1,
+  "unmatchedFiles": [
+    "A4 Broucher Model backside.jpg"
+  ],
+  "bundles": [
+    {
+      "bundleKey": "87",
+      "plotSize": 87,
+      "unit": "Sq Yards",
+      "title": "87 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 87 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "87 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "87 First copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/87 First copy.jpg",
+          "sizeBytes": 1372289,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "87 First Floor 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/87 First Floor 1.jpg",
+          "sizeBytes": 5627134,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "87 Ground copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/87 Ground copy.jpg",
+          "sizeBytes": 1336967,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        },
+        {
+          "filename": "87 Ground Floor  1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/87 Ground Floor  1.jpg",
+          "sizeBytes": 5589745,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "96",
+      "plotSize": 96,
+      "unit": "Sq Yards",
+      "title": "96 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 96 Sq Yards architectural floor plan pack with 2 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "96 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "96 Nageswara rao Guntur 1 96 Sq Yds FF C 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/96 Nageswara rao Guntur 1 96 Sq Yds FF C 1.jpg",
+          "sizeBytes": 2203899,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "96 Nageswara rao Guntur 1 96 Sq Yds GF C 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/96 Nageswara rao Guntur 1 96 Sq Yds GF C 1.jpg",
+          "sizeBytes": 2521962,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 2
+    },
+    {
+      "bundleKey": "98",
+      "plotSize": 98,
+      "unit": "Sq Yards",
+      "title": "98 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 98 Sq Yards architectural floor plan pack with 6 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "98 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "098.png",
+          "relativePath": "Drawing Multicolor HR Vasthu/098.png",
+          "sizeBytes": 134708,
+          "extension": ".png",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "98 Bhadra Chalam Kiran Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/98 Bhadra Chalam Kiran Model (1) 1.jpg",
+          "sizeBytes": 2610876,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "98 First Floor 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/98 First Floor 1.jpg",
+          "sizeBytes": 3136116,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "98 First Floor copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/98 First Floor copy.jpg",
+          "sizeBytes": 778345,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "98 Ground Floor 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/98 Ground Floor 1.jpg",
+          "sizeBytes": 2025608,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        },
+        {
+          "filename": "98 Ground Floor copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/98 Ground Floor copy.jpg",
+          "sizeBytes": 710104,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 6
+    },
+    {
+      "bundleKey": "99",
+      "plotSize": 99,
+      "unit": "Sq Yards",
+      "title": "99 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 99 Sq Yards architectural floor plan pack with 5 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "99 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "99 Gupta Garu Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/99 Gupta Garu Model (1) 1.jpg",
+          "sizeBytes": 1944649,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "99 Gupta Garu Model (1) 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/99 Gupta Garu Model (1) 3.jpg",
+          "sizeBytes": 1944649,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "99 Gupta Garu Model (1) copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/99 Gupta Garu Model (1) copy.jpg",
+          "sizeBytes": 547989,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "99 Gupta Garu Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/99 Gupta Garu Model (1).jpg",
+          "sizeBytes": 1944649,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "99 Maddilapalem Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/99 Maddilapalem Model (1).jpg",
+          "sizeBytes": 2440769,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 5
+    },
+    {
+      "bundleKey": "105",
+      "plotSize": 105,
+      "unit": "Sq Yards",
+      "title": "105 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 105 Sq Yards architectural floor plan pack with 3 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "105 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "105 43 x 20 Model 105 Sq Yds 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/105 43 x 20 Model 105 Sq Yds 1.jpg",
+          "sizeBytes": 1772265,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "105 Nageswararao Mail Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/105 Nageswararao Mail Model (1) 1.jpg",
+          "sizeBytes": 2068031,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "Cad Nageswararao Mail Model.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Cad Nageswararao Mail Model.jpg",
+          "sizeBytes": 1562181,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 3
+    },
+    {
+      "bundleKey": "116",
+      "plotSize": 116,
+      "unit": "Sq Yards",
+      "title": "116 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 116 Sq Yards architectural floor plan pack with 5 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "116 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "116 Sq Yds 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/116 Sq Yds 1.jpg",
+          "sizeBytes": 1477173,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "116 Sq Yds 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/116 Sq Yds 1.tif",
+          "sizeBytes": 31381888,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "116 Sq Yds 2.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/116 Sq Yds 2.tif",
+          "sizeBytes": 31381888,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "116 Sq Yds.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/116 Sq Yds.jpg",
+          "sizeBytes": 1477173,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "116 Sq Yds.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/116 Sq Yds.tif",
+          "sizeBytes": 31381888,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 5
+    },
+    {
+      "bundleKey": "126",
+      "plotSize": 126,
+      "unit": "Sq Yards",
+      "title": "126 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 126 Sq Yards architectural floor plan pack with 5 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "126 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "126 Uday Bhaskar Hyderabad Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/126 Uday Bhaskar Hyderabad Model (1) 1.jpg",
+          "sizeBytes": 1933895,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "126 Uday Bhaskar Hyderabad Model (1) 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/126 Uday Bhaskar Hyderabad Model (1) 3.jpg",
+          "sizeBytes": 1933895,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "126 Uday Bhaskar Hyderabad Model (2) 4.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/126 Uday Bhaskar Hyderabad Model (2) 4.jpg",
+          "sizeBytes": 2092616,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "Uday Bhaskar Hyderabad Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Uday Bhaskar Hyderabad Model (1).jpg",
+          "sizeBytes": 1922081,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "Uday Bhaskar Hyderabad Model (2).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Uday Bhaskar Hyderabad Model (2).jpg",
+          "sizeBytes": 2075135,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 5
+    },
+    {
+      "bundleKey": "130",
+      "plotSize": 130,
+      "unit": "Sq Yards",
+      "title": "130 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 130 Sq Yards architectural floor plan pack with 5 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "130 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "130 Mahaboob Nagar Model  Photoshop 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/130 Mahaboob Nagar Model  Photoshop 1.jpg",
+          "sizeBytes": 3692726,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "130 Mahaboob Nagar Model  Photoshop 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/130 Mahaboob Nagar Model  Photoshop 2.jpg",
+          "sizeBytes": 3692726,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "130 Mahaboob Nagar Model  Photoshop 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/130 Mahaboob Nagar Model  Photoshop 3.jpg",
+          "sizeBytes": 3692726,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "130 Mahaboob Nagar Model  Photoshop.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/130 Mahaboob Nagar Model  Photoshop.jpg",
+          "sizeBytes": 3692726,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "130 Sq Yds Site 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/130 Sq Yds Site 1.jpg",
+          "sizeBytes": 3974999,
+          "extension": ".jpg",
+          "detectedType": "site_plan",
+          "detectedLabel": "Site Layout Plan"
+        }
+      ],
+      "drawingCount": 5
+    },
+    {
+      "bundleKey": "133",
+      "plotSize": 133,
+      "unit": "Sq Yards",
+      "title": "133 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 133 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "133 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "133 Sq Yds.png",
+          "relativePath": "Drawing Multicolor HR Vasthu/133 Sq Yds.png",
+          "sizeBytes": 295726,
+          "extension": ".png",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "138",
+      "plotSize": 138,
+      "unit": "Sq Yards",
+      "title": "138 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 138 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "138 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "138 Lenka Chinna Rao 138 Koppavaram Anaparthy Mandal Model 138 Sq Yds 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/138 Lenka Chinna Rao 138 Koppavaram Anaparthy Mandal Model 138 Sq Yds 1.tif",
+          "sizeBytes": 29941776,
+          "extension": ".tif",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "138 Lenka Chinna Rao 138 Koppavaram Anaparthy Mandal Model 138 Sq Yds.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/138 Lenka Chinna Rao 138 Koppavaram Anaparthy Mandal Model 138 Sq Yds.jpg",
+          "sizeBytes": 2578395,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "138 Sq Yds Bhakar Tirupathi Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/138 Sq Yds Bhakar Tirupathi Model (1) 1.jpg",
+          "sizeBytes": 4554649,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "138 Sq Yds Bhakar Tirupathi Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/138 Sq Yds Bhakar Tirupathi Model (1).jpg",
+          "sizeBytes": 4554649,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "140",
+      "plotSize": 140,
+      "unit": "Sq Yards",
+      "title": "140 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 140 Sq Yards architectural floor plan pack with 3 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "140 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "140 Koteswarao rao  1 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/140 Koteswarao rao  1 1.jpg",
+          "sizeBytes": 2280841,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "140 Koteswarao rao  1 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/140 Koteswarao rao  1 3.jpg",
+          "sizeBytes": 2280841,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "140 TLT Hari Model 140 Sq Yds.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/140 TLT Hari Model 140 Sq Yds.jpg",
+          "sizeBytes": 2184971,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 3
+    },
+    {
+      "bundleKey": "141",
+      "plotSize": 141,
+      "unit": "Sq Yards",
+      "title": "141 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 141 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "141 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "141 Sq Yds Prasad Garu KHR Color 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/141 Sq Yds Prasad Garu KHR Color 1.tif",
+          "sizeBytes": 31179576,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "141 Sq Yds Prasad Garu KHR Color 2.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/141 Sq Yds Prasad Garu KHR Color 2.tif",
+          "sizeBytes": 31179576,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "141 Sq Yds Prasad Garu KHR Color.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/141 Sq Yds Prasad Garu KHR Color.tif",
+          "sizeBytes": 31179576,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "141 Sri kala Hasthi Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/141 Sri kala Hasthi Model (1) 1.jpg",
+          "sizeBytes": 2276627,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "143",
+      "plotSize": 143,
+      "unit": "Sq Yards",
+      "title": "143 Sq Yards Premium Architectural Vastu Home",
+      "shortDescription": "Authoritative 143 Sq Yards architectural floor plan pack with 2 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "143 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "143 VIMAN NAGAR Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/143 VIMAN NAGAR Model (1) 1.jpg",
+          "sizeBytes": 2345721,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "143 VIMAN NAGAR Model (1) 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/143 VIMAN NAGAR Model (1) 3.jpg",
+          "sizeBytes": 2345721,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 2
+    },
+    {
+      "bundleKey": "148",
+      "plotSize": 148,
+      "unit": "Sq Yards",
+      "title": "148 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 148 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "148 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "148 Sq Yds 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/148 Sq Yds 1.jpg",
+          "sizeBytes": 2022439,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "153",
+      "plotSize": 153,
+      "unit": "Sq Yards",
+      "title": "153 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 153 Sq Yards architectural floor plan pack with 2 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "153 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "153 V Ayyappanaidu 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/153 V Ayyappanaidu 1.jpg",
+          "sizeBytes": 3566734,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "V Ayyappanaidu 005 s.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/V Ayyappanaidu 005 s.jpg",
+          "sizeBytes": 3587316,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 2
+    },
+    {
+      "bundleKey": "155",
+      "plotSize": 155,
+      "unit": "Sq Yards",
+      "title": "155 Sq Yards Premium Architectural Vastu Home",
+      "shortDescription": "Authoritative 155 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "155 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "155 Sq Yds.png",
+          "relativePath": "Drawing Multicolor HR Vasthu/155 Sq Yds.png",
+          "sizeBytes": 254346,
+          "extension": ".png",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "156",
+      "plotSize": 156,
+      "unit": "Sq Yards",
+      "title": "156 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 156 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "156 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "156 Sq Yds Paderu Bhaskar Rao Model 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/156 Sq Yds Paderu Bhaskar Rao Model 1.jpg",
+          "sizeBytes": 2526847,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "157",
+      "plotSize": 157,
+      "unit": "Sq Yards",
+      "title": "157 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 157 Sq Yards architectural floor plan pack with 8 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "157 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "157 003 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 003 1.jpg",
+          "sizeBytes": 2230030,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 003.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 003.jpg",
+          "sizeBytes": 2230030,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 004 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 004 2.jpg",
+          "sizeBytes": 1869915,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 005 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 005 1.jpg",
+          "sizeBytes": 1825082,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 005 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 005 2.jpg",
+          "sizeBytes": 1825082,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 006 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 006 1.jpg",
+          "sizeBytes": 2121486,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "157 First  Floor 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 First  Floor 1.jpg",
+          "sizeBytes": 1126597,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "157 Ground Floor 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/157 Ground Floor 1.jpg",
+          "sizeBytes": 1240683,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 8
+    },
+    {
+      "bundleKey": "160",
+      "plotSize": 160,
+      "unit": "Sq Yards",
+      "title": "160 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 160 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "160 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "midhilapuri colony 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/midhilapuri colony 1.jpg",
+          "sizeBytes": 4139037,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "166",
+      "plotSize": 166,
+      "unit": "Sq Yards",
+      "title": "166 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 166 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "166 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "166 46 Prasanna Kumar Chittore Model for photoshop copy 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/166 46 Prasanna Kumar Chittore Model for photoshop copy 1.jpg",
+          "sizeBytes": 5471084,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "166 46 Prasanna Kumar Chittore Model for photoshop copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/166 46 Prasanna Kumar Chittore Model for photoshop copy.jpg",
+          "sizeBytes": 5471084,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "166 Sq Yds 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/166 Sq Yds 1.tif",
+          "sizeBytes": 43025104,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "Prasanna Kumar Chittore Model for photoshop.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Prasanna Kumar Chittore Model for photoshop.jpg",
+          "sizeBytes": 5453901,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "173",
+      "plotSize": 173,
+      "unit": "Sq Yards",
+      "title": "173 Sq Yards Premium Architectural Vastu Home",
+      "shortDescription": "Authoritative 173 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "173 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "173 Madhu Kadapa Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/173 Madhu Kadapa Model (1) 1.jpg",
+          "sizeBytes": 2191431,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "175",
+      "plotSize": 175,
+      "unit": "Sq Yards",
+      "title": "175 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 175 Sq Yards architectural floor plan pack with 8 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "175 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "175 First Floor 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/175 First Floor 1.tif",
+          "sizeBytes": 59890812,
+          "extension": ".tif",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "175 First Floor 2.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/175 First Floor 2.tif",
+          "sizeBytes": 59890812,
+          "extension": ".tif",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "175 Ground Floor.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/175 Ground Floor.tif",
+          "sizeBytes": 62805140,
+          "extension": ".tif",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        },
+        {
+          "filename": "175 Second Floor 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/175 Second Floor 1.tif",
+          "sizeBytes": 61071692,
+          "extension": ".tif",
+          "detectedType": "second_floor",
+          "detectedLabel": "Second Floor Plan"
+        },
+        {
+          "filename": "175 Typical 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/175 Typical 1.tif",
+          "sizeBytes": 42633860,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 first 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 first 1.jpg",
+          "sizeBytes": 3037835,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 first 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 first 3.jpg",
+          "sizeBytes": 3037835,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 Ground 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/Bandari Ravi Kumar (31 x 50) Bapatla Guntur 175 Ground 1.tif",
+          "sizeBytes": 26107268,
+          "extension": ".tif",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 8
+    },
+    {
+      "bundleKey": "194",
+      "plotSize": 194,
+      "unit": "Sq Yards",
+      "title": "194 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 194 Sq Yards architectural floor plan pack with 2 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "194 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "194 Sq Yds Adilaxmi Chilakalu Krishna Dist Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/194 Sq Yds Adilaxmi Chilakalu Krishna Dist Model (1) 1.jpg",
+          "sizeBytes": 2993534,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "194 Sq Yds Adilaxmi Chilakalu Krishna Dist Model (1) 4.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/194 Sq Yds Adilaxmi Chilakalu Krishna Dist Model (1) 4.jpg",
+          "sizeBytes": 2993534,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 2
+    },
+    {
+      "bundleKey": "195",
+      "plotSize": 195,
+      "unit": "Sq Yards",
+      "title": "195 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 195 Sq Yards architectural floor plan pack with 6 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "195 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "195 ranjith reddy p 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/195 ranjith reddy p 1.jpg",
+          "sizeBytes": 829580,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "195 ranjith reddy p 4.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/195 ranjith reddy p 4.jpg",
+          "sizeBytes": 829580,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "195 Sq Yds Ranjith Reddy Color 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/195 Sq Yds Ranjith Reddy Color 1.jpg",
+          "sizeBytes": 3327428,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "195 Sq Yds Ranjith Reddy Color.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/195 Sq Yds Ranjith Reddy Color.jpg",
+          "sizeBytes": 3327428,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "195 Sq Yds Ranjith Reddy Color.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/195 Sq Yds Ranjith Reddy Color.tif",
+          "sizeBytes": 39198676,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "Ranjith Reddy Color.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Ranjith Reddy Color.jpg",
+          "sizeBytes": 3323343,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 6
+    },
+    {
+      "bundleKey": "200",
+      "plotSize": 200,
+      "unit": "Sq Yards",
+      "title": "200 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 200 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "200 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "200 Gowri Prasad Mahaboob Nagar Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/200 Gowri Prasad Mahaboob Nagar Model (1) 1.jpg",
+          "sizeBytes": 2387381,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "202",
+      "plotSize": 202,
+      "unit": "Sq Yards",
+      "title": "202 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 202 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "202 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "202 Sq Yds 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/202 Sq Yds 1.jpg",
+          "sizeBytes": 2332620,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "205",
+      "plotSize": 205,
+      "unit": "Sq Yards",
+      "title": "205 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 205 Sq Yards architectural floor plan pack with 2 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "205 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "205 M V Rama Lingeswararao Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/205 M V Rama Lingeswararao Model (1) 1.jpg",
+          "sizeBytes": 4313563,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "M V Rama Lingeswararao Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/M V Rama Lingeswararao Model (1).jpg",
+          "sizeBytes": 4334091,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 2
+    },
+    {
+      "bundleKey": "208",
+      "plotSize": 208,
+      "unit": "Sq Yards",
+      "title": "208 Sq Yards Smart Spatial Vastu Villa",
+      "shortDescription": "Authoritative 208 Sq Yards architectural floor plan pack with 3 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "208 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "208 N Mutyalarao W G Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/208 N Mutyalarao W G Model (1).jpg",
+          "sizeBytes": 2305007,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "N Mutyalarao 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/N Mutyalarao 1.jpg",
+          "sizeBytes": 4032648,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "N Mutyalarao.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/N Mutyalarao.jpg",
+          "sizeBytes": 1905013,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 3
+    },
+    {
+      "bundleKey": "215",
+      "plotSize": 215,
+      "unit": "Sq Yards",
+      "title": "215 Sq Yards Premium Architectural Vastu Home",
+      "shortDescription": "Authoritative 215 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "215 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "215 Santhi Srikakulam Color copy 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/215 Santhi Srikakulam Color copy 1.jpg",
+          "sizeBytes": 2590164,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "215 Santhi Srikakulam Color copy 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/215 Santhi Srikakulam Color copy 3.jpg",
+          "sizeBytes": 2590164,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "215 Santhi Srikakulam Color copy.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/215 Santhi Srikakulam Color copy.jpg",
+          "sizeBytes": 2590164,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "Santhi Srikakulam Color.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Santhi Srikakulam Color.jpg",
+          "sizeBytes": 2575176,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "217",
+      "plotSize": 217,
+      "unit": "Sq Yards",
+      "title": "217 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 217 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "217 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "217 Sq Yds P Sriram 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/217 Sq Yds P Sriram 1.jpg",
+          "sizeBytes": 3898195,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "219",
+      "plotSize": 219,
+      "unit": "Sq Yards",
+      "title": "219 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 219 Sq Yards architectural floor plan pack with 6 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "219 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "219 Madhurawada Venu Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Madhurawada Venu Model (1) 1.jpg",
+          "sizeBytes": 2180712,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "219 Madhurawada Venu Model (1) 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Madhurawada Venu Model (1) 3.jpg",
+          "sizeBytes": 2180712,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "219 Madhurawada Venu Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Madhurawada Venu Model (1).jpg",
+          "sizeBytes": 2180712,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "219 Orissa Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Orissa Model (1) 1.jpg",
+          "sizeBytes": 2856975,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "219 Orissa Model (1) 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Orissa Model (1) 2.jpg",
+          "sizeBytes": 2856975,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "219 Orissa Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/219 Orissa Model (1).jpg",
+          "sizeBytes": 2856975,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 6
+    },
+    {
+      "bundleKey": "222",
+      "plotSize": 222,
+      "unit": "Sq Yards",
+      "title": "222 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 222 Sq Yards architectural floor plan pack with 4 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "222 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "222 First PLAN Model (1) 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/222 First PLAN Model (1) 2.jpg",
+          "sizeBytes": 1603327,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "222 First PLAN Model (1) 4.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/222 First PLAN Model (1) 4.jpg",
+          "sizeBytes": 1603327,
+          "extension": ".jpg",
+          "detectedType": "first_floor",
+          "detectedLabel": "First Floor Plan"
+        },
+        {
+          "filename": "222 Ground PLAN Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/222 Ground PLAN Model (1) 1.jpg",
+          "sizeBytes": 3362306,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        },
+        {
+          "filename": "222 Ground PLAN Model (1) 3.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/222 Ground PLAN Model (1) 3.jpg",
+          "sizeBytes": 3362306,
+          "extension": ".jpg",
+          "detectedType": "ground_floor",
+          "detectedLabel": "Ground Floor Plan"
+        }
+      ],
+      "drawingCount": 4
+    },
+    {
+      "bundleKey": "239",
+      "plotSize": 239,
+      "unit": "Sq Yards",
+      "title": "239 Sq Yards Premium Architectural Vastu Home",
+      "shortDescription": "Authoritative 239 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "239 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "239 Sq Yds Lalam Satti Babu Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/239 Sq Yds Lalam Satti Babu Model (1).jpg",
+          "sizeBytes": 4983256,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "242",
+      "plotSize": 242,
+      "unit": "Sq Yards",
+      "title": "242 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 242 Sq Yards architectural floor plan pack with 3 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "242 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "242 Aganampudi Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/242 Aganampudi Model (1) 1.jpg",
+          "sizeBytes": 2854809,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "242 Aganampudi Model (1) 2.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/242 Aganampudi Model (1) 2.jpg",
+          "sizeBytes": 2854809,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "242 Aganampudi Model (1) 4.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/242 Aganampudi Model (1) 4.jpg",
+          "sizeBytes": 2854809,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 3
+    },
+    {
+      "bundleKey": "248",
+      "plotSize": 248,
+      "unit": "Sq Yards",
+      "title": "248 Sq Yards Harmonious Family Vastu House",
+      "shortDescription": "Authoritative 248 Sq Yards architectural floor plan pack with 8 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "248 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "248 88 Vepa Gunta Model (1) 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 88 Vepa Gunta Model (1) 1.jpg",
+          "sizeBytes": 2465020,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "248 Sq Yds 1.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds 1.jpg",
+          "sizeBytes": 1920115,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "248 Sq Yds 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds 1.tif",
+          "sizeBytes": 33993344,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "248 Sq Yds 2.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds 2.tif",
+          "sizeBytes": 33993344,
+          "extension": ".tif",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        },
+        {
+          "filename": "248 Sq Yds Parwathipuram drawing srinivas garu Model 1.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds Parwathipuram drawing srinivas garu Model 1.tif",
+          "sizeBytes": 39115292,
+          "extension": ".tif",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "248 Sq Yds Parwathipuram drawing srinivas garu Model 2.tif",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds Parwathipuram drawing srinivas garu Model 2.tif",
+          "sizeBytes": 39115292,
+          "extension": ".tif",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "248 Sq Yds Parwathipuram drawing srinivas garu Model.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds Parwathipuram drawing srinivas garu Model.jpg",
+          "sizeBytes": 3147560,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        },
+        {
+          "filename": "248 Sq Yds.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/248 Sq Yds.jpg",
+          "sizeBytes": 1920115,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 8
+    },
+    {
+      "bundleKey": "252",
+      "plotSize": 252,
+      "unit": "Sq Yards",
+      "title": "252 Sq Yards Modern Compact Vastu Home",
+      "shortDescription": "Authoritative 252 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "252 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "252 Shasi kanth Hyderabad Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/252 Shasi kanth Hyderabad Model (1).jpg",
+          "sizeBytes": 2507303,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "271",
+      "plotSize": 271,
+      "unit": "Sq Yards",
+      "title": "271 Sq Yards Executive Independent Vastu Residence",
+      "shortDescription": "Authoritative 271 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "271 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "Ramesh 61x40 colo 3 bed room.jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/Ramesh 61x40 colo 3 bed room.jpg",
+          "sizeBytes": 4741514,
+          "extension": ".jpg",
+          "detectedType": "master_plan",
+          "detectedLabel": "Master Architectural Plan"
+        }
+      ],
+      "drawingCount": 1
+    },
+    {
+      "bundleKey": "303",
+      "plotSize": 303,
+      "unit": "Sq Yards",
+      "title": "303 Sq Yards Contemporary Vedic Living Plan",
+      "shortDescription": "Authoritative 303 Sq Yards architectural floor plan pack with 1 technical drawings, designed according to Sthapatya Veda principles by Dr. Kunchala Hanumantha Rao.",
+      "tags": [
+        "303 Sq Yards",
+        "Vastu Plan",
+        "Residential",
+        "Sthapatya Veda"
+      ],
+      "files": [
+        {
+          "filename": "303 Tulasi ram Miryalaguda Model (1).jpg",
+          "relativePath": "Drawing Multicolor HR Vasthu/303 Tulasi ram Miryalaguda Model (1).jpg",
+          "sizeBytes": 3651851,
+          "extension": ".jpg",
+          "detectedType": "alternate",
+          "detectedLabel": "Alternative / Custom Layout"
+        }
+      ],
+      "drawingCount": 1
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../../core/services/supabase';
 import { useTranslation } from '../../../core/hooks/useTranslation';
 import { VastuAIAssistant } from '../ai/VastuAIAssistant';
+import { FeaturedLeadPopup } from './FeaturedLeadPopup';
 
 const WHATSAPP_NUMBER = '919246624248';
 const PHONE_NUMBER = '+919246624248';
@@ -475,6 +476,9 @@ export const MainLayout: React.FC = () => {
         isOpen={aiAssistantOpen} 
         onClose={() => setAiAssistantOpen(false)} 
       />
+
+      {/* Automatic 2-Minute Featured Lead Generation Popup */}
+      <FeaturedLeadPopup />
 
       {/* Booking Modal */}
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
