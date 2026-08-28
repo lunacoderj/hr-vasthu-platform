@@ -34,6 +34,7 @@ const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/Legal/TermsOfService'));
 const VastuDisclaimer = lazy(() => import('./pages/Legal/VastuDisclaimer'));
 const Appointment = lazy(() => import('./pages/Legal/Appointment'));
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
 const PageFallback = () => (
   <div className="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center">
@@ -121,13 +122,12 @@ function App() {
               <Route path="/terms" element={<TermsOfService />} />
               <Route path="/disclaimer" element={<VastuDisclaimer />} />
               <Route path="/appointment" element={<Appointment />} />
+              {/* 404 Custom Not Found Route */}
+              <Route path="*" element={<NotFound />} />
             </Route>
 
             {/* Full-Screen Native Mobile Experiences */}
             <Route path="/shorts" element={<Shorts />} />
-            
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

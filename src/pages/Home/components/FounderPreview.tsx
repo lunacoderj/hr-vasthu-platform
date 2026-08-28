@@ -29,12 +29,13 @@ export const FounderPreview: React.FC = () => {
               <picture>
                 <source srcSet="/Gallery/hero.webp" type="image/webp" />
                 <img 
-                  src="/Gallery/hero.png" 
+                  src="/Gallery/hero.webp" 
                   alt="Dr. Kunchala Hanumantha Rao" 
                   width={800}
                   height={1000}
                   loading="lazy"
                   decoding="async"
+                  style={{ aspectRatio: '4 / 5' }}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                 />
               </picture>

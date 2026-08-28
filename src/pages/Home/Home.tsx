@@ -6,6 +6,7 @@ import { FeaturedVideos } from './components/FeaturedVideos';
 import { CallToAction } from './components/CallToAction';
 import { FounderPreview } from './components/FounderPreview';
 import { LibraryPreview } from './components/LibraryPreview';
+import { HomeFAQ, HOME_FAQS } from './components/HomeFAQ';
 import { Helmet } from 'react-helmet-async';
 import { JsonLd } from '../../shared/components/seo/JsonLd';
 import { HonorsBanner } from './components/HonorsBanner';
@@ -81,14 +82,27 @@ const Home: React.FC = () => {
         "target": "https://hrvasthu.com/videos?search={search_term_string}",
         "query-input": "required name=search_term_string"
       }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": HOME_FAQS.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
     }
   ];
 
   return (
     <div className="w-full">
       <Helmet>
-        <title>Best Experienced Vasthu Siddanthi in Vizag & Andhra Pradesh | Dr. Hanumanthu Rao</title>
-        <meta name="description" content="Connect with Dr. Kunchala Hanumanthu Rao — the most experienced Vasthu Siddanthi in Vizag (Visakhapatnam), Vijayawada, Guntur, Tirupati, Rajahmundry, Kakinada, and all AP districts." />
+        <title>Best Vasthu Siddanthi in Vizag & AP | Dr. Hanumantha Rao</title>
+        <meta name="description" content="Consult Dr. Kunchala Hanumantha Rao, leading Vasthu Siddanthi in Vizag & Andhra Pradesh. 30+ years experience, 100% Vedic house plans & non-demolition remedies." />
+        <link rel="canonical" href="https://hrvasthu.com/" />
       </Helmet>
       {structuredSchemas.map((schema, index) => (
         <JsonLd key={index} data={schema} />
@@ -100,6 +114,7 @@ const Home: React.FC = () => {
       <DistrictCoverage />
       <FeaturedVideos />
       <LibraryPreview />
+      <HomeFAQ />
       <CallToAction />
     </div>
   );
