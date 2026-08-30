@@ -24,7 +24,7 @@ interface BookCardProps {
 
 export const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const languageName = LANGUAGES.find(l => l.code === book.language)?.name || book.language;
-  const isEnglish = book.id === 'english-book' || book.language === 'en';
+  const isEnglish = book.id === 'english-book' || book.id === '1' || book.language === 'en' || book.language?.toLowerCase() === 'english' || book.isFree === true || book.price === 0;
   const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
 
   const priceText = '₹99';

@@ -1,29 +1,29 @@
 import { type Book } from '../types/book';
 import { supabase } from './supabase';
 
-const DEFAULT_BOOKS: Book[] = [
+export const OFFICIAL_BOOKS: Book[] = [
   {
     id: 'english-book',
-    title: 'Pathway to Success Through Vedic Vasthu (English)',
-    description: 'Authoritative guide to ancient Vedic architectural wisdom by Dr. Kunchala Hanumantha Rao. Detailed insights on plot selection, room orientations, non-demolition remedies, and positive energy flow.',
-    coverImage: '/books/english-book-cover.png',
-    pdfUrl: '/books/Vijayabata%20Vaasthu%20Book%20English.pdf',
-    language: 'en',
-    pages: 310,
-    category: 'Vasthu Shastra',
-    isFree: true, // Free online reading, paid download
-    price: 99
+    title: 'Vijayabata Vaasthu Grandham (English Edition)',
+    description: 'Complete authoritative treatise on Vastu Shastra authored by Dr. Kunchala Hanumantha Rao. 100% free to read online in high resolution.',
+    coverImage: '/books/english-book-cover.webp',
+    pdfUrl: '/books/Vijayabata Vaasthu Book English.pdf',
+    language: 'English',
+    pages: 215,
+    category: 'Vastu Shastra',
+    isFree: true,
+    price: 0
   },
   {
     id: 'telugu-book',
-    title: 'విజయబాట వాస్తు గ్రంథం (Telugu)',
-    description: 'డాక్టర్ కుంచాల హనుమంతరావు గారిచే రచించబడిన ప్రామాణిక వాస్తు శాస్త్ర గ్రంథం. గృహ నిర్మాణం, దిశల ప్రాముఖ్యత, ఆయది గణితం మరియు దోష నివారణల సంపూర్ణ సమగ్ర గ్రంథం.',
-    coverImage: '/books/telugu-book-cover.png',
-    pdfUrl: '/books/vasthu%20telugu%20book.pdf',
-    language: 'te',
-    pages: 240,
-    category: 'Vasthu Shastra',
-    isFree: false, // Completely paid edition
+    title: 'విజయబాట వాస్తు గ్రంథం (Telugu Grandham)',
+    description: 'డాక్టర్ కుంచాల హనుమంతరావు గారిచే రచించబడిన 240 పేజీల సంపూర్ణ వాస్తు గ్రంథం. గృహ నిర్మాణం, ఆయది గణితం మరియు నివారణల సంపూర్ణ సమగ్ర గ్రంథం.',
+    coverImage: '/books/telugu-book-cover.webp',
+    pdfUrl: '/books/vasthu telugu book.pdf',
+    language: 'Telugu',
+    pages: 342,
+    category: 'వాస్తు శాస్త్రం',
+    isFree: false,
     price: 99
   }
 ];
@@ -36,71 +36,67 @@ class BookService {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) {
-        console.warn('Supabase books query returned error, using fallback books:', error);
-        return DEFAULT_BOOKS;
+      if (!error && data && data.length > 0) {
+        return data.map(b => ({
+          id: b.id,
+          title: b.title,
+          description: b.description || '',
+          coverImage: b.cover_image || b.coverImage || '/books/english-book-cover.webp',
+          pdfUrl: b.pdf_url || b.pdfUrl || '/books/Vijayabata Vaasthu Book English.pdf',
+          language: b.language || 'English',
+          pages: b.pages || 215,
+          category: b.category || 'Vastu Shastra',
+          isFree: b.is_free !== undefined ? b.is_free : b.isFree ?? (b.price === 0),
+          price: b.price ?? 0
+        }));
       }
-
-      if (data && data.length > 0) {
-        return data.map(b => {
-          const isEnglish = b.id === 'english-book' || b.language === 'en';
-          const defaultCover = isEnglish ? '/books/english-book-cover.png' : '/books/telugu-book-cover.png';
-          const defaultPdf = isEnglish ? '/books/Vijayabata%20Vaasthu%20Book%20English.pdf' : '/books/vasthu%20telugu%20book.pdf';
-
-          return {
-            id: b.id,
-            title: b.title,
-            description: b.description || '',
-            coverImage: b.cover_image && !b.cover_image.includes('hrvasthu.com/books') ? b.cover_image : defaultCover,
-            pdfUrl: b.pdf_url && !b.pdf_url.includes('hrvasthu.com/books') ? b.pdf_url : defaultPdf,
-            language: b.language,
-            pages: b.pages,
-            category: b.category,
-            isFree: isEnglish,
-            price: 99
-          };
-        });
-      }
-      return DEFAULT_BOOKS;
+      return OFFICIAL_BOOKS;
     } catch (error) {
-      console.warn('Failed to fetch books from Supabase, serving local library:', error);
-      return DEFAULT_BOOKS;
+      console.warn('Loading default official publications:', error);
+      return OFFICIAL_BOOKS;
     }
   }
 
   async getBookById(id: string): Promise<Book | null> {
-    try {
-      const allBooks = await this.getBooks();
-      const match = allBooks.find(b => b.id === id || b.language === id);
-      if (match) return match;
+    if (!id) return null;
+    const cleanId = decodeURIComponent(id).toLowerCase().trim();
 
+    try {
       const { data, error } = await supabase
         .from('books')
         .select('*')
         .eq('id', id)
-        .maybeSingle();
+        .single();
 
-      if (error) throw error;
-      if (data) {
-        const isEnglish = data.id === 'english-book' || data.language === 'en';
+      if (!error && data) {
         return {
           id: data.id,
           title: data.title,
           description: data.description || '',
-          coverImage: isEnglish ? '/books/english-book-cover.png' : '/books/telugu-book-cover.png',
-          pdfUrl: isEnglish ? '/books/Vijayabata%20Vaasthu%20Book%20English.pdf' : '/books/vasthu%20telugu%20book.pdf',
-          language: data.language,
-          pages: data.pages,
-          category: data.category,
-          isFree: isEnglish,
-          price: 99
+          coverImage: data.cover_image || data.coverImage || '/books/english-book-cover.webp',
+          pdfUrl: data.pdf_url || data.pdfUrl || '/books/Vijayabata Vaasthu Book English.pdf',
+          language: data.language || 'English',
+          pages: data.pages || 215,
+          category: data.category || 'Vastu Shastra',
+          isFree: data.is_free !== undefined ? data.is_free : data.isFree ?? (data.price === 0),
+          price: data.price ?? 0
         };
       }
-      return DEFAULT_BOOKS.find(b => b.id === id) || null;
-    } catch (error) {
-      console.warn(`Failed to fetch book with id ${id}, checking fallback:`, error);
-      return DEFAULT_BOOKS.find(b => b.id === id) || null;
+    } catch (err) {
+      console.warn(`Database lookup for book ${id} skipped, falling back to official publications:`, err);
     }
+
+    // Match against official local books
+    const matched = OFFICIAL_BOOKS.find(b => 
+      b.id.toLowerCase() === cleanId ||
+      (cleanId === '1' && b.id === 'english-book') ||
+      (cleanId === '2' && b.id === 'telugu-book') ||
+      (cleanId.includes('english') && b.id === 'english-book') ||
+      (cleanId.includes('telugu') && b.id === 'telugu-book') ||
+      (cleanId.includes('vijayabata') && b.id === 'english-book')
+    );
+
+    return matched || OFFICIAL_BOOKS[0];
   }
 }
 
