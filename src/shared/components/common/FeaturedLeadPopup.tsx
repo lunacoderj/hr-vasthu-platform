@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   X, 
   Phone, 
@@ -30,13 +30,99 @@ interface PopupItem {
   youtube_id?: string;
 }
 
-const DEFAULT_POPUP_INTERVAL_MS = 120 * 1000; // 2 minutes
+const DEFAULT_POPUP_INTERVAL_MS = 180 * 1000; // 3 minutes between potential non-intrusive appearances
+const POPUP_COOLDOWN_MS = 15 * 60 * 1000; // 15-minute cooldown if dismissed by user
+
+/**
+ * Checks if the current route is an immersion route where popups MUST NOT appear:
+ * - Watching a video (/video/:id, /video/:slug, /videos/:id)
+ * - Watching shorts (/shorts)
+ * - Reading a blog post (/blog/:slug, /blog/:id)
+ * - Reading a book in BookReader (/books/:id)
+ * - Checkout, Booking, Appointments, or Policy pages
+ */
+const isImmersionRoute = (pathname: string): boolean => {
+  const p = pathname.toLowerCase().trim();
+
+  // 1. Watching a video
+  if (p.startsWith('/video/') || p.startsWith('/videos/')) {
+    const sub = p.replace(/^\/videos?\//, '');
+    if (sub.length > 0) return true;
+  }
+
+  // 2. Watching shorts
+  if (p.startsWith('/shorts')) {
+    return true;
+  }
+
+  // 3. Reading a post / article (anything beyond the /blog catalog)
+  if (p.startsWith('/blog/')) {
+    const sub = p.replace(/^\/blog\//, '');
+    if (sub.length > 0) return true;
+  }
+
+  // 4. Reading a book / publication in reader (anything beyond /books catalog)
+  if (p.startsWith('/books/')) {
+    const sub = p.replace(/^\/books\//, '');
+    if (sub.length > 0) return true;
+  }
+
+  // 5. Booking, Appointments & Legal Compliance
+  if (p.startsWith('/appointment') || p.startsWith('/privacy') || p.startsWith('/terms') || p.startsWith('/disclaimer')) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
+ * Checks if a payment, checkout, video playback or modal dialog is currently active in the DOM
+ */
+const isUserEngagedOrModalActive = (): boolean => {
+  if (typeof document === 'undefined') return false;
+
+  // 1. Cashfree Payment Gateway SDK active modal or iframe
+  if (document.querySelector('#cashfree-sdk-modal, .cashfree-checkout-frame, iframe[src*="cashfree"]')) {
+    return true;
+  }
+
+  // 2. Unlock Drawing / Unlock Book / Cashfree Checkout / Booking / Request Modals
+  if (document.querySelector('[data-payment-modal="true"], [data-checkout-active="true"], [data-modal-active="true"]')) {
+    return true;
+  }
+
+  // 3. Fullscreen video or active media
+  if (document.fullscreenElement) {
+    return true;
+  }
+
+  // 4. Check if any generic modal dialog is currently open (excluding our own popup)
+  const dialogs = document.querySelectorAll('[role="dialog"], [aria-modal="true"]');
+  for (let i = 0; i < dialogs.length; i++) {
+    const el = dialogs[i];
+    if (!el.classList.contains('featured-lead-popup-container')) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 export const FeaturedLeadPopup: React.FC = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<PopupItem | null>(null);
   const [featuredPool, setFeaturedPool] = useState<PopupItem[]>([]);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const lastPathnameRef = useRef(location.pathname);
+
+  // Close immediately if user navigates to an immersion route (video, post, shorts, reader, payment)
+  useEffect(() => {
+    if (isImmersionRoute(location.pathname)) {
+      setIsOpen(false);
+    }
+    lastPathnameRef.current = location.pathname;
+  }, [location.pathname]);
 
   // Fetch Featured Blogs & Featured Videos from Supabase
   const loadFeaturedContent = useCallback(async () => {
@@ -132,19 +218,41 @@ export const FeaturedLeadPopup: React.FC = () => {
   }, [loadFeaturedContent]);
 
   const triggerRandomPopup = useCallback(() => {
+    // 1. Strict Route Check: Never trigger on videos, shorts, posts, or book reading
+    if (isImmersionRoute(lastPathnameRef.current)) {
+      return;
+    }
+
+    // 2. Active Interaction / Payment Check: Never disrupt an open payment, checkout, or modal
+    if (isUserEngagedOrModalActive()) {
+      return;
+    }
+
+    // 3. User Dismissal Cooldown Check
+    try {
+      const dismissedAt = sessionStorage.getItem('hr_featured_popup_dismissed_at');
+      if (dismissedAt) {
+        const elapsed = Date.now() - Number(dismissedAt);
+        if (elapsed < POPUP_COOLDOWN_MS) {
+          return;
+        }
+      }
+    } catch {}
+
     if (featuredPool.length === 0) return;
     const randomPick = featuredPool[Math.floor(Math.random() * featuredPool.length)];
     setCurrentItem(randomPick);
     setIsOpen(true);
   }, [featuredPool]);
 
-  // Trigger initial appearance after 45s, then every 2 minutes
+  // Polite non-intrusive timer: initial delay 60s, then periodic check on discovery pages only
   useEffect(() => {
     if (!hasLoaded || featuredPool.length === 0) return;
+    if (isImmersionRoute(location.pathname)) return;
 
     const initialTimer = setTimeout(() => {
       triggerRandomPopup();
-    }, 45000);
+    }, 60000);
 
     const intervalTimer = setInterval(() => {
       triggerRandomPopup();
@@ -154,18 +262,25 @@ export const FeaturedLeadPopup: React.FC = () => {
       clearTimeout(initialTimer);
       clearInterval(intervalTimer);
     };
-  }, [hasLoaded, featuredPool, triggerRandomPopup]);
+  }, [hasLoaded, featuredPool, location.pathname, triggerRandomPopup]);
+
+  const handleDismiss = useCallback(() => {
+    setIsOpen(false);
+    try {
+      sessionStorage.setItem('hr_featured_popup_dismissed_at', Date.now().toString());
+    } catch {}
+  }, []);
 
   // Handle ESC key to close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape') handleDismiss();
     };
     if (isOpen) window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, handleDismiss]);
 
-  if (!currentItem) return null;
+  if (!currentItem || !isOpen || isImmersionRoute(location.pathname)) return null;
 
   const whatsappMessage = encodeURIComponent(
     `Hello Dr. Rao, I saw the featured ${currentItem.type === 'video' ? 'video' : 'guide'} "${currentItem.title}" on hrvasthu.com and would like expert consultation on my property.`
@@ -174,10 +289,10 @@ export const FeaturedLeadPopup: React.FC = () => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/75 backdrop-blur-sm">
+        <div className="featured-lead-popup-container fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/75 backdrop-blur-sm">
           
           {/* Backdrop click dismiss */}
-          <div className="fixed inset-0" onClick={() => setIsOpen(false)} />
+          <div className="fixed inset-0" onClick={handleDismiss} />
 
           {/* Smart Responsive Modal: Exactly 80% Screen Width & 90% Screen Height */}
           <motion.div
@@ -203,7 +318,7 @@ export const FeaturedLeadPopup: React.FC = () => {
               
               {/* Always-Visible Big Close Button */}
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={handleDismiss}
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-all cursor-pointer shadow-md hover:scale-105"
                 title="Close Modal (Esc)"
               >

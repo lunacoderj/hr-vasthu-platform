@@ -166,6 +166,7 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
   return (
     <AnimatePresence>
       <div 
+        data-payment-modal="true"
         className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/80 backdrop-blur-md font-['DM_Sans',sans-serif]"
         onClick={statusStep === 'processing' || statusStep === 'verifying' ? undefined : onClose}
       >

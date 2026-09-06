@@ -76,7 +76,10 @@ const BookingModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div 
+      data-modal-active="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -198,7 +201,10 @@ const DrawingRequestModal: React.FC<{ onClose: () => void }> = ({ onClose }) => 
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div 
+      data-modal-active="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+    >
       <motion.div 
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="absolute inset-0 bg-black/60 backdrop-blur-sm" 

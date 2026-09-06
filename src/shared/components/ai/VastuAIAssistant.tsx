@@ -220,6 +220,7 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.95 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
+          data-modal-active="true"
           className="fixed bottom-24 md:bottom-28 right-4 md:right-6 z-[70] w-[92vw] sm:w-[420px] h-[580px] max-h-[78vh] bg-white dark:bg-[#0f0f15] rounded-3xl shadow-2xl border border-stone-200 dark:border-stone-800 flex flex-col overflow-hidden text-stone-900 dark:text-stone-100"
         >
           {/* Header */}
