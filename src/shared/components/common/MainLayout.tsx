@@ -78,24 +78,24 @@ const BookingModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, 
   return (
     <div 
       data-modal-active="true"
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-24 pb-8 overflow-y-auto"
     >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm"
         onClick={handleClose}
       />
       <motion.div
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        className="relative z-10 w-full max-w-md bg-stone-900 border border-gold-500/30 rounded-3xl p-6 shadow-2xl"
+        className="relative z-10 w-full max-w-md max-h-[calc(100vh-6rem)] my-auto overflow-y-auto bg-stone-900 border border-gold-500/30 rounded-3xl p-6 shadow-2xl"
       >
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition-colors"
+          className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition-colors z-20 cursor-pointer"
         >
           <X size={20} />
         </button>
@@ -203,20 +203,20 @@ const DrawingRequestModal: React.FC<{ onClose: () => void }> = ({ onClose }) => 
   return (
     <div 
       data-modal-active="true"
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-24 pb-8 overflow-y-auto"
     >
       <motion.div 
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm" 
         onClick={onClose} 
       />
       <motion.div 
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        className="relative z-10 w-full max-w-sm bg-stone-900 border border-gold-500/30 rounded-3xl p-6 shadow-2xl"
+        className="relative z-10 w-full max-w-sm max-h-[calc(100vh-6rem)] my-auto overflow-y-auto bg-stone-900 border border-gold-500/30 rounded-3xl p-6 shadow-2xl"
       >
-        <button onClick={onClose} className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition-colors z-20 cursor-pointer">
           <X size={20} />
         </button>
 
@@ -356,7 +356,7 @@ export const MainLayout: React.FC = () => {
           4. WhatsApp Chat
           5. Call Now (at the bottom/end)
       */}
-      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-6 z-50 flex flex-col items-end gap-3">
+      <div className="fixed bottom-20 md:bottom-8 right-4 md:right-6 z-40 flex flex-col items-end gap-3">
         
         {/* 1. TOP-MOST: Scroll to Top Button */}
         <AnimatePresence>

@@ -187,7 +187,7 @@ export const Drawings: React.FC = () => {
         </section>
 
         {/* ═══ FILTER & SEARCH TOOLBAR ═══ */}
-        <section className="py-7 bg-white/70 dark:bg-[#0d0d14]/70 backdrop-blur-xl border-b border-stone-200/60 dark:border-white/5 sticky top-16 z-30 shadow-sm transition-colors">
+        <section className="py-5 sm:py-6 bg-white/85 dark:bg-[#0d0d14]/85 backdrop-blur-xl border-b border-stone-200/60 dark:border-white/5 sticky top-16 sm:top-[92px] z-30 shadow-xs transition-all">
           <Container size="xl">
             <div className="space-y-4">
               

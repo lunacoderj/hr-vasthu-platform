@@ -61,14 +61,18 @@ const isImmersionRoute = (pathname: string): boolean => {
     if (sub.length > 0) return true;
   }
 
-  // 4. Reading a book / publication in reader (anything beyond /books catalog)
-  if (p.startsWith('/books/')) {
-    const sub = p.replace(/^\/books\//, '');
-    if (sub.length > 0) return true;
+  // 4. Drawings archive & Blueprint inspection / purchase checkout
+  if (p.startsWith('/drawings') || p.startsWith('/drawing/')) {
+    return true;
   }
 
-  // 5. Booking, Appointments & Legal Compliance
-  if (p.startsWith('/appointment') || p.startsWith('/privacy') || p.startsWith('/terms') || p.startsWith('/disclaimer')) {
+  // 5. Reading a book / publication in reader
+  if (p.startsWith('/books')) {
+    return true;
+  }
+
+  // 6. Booking, Appointments & Legal Compliance
+  if (p.startsWith('/appointment') || p.startsWith('/privacy') || p.startsWith('/terms') || p.startsWith('/disclaimer') || p.startsWith('/contact')) {
     return true;
   }
 
@@ -289,18 +293,18 @@ export const FeaturedLeadPopup: React.FC = () => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="featured-lead-popup-container fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/75 backdrop-blur-sm">
+        <div className="featured-lead-popup-container fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-24 pb-8 overflow-y-auto bg-black/80 backdrop-blur-md">
           
           {/* Backdrop click dismiss */}
           <div className="fixed inset-0" onClick={handleDismiss} />
 
-          {/* Smart Responsive Modal: Exactly 80% Screen Width & 90% Screen Height */}
+          {/* Smart Responsive Modal: Safe Max Dimensions */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="relative z-10 w-[94vw] sm:w-[90vw] md:w-[84vw] lg:w-[80vw] h-[90vh] max-w-[1600px] bg-white rounded-3xl sm:rounded-[36px] shadow-2xl border-2 border-amber-300 overflow-hidden flex flex-col font-['DM_Sans',sans-serif] text-[#112625]"
+            className="relative z-10 w-[96vw] sm:w-[90vw] md:w-[84vw] lg:w-[80vw] max-w-[1400px] max-h-[calc(100vh-6rem)] bg-white rounded-3xl sm:rounded-[32px] shadow-2xl border-2 border-amber-300 overflow-hidden flex flex-col font-['DM_Sans',sans-serif] text-[#112625] my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             

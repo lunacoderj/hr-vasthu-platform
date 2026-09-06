@@ -111,10 +111,10 @@ export const DrawingDetail: React.FC = () => {
         <meta name="description" content={drawing.description || `${drawing.title} certified Vastu blueprint with 3D elevation and CAD download.`} />
       </Helmet>
 
-      <div className="min-h-screen bg-[#fbf9f5] dark:bg-[#0a0a0f] text-stone-900 dark:text-stone-100 pt-28 pb-20 font-['DM_Sans',sans-serif]">
+      <div className="min-h-screen bg-[#fbf9f5] dark:bg-[#0a0a0f] text-stone-900 dark:text-stone-100 pt-28 sm:pt-36 pb-20 font-['DM_Sans',sans-serif]">
         
         {/* Navigation Breadcrumb */}
-        <div className="border-b border-stone-200/70 dark:border-white/5 bg-white/50 dark:bg-white/[0.02] backdrop-blur-md sticky top-16 z-20">
+        <div className="border-b border-stone-200/70 dark:border-white/5 bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-md sticky top-16 sm:top-[92px] z-20 transition-all">
           <Container size="xl">
             <div className="py-3 flex items-center justify-between text-xs">
               <Link

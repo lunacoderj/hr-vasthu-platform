@@ -125,7 +125,7 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
     <AnimatePresence>
       <div 
         data-payment-modal="true"
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+        className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-24 pb-8 overflow-y-auto"
       >
         {/* Backdrop */}
         <motion.div
@@ -141,7 +141,7 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative max-w-lg w-full bg-white dark:bg-[#0f0f17] border border-stone-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto flex flex-col"
+          className="relative max-w-lg w-full max-h-[calc(100vh-6rem)] bg-white dark:bg-[#0f0f17] border border-stone-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto flex flex-col"
         >
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-stone-200 dark:border-white/10 bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 text-white flex items-center justify-between">

@@ -171,28 +171,28 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
     <AnimatePresence>
       <div 
         data-payment-modal="true"
-        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/80 backdrop-blur-md font-['DM_Sans',sans-serif]"
+        className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-24 pb-8 overflow-y-auto bg-black/85 backdrop-blur-md font-['DM_Sans',sans-serif]"
         onClick={statusStep === 'processing' || statusStep === 'verifying' ? undefined : onClose}
       >
-        {/* ═══ SMART 80vw × 90vh RESPONSIVE 2-COLUMN MAGAZINE CARD ═══ */}
+        {/* ═══ SMART 80vw RESPONSIVE 2-COLUMN MAGAZINE CARD ═══ */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-[96vw] sm:w-[92vw] md:w-[86vw] lg:w-[80vw] max-w-5xl h-[90vh] max-h-[880px] bg-white dark:bg-[#12121a] rounded-3xl shadow-2xl border border-amber-300/40 dark:border-white/10 overflow-hidden flex flex-col md:flex-row my-auto"
+          className="relative w-[96vw] sm:w-[92vw] md:w-[86vw] lg:w-[80vw] max-w-5xl max-h-[calc(100vh-6rem)] md:max-h-[820px] bg-white dark:bg-[#12121a] rounded-3xl shadow-2xl border border-amber-300/40 dark:border-white/10 overflow-hidden flex flex-col md:flex-row my-auto"
         >
-          {/* Close Button - Always Visible at Top Right */}
+          {/* Close Button - Always Visible at Top Right with High Z-Index */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white border border-white/20 transition-all transform hover:scale-110 shadow-lg cursor-pointer"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 p-2.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white border border-white/20 transition-all transform hover:scale-110 shadow-lg cursor-pointer"
             title="Close"
           >
             <X size={18} />
           </button>
 
           {/* ═══ LEFT COLUMN: 3D CONCEPTUAL HOUSE VISUAL & SPECS (45% Width on Desktop) ═══ */}
-          <div className="w-full md:w-[45%] h-56 md:h-full bg-stone-950 relative overflow-hidden flex flex-col justify-between p-6 shrink-0">
+          <div className="w-full md:w-[45%] h-52 sm:h-64 md:h-auto bg-stone-950 relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 shrink-0">
             {/* Background 3D House Image */}
             <img
               src={drawing.aiPreviewPath || drawing.imageUrl}
