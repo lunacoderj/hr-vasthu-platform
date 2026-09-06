@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { DRAWING_BUNDLES } from '../src/core/data/drawing-bundles';
+import { DRAWING_BUNDLES } from '../src/core/data/drawing-bundles.js';
 
 export default async function handler(req: any, res: any) {
   const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://yqlhcyraiccrrhjfxqky.supabase.co';
