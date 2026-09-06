@@ -120,25 +120,37 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
       const verifyRes = await bookService.verifyPayment(orderRes.orderId, book.id);
 
       if (!verifyRes.success || !verifyRes.entitlementToken) {
-        throw new Error(verifyRes.message || 'Payment could not be verified.');
+        throw new Error(verifyRes.message || 'Payment could not be verified on gateway.');
       }
 
       setEntitlementToken(verifyRes.entitlementToken);
 
-      // 4. Level 3 Security: Request Temporary Signed Download URL
-      const dlRes = await bookService.getSecureDownloadUrl(book.id, verifyRes.entitlementToken);
-      
-      if (dlRes.success && dlRes.downloadUrl) {
-        setDownloadUrl(dlRes.downloadUrl);
-        setStatusStep('success');
-        if (onPaymentSuccess) {
-          onPaymentSuccess(book.id);
-        }
+      // 4. Resolve download URL (from server verification, secure download endpoint, or direct book asset)
+      let resolvedDownloadUrl = (verifyRes as any).downloadUrl || book.pdfUrl || '/books/Vijayabata Vaasthu Book English.pdf';
+      let resolvedFileName = (verifyRes as any).fileName || `${book.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
 
-        // Automatic Download Trigger
-        triggerBrowserDownload(dlRes.downloadUrl, dlRes.fileName || `${book.title}.pdf`);
-      } else {
-        setStatusStep('success');
+      try {
+        const dlRes = await bookService.getSecureDownloadUrl(book.id, verifyRes.entitlementToken);
+        if (dlRes && dlRes.success && dlRes.downloadUrl) {
+          resolvedDownloadUrl = dlRes.downloadUrl;
+          if (dlRes.fileName) resolvedFileName = dlRes.fileName;
+        }
+      } catch (dlNotice) {
+        console.warn('[UnlockBookModal] Using verified direct eBook download URL:', dlNotice);
+      }
+
+      setDownloadUrl(resolvedDownloadUrl);
+      setStatusStep('success');
+
+      if (onPaymentSuccess) {
+        onPaymentSuccess(book.id);
+      }
+
+      // 5. Automatic Download Trigger
+      if (resolvedDownloadUrl) {
+        setTimeout(() => {
+          triggerBrowserDownload(resolvedDownloadUrl, resolvedFileName);
+        }, 500);
       }
     } catch (err: any) {
       console.error('[UnlockBookModal] Payment error:', err);

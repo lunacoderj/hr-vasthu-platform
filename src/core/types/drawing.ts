@@ -62,6 +62,8 @@ export interface VerifyPaymentResponse {
   entitlementToken: string;
   orderId: string;
   drawingId?: string;
+  downloadUrl?: string;
+  fileName?: string;
   message?: string;
 }
 

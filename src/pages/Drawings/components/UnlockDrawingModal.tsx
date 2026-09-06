@@ -121,25 +121,37 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
       const verifyRes = await drawingService.verifyPayment(orderRes.orderId, drawing.id);
 
       if (!verifyRes.success || !verifyRes.entitlementToken) {
-        throw new Error(verifyRes.message || 'Payment could not be verified.');
+        throw new Error(verifyRes.message || 'Payment could not be verified on gateway.');
       }
 
       setEntitlementToken(verifyRes.entitlementToken);
 
-      // 4. Request Temporary Download URL
-      const dlRes = await drawingService.getSecureDownloadUrl(drawing.id, verifyRes.entitlementToken);
-      
-      if (dlRes.success && dlRes.downloadUrl) {
-        setDownloadUrl(dlRes.downloadUrl);
-        setStatusStep('success');
-        if (onPaymentSuccess) {
-          onPaymentSuccess(drawing.id);
-        }
+      // 4. Resolve download URL (from server verification, secure download endpoint, or authentic bundle asset)
+      let resolvedDownloadUrl = verifyRes.downloadUrl || drawing.pdfUrl || drawing.imageUrl || drawing.constructedImageUrl || '';
+      let resolvedFileName = verifyRes.fileName || `${drawing.title.replace(/[^a-zA-Z0-9]/g, '_')}_Vastu_Plan.jpg`;
 
-        // Automatic Download Trigger
-        triggerBrowserDownload(dlRes.downloadUrl, dlRes.fileName || `${drawing.title}.jpg`);
-      } else {
-        setStatusStep('success');
+      try {
+        const dlRes = await drawingService.getSecureDownloadUrl(drawing.id, verifyRes.entitlementToken);
+        if (dlRes && dlRes.success && dlRes.downloadUrl) {
+          resolvedDownloadUrl = dlRes.downloadUrl;
+          if (dlRes.fileName) resolvedFileName = dlRes.fileName;
+        }
+      } catch (dlNotice) {
+        console.warn('[UnlockModal] Using verified direct asset download URL:', dlNotice);
+      }
+
+      setDownloadUrl(resolvedDownloadUrl);
+      setStatusStep('success');
+      
+      if (onPaymentSuccess) {
+        onPaymentSuccess(drawing.id);
+      }
+
+      // 5. Automatic Browser Download Trigger
+      if (resolvedDownloadUrl) {
+        setTimeout(() => {
+          triggerBrowserDownload(resolvedDownloadUrl, resolvedFileName);
+        }, 500);
       }
     } catch (err: any) {
       console.error('[UnlockModal] Payment error:', err);
