@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { type Drawing } from '../../../core/types/drawing';
 import { drawingService } from '../../../core/services/drawing.service';
+import { cashfreeService } from '../../../core/services/cashfree.service';
 
 interface UnlockDrawingModalProps {
   drawing: Drawing | null;
@@ -51,6 +52,7 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
       setErrorMessage('');
       setDownloadUrl('');
       setDownloadInitiated(false);
+      cashfreeService.loadSDK().catch(() => {});
     }
   }, [isOpen]);
 
@@ -101,14 +103,11 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
       setOrderId(orderRes.orderId);
       setStatusStep('verifying');
 
-      // 2. Launch Cashfree Checkout SDK if available
-      if (typeof (window as any).Cashfree !== 'undefined' && orderRes.paymentSessionId && !orderRes.isMock) {
+      // 2. Launch Cashfree Checkout SDK modal
+      if (orderRes.paymentSessionId && !orderRes.isMock) {
         try {
-          const cashfreeMode = (import.meta as any).env?.VITE_CASHFREE_ENV || 'sandbox';
-          const cashfree = (window as any).Cashfree({ mode: cashfreeMode });
-          await cashfree.checkout({
+          await cashfreeService.launchCheckout({
             paymentSessionId: orderRes.paymentSessionId,
-            redirectTarget: '_modal',
           });
         } catch (cfErr) {
           console.warn('[Cashfree Modal] SDK modal checkout notice:', cfErr);

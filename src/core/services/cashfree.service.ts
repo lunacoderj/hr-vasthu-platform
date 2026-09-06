@@ -1,6 +1,3 @@
-import { supabase } from './supabase';
-import { type Drawing } from '../types/drawing';
-
 declare global {
   interface Window {
     Cashfree?: any;
@@ -8,28 +5,22 @@ declare global {
 }
 
 const CASHFREE_SCRIPT_URL = 'https://sdk.cashfree.com/js/v3/cashfree.js';
-const STORAGE_KEY = 'unlocked_vastu_drawings';
+const STORAGE_KEY_DRAWINGS = 'unlocked_vastu_drawings';
+const STORAGE_KEY_BOOKS = 'unlocked_vastu_books';
 
-export interface CreateOrderParams {
-  drawing: Drawing;
-  customerName: string;
-  customerPhone: string;
-  customerEmail?: string;
-  amount?: number;
+export interface LaunchCheckoutOptions {
+  paymentSessionId: string;
+  returnUrl?: string;
+  onSuccess?: (data: any) => void;
+  onFailure?: (data: any) => void;
 }
 
-export interface PaymentResult {
-  success: boolean;
-  orderId: string;
-  drawingId: string;
-  transactionId?: string;
-  message?: string;
-}
-
-class CashfreeService {
+class CashfreeClientService {
   private sdkPromise: Promise<any> | null = null;
 
-  // Load Cashfree Web SDK
+  /**
+   * Dynamically loads official Cashfree Web JS SDK v3
+   */
   public loadSDK(): Promise<any> {
     if (typeof window === 'undefined') return Promise.resolve(null);
     if (window.Cashfree) return Promise.resolve(window.Cashfree);
@@ -48,17 +39,16 @@ class CashfreeService {
         script.async = true;
         script.onload = () => {
           try {
-            const cashfree = (window as any).Cashfree?.({
-              mode: 'sandbox' // 'sandbox' or 'production'
-            });
+            const mode = (import.meta as any).env?.VITE_CASHFREE_ENV || 'sandbox';
+            const cashfree = (window as any).Cashfree?.({ mode });
             resolve(cashfree);
           } catch (e) {
-            console.warn('Cashfree SDK initialization warning:', e);
+            console.warn('[Cashfree SDK] Initialization notice:', e);
             resolve(window.Cashfree);
           }
         };
         script.onerror = () => {
-          console.warn('Could not load Cashfree SDK remote script. Fallback checkout available.');
+          console.warn('[Cashfree SDK] Failed to load remote script. Fallback flow ready.');
           resolve(null);
         };
         document.body.appendChild(script);
@@ -68,91 +58,76 @@ class CashfreeService {
     return this.sdkPromise;
   }
 
-  // Check if a drawing has already been unlocked/purchased on this device
-  public isDrawingUnlocked(drawingId: string): boolean {
-    if (typeof window === 'undefined') return false;
+  /**
+   * Launch Cashfree Modal / Redirect Checkout
+   */
+  public async launchCheckout(options: LaunchCheckoutOptions): Promise<boolean> {
+    if (!options.paymentSessionId) {
+      throw new Error('Payment Session ID is required to launch Cashfree gateway.');
+    }
+
+    const cashfree = await this.loadSDK();
+    if (!cashfree || typeof cashfree.checkout !== 'function') {
+      console.warn('[Cashfree SDK] SDK not available, continuing with server handshake.');
+      return false;
+    }
+
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      await cashfree.checkout({
+        paymentSessionId: options.paymentSessionId,
+        redirectTarget: '_modal',
+      });
+      return true;
+    } catch (err: any) {
+      console.warn('[Cashfree SDK] Modal checkout notice:', err.message);
+      return false;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Unlocked State Management (Drawings & Books)
+  // ─────────────────────────────────────────────────────────────────────────
+  public isDrawingUnlocked(drawingId: string): boolean {
+    return this.isItemUnlocked(STORAGE_KEY_DRAWINGS, drawingId);
+  }
+
+  public markDrawingUnlocked(drawingId: string): void {
+    this.markItemUnlocked(STORAGE_KEY_DRAWINGS, drawingId);
+  }
+
+  public isBookUnlocked(bookId: string): boolean {
+    return this.isItemUnlocked(STORAGE_KEY_BOOKS, bookId);
+  }
+
+  public markBookUnlocked(bookId: string): void {
+    this.markItemUnlocked(STORAGE_KEY_BOOKS, bookId);
+  }
+
+  private isItemUnlocked(storageKey: string, id: string): boolean {
+    if (typeof window === 'undefined' || !id) return false;
+    try {
+      const stored = localStorage.getItem(storageKey);
       if (!stored) return false;
-      const unlockedIds: string[] = JSON.parse(stored);
-      return unlockedIds.includes(drawingId);
+      const ids: string[] = JSON.parse(stored);
+      return ids.includes(id);
     } catch {
       return false;
     }
   }
 
-  // Mark drawing as unlocked in local storage
-  public markDrawingUnlocked(drawingId: string): void {
-    if (typeof window === 'undefined') return;
+  private markItemUnlocked(storageKey: string, id: string): void {
+    if (typeof window === 'undefined' || !id) return;
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const unlockedIds: string[] = stored ? JSON.parse(stored) : [];
-      if (!unlockedIds.includes(drawingId)) {
-        unlockedIds.push(drawingId);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(unlockedIds));
+      const stored = localStorage.getItem(storageKey);
+      const ids: string[] = stored ? JSON.parse(stored) : [];
+      if (!ids.includes(id)) {
+        ids.push(id);
+        localStorage.setItem(storageKey, JSON.stringify(ids));
       }
     } catch (e) {
-      console.error('Error saving unlocked drawing:', e);
+      console.error('Error saving unlocked item:', e);
     }
-  }
-
-  // Create payment order in Supabase & initiate Cashfree checkout
-  public async createPaymentOrder(params: CreateOrderParams): Promise<{ orderId: string; paymentSessionId?: string }> {
-    const { drawing, customerName, customerPhone, customerEmail, amount = drawing.price || 99 } = params;
-    const orderId = `HRV_DRW_${Date.now()}_${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
-
-    try {
-      // Record order into Supabase
-      const { error } = await supabase.from('drawing_orders').insert([
-        {
-          drawing_id: drawing.id.startsWith('draw-') ? null : drawing.id,
-          order_id: orderId,
-          customer_name: customerName,
-          customer_phone: customerPhone,
-          customer_email: customerEmail || '',
-          amount: amount,
-          currency: 'INR',
-          payment_status: 'PENDING',
-          payment_method: 'CASHFREE_UPI_CARD'
-        }
-      ]);
-
-      if (error) {
-        console.warn('Supabase drawing order logging notice:', error.message);
-      }
-    } catch (err) {
-      console.warn('Order DB write warning:', err);
-    }
-
-    return { orderId };
-  }
-
-  // Confirm payment success & update database
-  public async confirmPaymentSuccess(orderId: string, drawingId: string, method = 'CASHFREE_UPI'): Promise<PaymentResult> {
-    try {
-      await supabase
-        .from('drawing_orders')
-        .update({
-          payment_status: 'PAID',
-          payment_method: method,
-          updated_at: new Date().toISOString()
-        })
-        .eq('order_id', orderId);
-    } catch (err) {
-      console.warn('Payment status update notice:', err);
-    }
-
-    // Unlock in device storage
-    this.markDrawingUnlocked(drawingId);
-
-    return {
-      success: true,
-      orderId,
-      drawingId,
-      transactionId: `TXN_${Date.now()}`,
-      message: 'Payment completed successfully. Drawing PDF unlocked!'
-    };
   }
 }
 
-export const cashfreeService = new CashfreeService();
+export const cashfreeService = new CashfreeClientService();

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { type Drawing } from '../../../core/types/drawing';
 import { cashfreeService } from '../../../core/services/cashfree.service';
+import { drawingService } from '../../../core/services/drawing.service';
 
 interface CashfreePaymentModalProps {
   drawing: Drawing | null;
@@ -62,23 +63,32 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
     setPaymentStep('processing');
 
     try {
-      // 1. Create order in Cashfree service
-      const order = await cashfreeService.createPaymentOrder({
-        drawing,
-        customerName: customerName.trim(),
-        customerPhone: customerPhone.trim(),
-        customerEmail: customerEmail.trim(),
-        amount: price,
+      // 1. Create order in drawing service
+      const order = await drawingService.createOrder({
+        drawingId: drawing.id,
+        name: customerName.trim(),
+        mobile: customerPhone.trim(),
+        email: customerEmail.trim() || undefined,
       });
 
       setOrderId(order.orderId);
 
       // 2. Gateway Handshake & Checkout Verification
-      // Simulate real-time secure gateway processing or SDK execution
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (order.paymentSessionId && !order.isMock) {
+        try {
+          await cashfreeService.launchCheckout({
+            paymentSessionId: order.paymentSessionId,
+          });
+        } catch (e) {
+          console.warn('Checkout launch error:', e);
+        }
+      }
 
       // 3. Confirm Payment Success
-      await cashfreeService.confirmPaymentSuccess(order.orderId, drawing.id, `CASHFREE_${selectedMethod.toUpperCase()}`);
+      const verifyRes = await drawingService.verifyPayment(order.orderId, drawing.id);
+      if (verifyRes.success) {
+        cashfreeService.markDrawingUnlocked(drawing.id);
+      }
 
       setPaymentStep('success');
       onPaymentSuccess(drawing.id);
