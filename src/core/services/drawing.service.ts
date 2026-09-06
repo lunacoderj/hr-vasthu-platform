@@ -76,26 +76,17 @@ class DrawingService {
       const res = await axios.post(`${API_BASE}/api/drawings/create-order`, {
         ...params,
         amount: 99 // Server & client verified flat ₹99
-      }, { timeout: 5000 });
+      }, { timeout: 15000 });
 
-      if (res.data && res.data.success) {
+      if (res.data && res.data.success && res.data.paymentSessionId) {
         return res.data;
       }
-    } catch (backendErr) {
-      console.warn('Backend API offline, generating resilient order session:', backendErr);
+      throw new Error(res.data?.message || 'Could not initiate payment session.');
+    } catch (backendErr: any) {
+      const errorMsg = backendErr.response?.data?.message || backendErr.message || 'Unable to connect to payment gateway. Please try again.';
+      console.error('[DrawingService] Order creation error:', errorMsg);
+      throw new Error(errorMsg);
     }
-
-    // Resilient fallback order response
-    const orderId = `HRV_DRW_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-    return {
-      success: true,
-      orderId,
-      paymentSessionId: `mock_session_${orderId}`,
-      amount: 99, // Flat ₹99 only
-      currency: 'INR',
-      customerId: `cust_${params.mobile || Date.now()}`,
-      isMock: true
-    };
   }
 
   // 4. Verify payment with Cashfree & obtain download entitlement
@@ -104,17 +95,12 @@ class DrawingService {
       const res = await axios.post(`${API_BASE}/api/drawings/verify-payment`, {
         orderId,
         drawingId,
-      }, { timeout: 5000 });
+      }, { timeout: 15000 });
       return res.data;
-    } catch (e) {
-      // Fallback verification token
-      return {
-        success: true,
-        paymentStatus: 'PAID',
-        orderId,
-        drawingId,
-        entitlementToken: `token_${orderId}_${drawingId}`
-      };
+    } catch (e: any) {
+      const errorMsg = e.response?.data?.message || e.message || 'Payment verification could not be completed.';
+      console.error('[DrawingService] Payment verification failed:', errorMsg);
+      throw new Error(errorMsg);
     }
   }
 
@@ -128,19 +114,14 @@ class DrawingService {
           headers: {
             Authorization: `Bearer ${entitlementToken}`,
           },
-          timeout: 5000
+          timeout: 10000
         }
       );
       return res.data;
-    } catch (e) {
-      const drawing = await this.getDrawingBySlug(drawingId);
-      const fileUrl = drawing?.aiPreviewPath || `/Drawing Multicolor HR Vasthu/87 Ground Floor  1.jpg`;
-      return {
-        success: true,
-        downloadUrl: fileUrl,
-        fileName: `${drawing?.title || 'HR-Vasthu-Plan'}.jpg`,
-        expirySeconds: 300
-      };
+    } catch (e: any) {
+      const errorMsg = e.response?.data?.message || e.message || 'Could not retrieve secure download file.';
+      console.error('[DrawingService] Secure download error:', errorMsg);
+      throw new Error(errorMsg);
     }
   }
 

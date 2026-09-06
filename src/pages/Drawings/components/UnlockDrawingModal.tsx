@@ -104,14 +104,17 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
       setStatusStep('verifying');
 
       // 2. Launch Cashfree Checkout SDK modal
-      if (orderRes.paymentSessionId && !orderRes.isMock) {
+      if (orderRes.paymentSessionId) {
         try {
           await cashfreeService.launchCheckout({
             paymentSessionId: orderRes.paymentSessionId,
           });
-        } catch (cfErr) {
+        } catch (cfErr: any) {
           console.warn('[Cashfree Modal] SDK modal checkout notice:', cfErr);
+          throw new Error('Payment was cancelled or closed. Please complete payment to unlock drawings.');
         }
+      } else {
+        throw new Error('Payment session could not be established.');
       }
 
       // 3. Verify Payment with server

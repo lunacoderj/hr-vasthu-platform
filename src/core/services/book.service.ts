@@ -159,25 +159,16 @@ class BookService {
 
     // Attempt backend API order creation
     try {
-      const res = await axios.post(`${API_BASE}/api/books/create-order`, params, { timeout: 5000 });
-      if (res.data && res.data.success) {
+      const res = await axios.post(`${API_BASE}/api/books/create-order`, params, { timeout: 15000 });
+      if (res.data && res.data.success && res.data.paymentSessionId) {
         return res.data;
       }
+      throw new Error(res.data?.message || 'Could not initiate book order session.');
     } catch (backendErr: any) {
-      console.warn('[BookService] Backend order API notice:', backendErr.message);
+      const errorMsg = backendErr.response?.data?.message || backendErr.message || 'Unable to connect to payment gateway. Please try again.';
+      console.error('[BookService] Backend order API error:', errorMsg);
+      throw new Error(errorMsg);
     }
-
-    // Resilient fallback order response
-    const orderId = `HRV_BK_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-    return {
-      success: true,
-      orderId,
-      paymentSessionId: `mock_session_${orderId}`,
-      amount: 99,
-      currency: 'INR',
-      customerId: `cust_${params.mobile || Date.now()}`,
-      isMock: true,
-    };
   }
 
   /**
@@ -188,21 +179,16 @@ class BookService {
       const res = await axios.post(`${API_BASE}/api/books/verify-payment`, {
         orderId,
         bookId,
-      }, { timeout: 6000 });
+      }, { timeout: 15000 });
 
       if (res.data?.success) {
         cashfreeService.markBookUnlocked(bookId);
       }
       return res.data;
     } catch (e: any) {
-      cashfreeService.markBookUnlocked(bookId);
-      return {
-        success: true,
-        paymentStatus: 'PAID',
-        orderId,
-        bookId,
-        entitlementToken: `token_bk_${orderId}_${bookId}`
-      };
+      const errorMsg = e.response?.data?.message || e.message || 'Book payment verification failed.';
+      console.error('[BookService] Payment verification error:', errorMsg);
+      throw new Error(errorMsg);
     }
   }
 
@@ -218,19 +204,14 @@ class BookService {
           headers: {
             Authorization: `Bearer ${entitlementToken}`,
           },
-          timeout: 5000
+          timeout: 10000
         }
       );
       return res.data;
-    } catch (e) {
-      const book = await this.getBookById(bookId);
-      const fileUrl = book?.pdfUrl || '/books/vasthu telugu book.pdf';
-      return {
-        success: true,
-        downloadUrl: fileUrl,
-        fileName: `${(book?.title || 'Vastu-Book').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
-        expirySeconds: 300
-      };
+    } catch (e: any) {
+      const errorMsg = e.response?.data?.message || e.message || 'Could not retrieve eBook download link.';
+      console.error('[BookService] Secure book download error:', errorMsg);
+      throw new Error(errorMsg);
     }
   }
 

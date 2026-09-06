@@ -103,14 +103,17 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
       setStatusStep('verifying');
 
       // 2. Launch Official Cashfree Checkout Modal
-      if (orderRes.paymentSessionId && !orderRes.isMock) {
+      if (orderRes.paymentSessionId) {
         try {
           await cashfreeService.launchCheckout({
             paymentSessionId: orderRes.paymentSessionId,
           });
-        } catch (cfErr) {
+        } catch (cfErr: any) {
           console.warn('[Cashfree Modal] SDK checkout notice:', cfErr);
+          throw new Error('Payment was cancelled or closed. Please complete payment to unlock eBook.');
         }
+      } else {
+        throw new Error('Payment session could not be established.');
       }
 
       // 3. Level 2 Security: Verify Payment with server
