@@ -1,8 +1,11 @@
 import React from 'react';
 import './styles/globals.css';
 import App from './App';
-
 import { createRoot } from 'react-dom/client';
+import { setupConsoleBranding } from './core/utils/console-banner';
+
+// Initialize Official HR Vasthu Console Branding & Security Banner
+setupConsoleBranding();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');
