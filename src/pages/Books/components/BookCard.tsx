@@ -103,13 +103,13 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
                   onClick={() => setUnlockModalOpen(true)}
                   className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-[#d4720a] to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all transform hover:scale-102 cursor-pointer uppercase tracking-wider"
                 >
-                  <CreditCard size={14} /> Unlock Complete Telugu Grandham ({priceText})
+                  <CreditCard size={14} /> Unlock Book (<span className="line-through text-white/70 font-normal">₹500</span> ₹99)
                 </button>
                 <button 
                   onClick={() => setUnlockModalOpen(true)}
                   className="w-full py-2 px-4 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 font-bold text-xs flex items-center justify-center gap-1.5 border border-stone-200 dark:border-stone-700 transition-all cursor-pointer"
                 >
-                  <Download size={13} /> Buy &amp; Download PDF ({priceText})
+                  <Download size={13} /> Buy &amp; Download PDF (₹99)
                 </button>
               </div>
             )}
@@ -140,8 +140,8 @@ function isFreeToReadPill(isEnglish: boolean) {
     );
   }
   return (
-    <div className="absolute top-3 left-3 bg-amber-500 text-white text-[10px] uppercase font-bold px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1">
-      <Lock size={11} /> Complete Paid Edition (₹99)
+    <div className="absolute top-3 left-3 bg-amber-500 text-stone-950 text-[10px] uppercase font-bold px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1">
+      <Lock size={11} /> <span className="line-through text-stone-800 mr-0.5">₹500</span> ₹99 • 80% OFF
     </div>
   );
 }

@@ -67,8 +67,9 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
 
         {/* Price Tag Badge */}
         <div className="absolute top-3.5 right-3.5">
-          <span className="bg-gradient-to-r from-[#d4720a] to-[#e68a1c] text-white px-3 py-1 rounded-full text-xs font-black shadow-lg flex items-center gap-1">
-            <Lock size={11} /> ₹{price} UNLOCK
+          <span className="bg-gradient-to-r from-[#d4720a] to-[#e68a1c] text-white px-3 py-1 rounded-full text-xs font-black shadow-lg flex items-center gap-1.5">
+            <span className="line-through text-amber-200/80 font-normal text-[10px]">₹500</span>
+            <Lock size={11} /> ₹{price}
           </span>
         </div>
 
@@ -186,10 +187,10 @@ export const DrawingCard: React.FC<DrawingCardProps> = ({ drawing, onSelect, onU
           {/* ₹99 UNLOCK DRAWING CTA BUTTON */}
           <button
             onClick={() => onUnlock(drawing)}
-            className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-xs shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-xs shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Lock size={14} />
-            <span>₹{price} UNLOCK DRAWING</span>
+            <span>Pay <span className="line-through opacity-75 font-normal">₹500</span> ₹{price} &amp; Unlock Pack</span>
             <ArrowRight size={14} />
           </button>
 

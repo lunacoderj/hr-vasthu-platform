@@ -4,12 +4,14 @@ import { Navbar, Footer, MobileBottomNav } from './index';
 import CosmicParticles from '../effects/CosmicParticles';
 import MagneticCursor from '../effects/MagneticCursor';
 import { StickyMarquee } from '../ui';
-import { Phone, MessageSquare, CalendarCheck, Sparkles, Compass, X, Send, CheckCircle2, Loader2, ArrowUp } from 'lucide-react';
+import { Phone, MessageSquare, CalendarCheck, Sparkles, Compass, X, Send, CheckCircle2, Loader2, ArrowUp, Gift, Video, Flame } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../../core/services/supabase';
 import { useTranslation } from '../../../core/hooks/useTranslation';
 import { VastuAIAssistant } from '../ai/VastuAIAssistant';
 import { FeaturedLeadPopup } from './FeaturedLeadPopup';
+import { WelcomeOfferModal } from './WelcomeOfferModal';
+import { OnlineConsultationModal } from './OnlineConsultationModal';
 
 const WHATSAPP_NUMBER = '919246624248';
 const PHONE_NUMBER = '+919246624248';
@@ -24,7 +26,7 @@ const CONSULT_TYPES = [
   'House Plans & Drawings',
 ];
 
-// Rotating Cloud Popup Messages
+// Rotating Cloud Popup Messages with Divinity Vibes
 const AI_CLOUD_MESSAGES = [
   '✨ Ask Vastu AI Anything!',
   '🧭 Have a Vastu doubt? Get Instant Answers!',
@@ -37,6 +39,15 @@ const BOOKING_CLOUD_MESSAGES = [
   '📐 Need 100% Vastu House Plans?',
   '📞 Talk Directly with Dr. Rao',
   '🏡 Residential & Commercial Vastu'
+];
+
+const OFFER_CLOUD_MESSAGES = [
+  '🎁 కేవలం ₹999/- కే ఆన్‌లైన్ వాస్తు సంప్రదింపులు + ఉచిత బుక్!',
+  '⚡ ₹500 CAD డ్రాయింగ్స్ ఇప్పుడు కేవలం ₹99/- మాత్రమే (80% OFF!)',
+  '🕉️ వాస్తు సిద్ధాంతి డా॥ హనుమంత రావు గారితో Video Call',
+  '✨ వాస్తు పరిష్కారం ఇప్పుడు ఆన్‌లైన్‌లో! Claim Offer',
+  '🏠 100% Vastu House Plans & 3D Elevations (₹99)',
+  '🪔 సరైన వాస్తు... సంతోషమైన జీవితం... Claim Now!'
 ];
 
 /* ─── Booking Modal ─── */
@@ -269,10 +280,13 @@ export const MainLayout: React.FC = () => {
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [welcomeOfferOpen, setWelcomeOfferOpen] = useState(false);
+  const [onlineConsultationOpen, setOnlineConsultationOpen] = useState(false);
 
   // Rotating Cloud Pop-up Indexes
   const [aiMsgIndex, setAiMsgIndex] = useState(0);
   const [bookingMsgIndex, setBookingMsgIndex] = useState(0);
+  const [offerMsgIndex, setOfferMsgIndex] = useState(0);
 
   const { t } = useTranslation();
 
@@ -297,6 +311,7 @@ export const MainLayout: React.FC = () => {
     const interval = setInterval(() => {
       setAiMsgIndex((prev) => (prev + 1) % AI_CLOUD_MESSAGES.length);
       setBookingMsgIndex((prev) => (prev + 1) % BOOKING_CLOUD_MESSAGES.length);
+      setOfferMsgIndex((prev) => (prev + 1) % OFFER_CLOUD_MESSAGES.length);
     }, 3500);
     return () => clearInterval(interval);
   }, []);
@@ -377,7 +392,46 @@ export const MainLayout: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* 2. ASK VASTU AI: Button with Animated Horizontal Cloud Message */}
+        {/* 2. SPECIAL LIMITED OFFERS (DIVINITY VIBES): Button with Animated Horizontal Cloud Message */}
+        <div className="relative flex items-center">
+          {/* Popping Divine Speech Bubble on the Left */}
+          <div className="absolute right-full mr-3.5 pointer-events-none hidden sm:flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={offerMsgIndex}
+                initial={{ scale: 0.7, opacity: 0, x: 15 }}
+                animate={{ scale: 1, opacity: 1, x: 0 }}
+                exit={{ scale: 0.7, opacity: 0, x: 15 }}
+                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                className="relative bg-gradient-to-r from-amber-500 via-[#d4720a] to-[#ff5436] text-white font-bold text-xs px-4 py-2 rounded-2xl shadow-[0_8px_25px_rgba(212,114,10,0.45)] whitespace-nowrap flex items-center gap-1.5 border border-amber-300/80"
+              >
+                {/* Right Triangle Pointer */}
+                <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-[#ff5436] rotate-45" />
+                <span>{OFFER_CLOUD_MESSAGES[offerMsgIndex]}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Offer Floating Button */}
+          <motion.button
+            whileHover={{ scale: 1.12 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setWelcomeOfferOpen(true)}
+            className="relative group w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-[#ff5436] via-[#d4720a] to-amber-400 text-white flex items-center justify-center shadow-[0_8px_25px_rgba(255,84,54,0.45)] border-2 border-amber-200 cursor-pointer overflow-hidden"
+            title="Limited Time Special Offers (Click to Claim)"
+            aria-label="Limited Time Special Offers"
+          >
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            <Gift size={22} className="relative z-10" />
+            <span className="absolute -top-1 -right-1 flex h-4 w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-300 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-400 text-[8px] font-black text-stone-950 items-center justify-center">₹</span>
+            </span>
+          </motion.button>
+        </div>
+
+        {/* 3. ASK VASTU AI: Button with Animated Horizontal Cloud Message */}
         <div className="relative flex items-center">
           {/* Popping Speech Bubble Cloud on the Left */}
           {!aiAssistantOpen && (
@@ -418,7 +472,7 @@ export const MainLayout: React.FC = () => {
           </motion.button>
         </div>
 
-        {/* 3. BOOK CONSULTATION: Button with Animated Horizontal Cloud Message */}
+        {/* 4. BOOK CONSULTATION: Button with Animated Horizontal Cloud Message */}
         <div className="relative flex items-center">
           {/* Popping Speech Bubble Cloud on the Left */}
           <div className="absolute right-full mr-3.5 pointer-events-none hidden sm:flex items-center">
@@ -442,16 +496,16 @@ export const MainLayout: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => setBookingOpen(true)}
+            onClick={() => setOnlineConsultationOpen(true)}
             className="w-11 h-11 md:w-13 md:h-13 rounded-full bg-stone-900 text-gold-400 border-2 border-gold-500/50 hover:border-gold-400 flex items-center justify-center shadow-lg hover:shadow-gold-500/25 transition-all cursor-pointer"
-            title="Book Consultation"
-            aria-label="Book Consultation"
+            title="Book Online Vastu Video Consultation (₹999)"
+            aria-label="Book Online Vastu Video Consultation"
           >
-            <CalendarCheck size={20} />
+            <Video size={20} />
           </motion.button>
         </div>
 
-        {/* 4. WHATSAPP CHAT: Button */}
+        {/* 5. WHATSAPP CHAT: Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -463,7 +517,7 @@ export const MainLayout: React.FC = () => {
           <MessageSquare size={19} />
         </motion.button>
 
-        {/* 5. AT THE END (BOTTOM): Call Now Button */}
+        {/* 6. AT THE END (BOTTOM): Call Now Button */}
         <motion.a
           href={`tel:${PHONE_NUMBER}`}
           whileHover={{ scale: 1.1 }}
@@ -481,6 +535,22 @@ export const MainLayout: React.FC = () => {
       <VastuAIAssistant 
         isOpen={aiAssistantOpen} 
         onClose={() => setAiAssistantOpen(false)} 
+      />
+
+      {/* Grand Welcome Limited Offer Pop-up */}
+      <WelcomeOfferModal 
+        open={welcomeOfferOpen} 
+        onClose={() => setWelcomeOfferOpen(false)} 
+        onOpenConsultation={() => {
+          setWelcomeOfferOpen(false);
+          setOnlineConsultationOpen(true);
+        }}
+      />
+
+      {/* Instant ₹999 Online Vastu Consultation Checkout Modal */}
+      <OnlineConsultationModal 
+        isOpen={onlineConsultationOpen} 
+        onClose={() => setOnlineConsultationOpen(false)} 
       />
 
       {/* Automatic 2-Minute Featured Lead Generation Popup */}

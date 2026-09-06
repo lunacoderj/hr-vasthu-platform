@@ -235,7 +235,11 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
               <div className="p-3 rounded-2xl bg-black/70 backdrop-blur-md border border-amber-400/30 flex items-center justify-between">
                 <div>
                   <span className="text-[9px] uppercase font-bold text-stone-400 block">Complete Grandham PDF</span>
-                  <span className="text-xl font-black text-white font-serif">₹{price} <span className="text-[10px] font-normal text-stone-400">One-time Fee</span></span>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-sm line-through text-stone-400 font-semibold">₹500</span>
+                    <span className="text-xl font-black text-amber-400 font-serif">₹{price}</span>
+                    <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-1.5 py-0.5 rounded">80% OFF</span>
+                  </div>
                 </div>
                 <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2.5 py-1 rounded-lg">
                   Instant High-Res PDF
@@ -259,7 +263,7 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
                     Unlock Complete Telugu Grandham
                   </h2>
                   <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
-                    Enter your details below to proceed with instant UPI / Card payment of <strong className="text-emerald-600 dark:text-emerald-400">₹{price}</strong>.
+                    Enter your details below to proceed with instant UPI / Card payment of <span className="line-through text-stone-400 mr-1">₹500</span> <strong className="text-emerald-600 dark:text-emerald-400">₹{price} only</strong> (Limited Offer).
                   </p>
                 </div>
 
@@ -340,7 +344,7 @@ export const UnlockBookModal: React.FC<UnlockBookModalProps> = ({
                   className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-[#d4720a] to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-sm shadow-xl flex items-center justify-center gap-2 transform hover:scale-102 transition-all cursor-pointer uppercase tracking-wider"
                 >
                   <CreditCard size={18} />
-                  <span>Pay ₹{price} &amp; Download PDF</span>
+                  <span>Pay <span className="line-through text-white/70 text-xs mr-1 font-normal">₹500</span> ₹{price} &amp; Download PDF</span>
                   <ArrowRight size={16} />
                 </button>
 

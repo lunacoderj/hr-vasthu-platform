@@ -150,11 +150,13 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
                 <Lock size={16} />
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#d4720a]">
-                  Cashfree Secure Payment Gateway
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#d4720a] flex items-center gap-1">
+                  Cashfree Secure Payment Gateway • <span className="bg-amber-500/20 text-amber-500 px-1 py-0.2 rounded font-bold">80% OFF</span>
                 </span>
-                <h3 className="font-serif font-bold text-sm sm:text-base line-clamp-1">
-                  Unlock CAD Drawing PDF (₹{price})
+                <h3 className="font-serif font-bold text-sm sm:text-base line-clamp-1 flex items-center gap-2">
+                  <span>Unlock CAD Drawing PDF</span>
+                  <span className="line-through text-stone-400 text-xs font-normal">₹500</span>
+                  <span className="text-amber-400 font-extrabold">₹{price}</span>
                 </h3>
               </div>
             </div>
@@ -191,9 +193,15 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
                       <span className="text-[11px] text-stone-500 dark:text-stone-400">
                         High-Res CAD PDF Manual
                       </span>
-                      <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
-                        ₹{price}
-                      </span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-xs line-through text-stone-400 font-semibold">₹500</span>
+                        <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
+                          ₹{price}
+                        </span>
+                        <span className="text-[9px] bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-1 py-0.2 rounded font-bold">
+                          80% OFF
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -307,7 +315,7 @@ export const CashfreePaymentModal: React.FC<CashfreePaymentModalProps> = ({
                   className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
                 >
                   <Lock size={15} />
-                  <span>Pay ₹{price} &amp; Unlock Download</span>
+                  <span>Pay <span className="line-through text-white/70 text-xs mr-1 font-normal">₹500</span> ₹{price} &amp; Unlock Instant Download</span>
                   <ArrowRight size={15} />
                 </button>
 

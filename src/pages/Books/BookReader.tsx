@@ -169,7 +169,7 @@ export const BookReader: React.FC = () => {
             }`}
           >
             <Download size={14} />
-            <span>{isFreeToRead ? 'Download PDF' : `Unlock & Download (${priceText})`}</span>
+            <span>{isFreeToRead ? 'Download PDF' : <>Unlock &amp; Download (<span className="line-through text-white/70 font-normal">₹500</span> ₹99)</>}</span>
           </button>
 
           <button 
@@ -294,7 +294,7 @@ export const BookReader: React.FC = () => {
                   className="w-full py-3.5 px-4 bg-gradient-to-r from-amber-500 via-[#d4720a] to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-102 uppercase tracking-wider cursor-pointer"
                 >
                   <CreditCard size={18} />
-                  <span>Instant Unlock &amp; Download ({priceText})</span>
+                  <span>Instant Unlock &amp; Download (<span className="line-through text-white/70 font-normal">₹500</span> ₹99 • 80% OFF)</span>
                 </button>
 
                 <a

@@ -235,10 +235,13 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
               <div className="p-3 rounded-2xl bg-black/70 backdrop-blur-md border border-amber-400/30 flex items-center justify-between">
                 <div>
                   <span className="text-[9px] uppercase font-bold text-stone-400 block">Complete Drawing Pack</span>
-                  <span className="text-xl font-black text-white font-serif">₹{price} <span className="text-[10px] font-normal text-stone-400">One-time Fee</span></span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xs line-through text-stone-400 font-normal">₹500</span>
+                    <span className="text-xl font-black text-white font-serif">₹{price}</span>
+                  </div>
                 </div>
                 <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2.5 py-1 rounded-lg">
-                  Instant CAD Download
+                  80% OFF • Instant CAD
                 </span>
               </div>
             </div>
@@ -252,10 +255,10 @@ export const UnlockDrawingModal: React.FC<UnlockDrawingModalProps> = ({
                 {/* Header */}
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#d4720a] bg-[#d4720a]/10 px-2.5 py-0.5 rounded-full inline-block mb-1.5">
-                    ✦ Secure Instant Unlock
+                    ✦ Secure Instant Unlock (80% OFF Limited Offer)
                   </span>
                   <h2 className="font-serif text-xl sm:text-2xl font-bold leading-tight">
-                    Enter Details to Unlock Drawing (₹{price})
+                    Enter Details to Unlock Drawing (<span className="line-through text-stone-400 font-normal text-base">₹500</span> ₹{price})
                   </h2>
                   <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
                     Fill the quick details below. You will receive the high-resolution CAD drawing files immediately.

@@ -391,9 +391,15 @@ export const DrawingDetail: React.FC = () => {
                       <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
                         Complete CAD Download
                       </span>
-                      <span className="text-2xl font-serif font-black text-stone-900 dark:text-white">
-                        ₹{price} <span className="text-xs font-normal text-stone-400">One-Time Fee</span>
-                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-base line-through text-stone-400 font-normal">₹500</span>
+                        <span className="text-3xl font-serif font-black text-stone-900 dark:text-white">
+                          ₹{price}
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-md">
+                          80% OFF • Limited Offer
+                        </span>
+                      </div>
                     </div>
                     <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">
                       Instant Access
@@ -405,7 +411,7 @@ export const DrawingDetail: React.FC = () => {
                     className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4720a] via-[#e68a1c] to-[#d4720a] text-white font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Lock size={16} />
-                    <span>Unlock Full Drawing Pack (₹{price})</span>
+                    <span>Pay <span className="line-through opacity-75 font-normal">₹500</span> ₹{price} &amp; Unlock Full Drawing Pack</span>
                   </button>
 
                   <a
