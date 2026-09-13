@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Clock, MessageCircle, Send, Mail, Globe, Award, Star, ExternalLink, CheckCircle2, Loader2 } from 'lucide-react';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
+import { SEOHead } from '../../shared/components/seo';
 import { supabase } from '../../core/services/supabase';
 import { useTranslation } from '../../core/hooks/useTranslation';
 
@@ -48,6 +49,11 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-[#0a0a0f] py-20 relative overflow-hidden">
+      <SEOHead
+        title="Contact Dr. Hanumantha Rao — Vasthu Consultation"
+        description="Book your authentic Vedic Vastu consultation with Dr. Kunchala Hanumantha Rao in Vizag and across Andhra Pradesh. Call +91 92466 24248 or connect on WhatsApp."
+        path="/contact"
+      />
       {/* Liquid blobs */}
       <div className="liquid-mesh-blob w-[500px] h-[500px] bg-gold-400/15 top-[-150px] left-[-100px]" style={{ animationDuration: '25s' }}></div>
       <div className="liquid-mesh-blob w-[400px] h-[400px] bg-emerald-400/10 bottom-[-100px] right-[-80px]" style={{ animationDuration: '20s', animationDelay: '5s' }}></div>

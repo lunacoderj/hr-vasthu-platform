@@ -7,6 +7,7 @@ import { BookCard } from './components/BookCard';
 import { bookService } from '../../core/services/book.service';
 import { type Book } from '../../core/types/book';
 import { useTranslation } from '../../core/hooks/useTranslation';
+import { SEOHead } from '../../shared/components/seo';
 
 export const Books: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -30,6 +31,11 @@ export const Books: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 py-12">
+      <SEOHead
+        title="Vastu Books Digital Library — Authoritative Vedic Treatises"
+        description="Explore authoritative Vastu Shastra literature and digital books authored by Dr. Kunchala Hanumantha Rao in English and Telugu. Practical blueprints, rules, and Ayadi calculations."
+        path="/books"
+      />
       <Container size="xl">
         <div className="mb-16 max-w-2xl">
           <Typography variant="display" className="mb-4">

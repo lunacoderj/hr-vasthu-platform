@@ -10,7 +10,7 @@ export const PrivacyPolicy: React.FC = () => {
       <Helmet>
         <title>Privacy Policy | HR Vasthu Digital Platform</title>
         <meta name="description" content="Privacy policy, data protection, and cookie compliance for HR Vasthu digital platform." />
-        <link rel="canonical" href="https://hrvasthu.com/privacy" />
+        <link rel="canonical" href="https://www.hrvasthu.com/privacy" />
       </Helmet>
 
       <Container size="lg">
@@ -30,7 +30,7 @@ export const PrivacyPolicy: React.FC = () => {
             <section className="space-y-3">
               <h2 className="text-xl font-serif font-bold text-stone-900 dark:text-white">1. Introduction</h2>
               <p>
-                Welcome to <strong>HR Vasthu</strong> (https://hrvasthu.com), operated by <strong>Dr. Kunchala Hanumantha Rao</strong>. We respect your privacy and are committed to protecting any personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your details when visiting our website or requesting Vastu consultations.
+                Welcome to <strong>HR Vasthu</strong> (https://www.hrvasthu.com), operated by <strong>Dr. Kunchala Hanumantha Rao</strong>. We respect your privacy and are committed to protecting any personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your details when visiting our website or requesting Vastu consultations.
               </p>
             </section>
 

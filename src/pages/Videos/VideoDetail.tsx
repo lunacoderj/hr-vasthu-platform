@@ -93,8 +93,9 @@ export const VideoDetail: React.FC = () => {
     );
   }
 
-  const pageUrl = `https://hrvasthu.com/video/${getVideoSlug(video)}`;
-  const videoThumbnail = video.thumbnail_max || video.thumbnail_medium || video.thumbnail_default || 'https://hrvasthu.com/hero.png';
+  const videoId = video.youtube_id || video.id;
+  const pageUrl = `https://www.hrvasthu.com/videos/${videoId}`;
+  const videoThumbnail = video.thumbnail_max || video.thumbnail_medium || video.thumbnail_default || 'https://www.hrvasthu.com/hero.png';
 
   const videoSchema = {
     "@context": "https://schema.org",
@@ -111,7 +112,7 @@ export const VideoDetail: React.FC = () => {
       "name": "HR Vasthu",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://hrvasthu.com/logo.png"
+        "url": "https://www.hrvasthu.com/logo.png"
       }
     },
     "interactionStatistic": {
@@ -138,7 +139,7 @@ export const VideoDetail: React.FC = () => {
         "name": "How can I get my house floor plan verified by Dr. Kunchala Hanumantha Rao?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can connect directly with Dr. Rao by calling +91 92466 24248 or requesting an appointment on WhatsApp through hrvasthu.com."
+          "text": "You can connect directly with Dr. Rao by calling +91 92466 24248 or requesting an appointment on WhatsApp through www.hrvasthu.com."
         }
       }
     ]
@@ -148,13 +149,12 @@ export const VideoDetail: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hrvasthu.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Videos", "item": "https://hrvasthu.com/videos" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.hrvasthu.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Videos", "item": "https://www.hrvasthu.com/videos" },
       { "@type": "ListItem", "position": 3, "name": video.title, "item": pageUrl }
     ]
   };
 
-  const videoId = video.youtube_id || video.embed_url?.split('/embed/')[1]?.split('?')[0] || '';
   const cleanEmbedUrl = videoId 
     ? `https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&rel=0&enablejsapi=1&playsinline=1`
     : video.embed_url;
@@ -318,13 +318,13 @@ export const VideoDetail: React.FC = () => {
               {similarVideos.length > 0 ? (
                 similarVideos.map((sim) => (
                   <Link
-                    to={`/video/${getVideoSlug(sim)}`}
+                    to={`/videos/${sim.youtube_id || sim.id}`}
                     key={sim.id}
                     className="flex gap-3 p-2.5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-gold-500/50 hover:shadow-md transition-all group"
                   >
                     <div className="relative w-32 aspect-video rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 shrink-0">
                       <img 
-                        src={sim.thumbnail_medium || sim.thumbnail_default || 'https://hrvasthu.com/hero.png'} 
+                        src={sim.thumbnail_medium || sim.thumbnail_default || 'https://www.hrvasthu.com/hero.png'} 
                         alt={sim.title} 
                         className="w-full h-full object-cover transition-transform group-hover:scale-105"
                       />

@@ -187,26 +187,26 @@ export default async function handler(req: any, res: any) {
     // 5. Automatically broadcast newly synced URLs to Search Engines (IndexNow & Google Sitemaps)
     try {
       const recentUrls = [
-        'https://hrvasthu.com/',
-        'https://hrvasthu.com/videos',
-        'https://hrvasthu.com/blog',
-        ...videoIds.slice(0, 10).map(id => `https://hrvasthu.com/videos/${id}`)
+        'https://www.hrvasthu.com/',
+        'https://www.hrvasthu.com/videos',
+        'https://www.hrvasthu.com/blog',
+        ...videoIds.slice(0, 10).map(id => `https://www.hrvasthu.com/videos/${id}`)
       ];
 
       await fetch('https://api.indexnow.org/indexnow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify({
-          host: 'hrvasthu.com',
+          host: 'www.hrvasthu.com',
           key: 'a78f219c63b44e05b38d9f1234abcd56',
-          keyLocation: 'https://hrvasthu.com/a78f219c63b44e05b38d9f1234abcd56.txt',
+          keyLocation: 'https://www.hrvasthu.com/a78f219c63b44e05b38d9f1234abcd56.txt',
           urlList: recentUrls
         })
       });
 
       await Promise.allSettled([
-        fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`),
-        fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`)
+        fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent('https://www.hrvasthu.com/sitemap.xml')}`),
+        fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent('https://www.hrvasthu.com/sitemap.xml')}`)
       ]);
     } catch (e: any) {
       console.warn('Search engine auto-indexing ping warning:', e.message);

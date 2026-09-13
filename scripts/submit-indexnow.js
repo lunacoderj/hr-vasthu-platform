@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const INDEXNOW_KEY = 'a78f219c63b44e05b38d9f1234abcd56';
-const HOST = 'hrvasthu.com';
-const BASE_URL = 'https://hrvasthu.com';
+const HOST = 'www.hrvasthu.com';
+const BASE_URL = 'https://www.hrvasthu.com';
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://yqlhcyraiccrrhjfxqky.supabase.co';
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxbGhjeXJhaWNjcnJoamZ4cWt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc4NzIsImV4cCI6MjA5OTY3Mzg3Mn0.wqemSrMZkuoN0LD_zIWCXzgxL41D6QK75Ur82X3X_fU';
@@ -97,7 +97,7 @@ async function submitIndexNow() {
     }
 
     console.log('\n🎉 Automatic Instant Indexing Submission Finished!');
-    console.log('💡 Note for Google: Google crawls via your sitemap.xml. Ensure https://hrvasthu.com/sitemap.xml is submitted in Google Search Console.');
+    console.log('💡 Note for Google: Google crawls via your sitemap.xml. Ensure https://www.hrvasthu.com/sitemap.xml is submitted in Google Search Console.');
 
   } catch (error) {
     console.error('Fatal error during indexing broadcast:', error);

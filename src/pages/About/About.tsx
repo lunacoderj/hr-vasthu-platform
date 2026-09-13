@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Award, BookOpen, Star, Compass, MapPin, Globe, Sparkles, Building2 } from 'lucide-react';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
+import { SEOHead } from '../../shared/components/seo';
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -14,6 +15,11 @@ const fadeUp = {
 export const About: React.FC = () => {
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
+      <SEOHead
+        title="About Dr. Kunchala Hanumantha Rao — Vasthu Siddanthi"
+        description="Learn about Dr. Kunchala Hanumantha Rao, acclaimed Vasthu Siddanthi with 30+ years of Vedic architectural expertise, Nepal Sadbhavana Award winner based in Vizag, Andhra Pradesh."
+        path="/about"
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">

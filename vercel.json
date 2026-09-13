@@ -92,12 +92,46 @@
           "value": "*"
         }
       ]
+    },
+    {
+      "source": "/rss.xml",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/feed.xml",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
     }
   ],
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "/api/sitemap.xml"
+      "destination": "/api/sitemap-index.xml"
+    },
+    {
+      "source": "/sitemap-pages.xml",
+      "destination": "/api/sitemap-pages.xml"
+    },
+    {
+      "source": "/sitemap-videos.xml",
+      "destination": "/api/sitemap-videos.xml"
+    },
+    {
+      "source": "/sitemap-blogs.xml",
+      "destination": "/api/sitemap-blogs.xml"
+    },
+    {
+      "source": "/sitemap-drawings.xml",
+      "destination": "/api/sitemap-drawings.xml"
     },
     {
       "source": "/rss.xml",
@@ -108,7 +142,7 @@
       "destination": "/api/rss.xml"
     },
     {
-      "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.xml|rss.xml|feed.xml|ads.txt|manifest.json|.*\\..*).*)",
+      "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.*\\.xml|rss.xml|feed.xml|ads.txt|manifest.json|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]

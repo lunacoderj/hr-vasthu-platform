@@ -9,25 +9,26 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL ||
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxbGhjeXJhaWNjcnJoamZ4cWt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc4NzIsImV4cCI6MjA5OTY3Mzg3Mn0.wqemSrMZkuoN0LD_zIWCXzgxL41D6QK75Ur82X3X_fU';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
-const BASE_URL = 'https://hrvasthu.com';
+const BASE_URL = 'https://www.hrvasthu.com';
 
 async function generateSitemap() {
   console.log('Generating Video-Rich & Drawing-Rich Sitemap...');
   
+  const today = new Date().toISOString().split('T')[0];
   const staticUrls = [
-    { loc: `${BASE_URL}/`, priority: '1.0', changefreq: 'daily' },
-    { loc: `${BASE_URL}/about`, priority: '0.8', changefreq: 'monthly' },
-    { loc: `${BASE_URL}/videos`, priority: '0.9', changefreq: 'daily' },
-    { loc: `${BASE_URL}/shorts`, priority: '0.9', changefreq: 'daily' },
-    { loc: `${BASE_URL}/books`, priority: '0.8', changefreq: 'weekly' },
-    { loc: `${BASE_URL}/drawings`, priority: '0.95', changefreq: 'daily' },
-    { loc: `${BASE_URL}/blog`, priority: '0.9', changefreq: 'daily' },
-    { loc: `${BASE_URL}/gallery`, priority: '0.8', changefreq: 'weekly' },
-    { loc: `${BASE_URL}/contact`, priority: '0.8', changefreq: 'monthly' },
-    { loc: `${BASE_URL}/appointment`, priority: '0.8', changefreq: 'monthly' },
-    { loc: `${BASE_URL}/privacy`, priority: '0.5', changefreq: 'yearly' },
-    { loc: `${BASE_URL}/terms`, priority: '0.5', changefreq: 'yearly' },
-    { loc: `${BASE_URL}/disclaimer`, priority: '0.5', changefreq: 'yearly' },
+    { loc: `${BASE_URL}/`, priority: '1.0', changefreq: 'daily', lastmod: today },
+    { loc: `${BASE_URL}/about`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/videos`, priority: '0.9', changefreq: 'daily', lastmod: today },
+    { loc: `${BASE_URL}/shorts`, priority: '0.9', changefreq: 'daily', lastmod: today },
+    { loc: `${BASE_URL}/books`, priority: '0.8', changefreq: 'weekly', lastmod: today },
+    { loc: `${BASE_URL}/drawings`, priority: '0.95', changefreq: 'daily', lastmod: today },
+    { loc: `${BASE_URL}/blog`, priority: '0.9', changefreq: 'daily', lastmod: today },
+    { loc: `${BASE_URL}/gallery`, priority: '0.8', changefreq: 'weekly', lastmod: today },
+    { loc: `${BASE_URL}/contact`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/appointment`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/privacy`, priority: '0.5', changefreq: 'yearly', lastmod: today },
+    { loc: `${BASE_URL}/terms`, priority: '0.5', changefreq: 'yearly', lastmod: today },
+    { loc: `${BASE_URL}/disclaimer`, priority: '0.5', changefreq: 'yearly', lastmod: today },
   ];
 
   try {
@@ -82,6 +83,7 @@ async function generateSitemap() {
     for (const page of staticUrls) {
       xml += `  <url>
     <loc>${page.loc}</loc>
+    <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>\n`;
@@ -134,6 +136,7 @@ async function generateSitemap() {
       for (const book of booksData) {
         xml += `  <url>
     <loc>${BASE_URL}/books/${book.id}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>\n`;

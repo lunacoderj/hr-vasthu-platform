@@ -95,7 +95,7 @@ export class BlogGeneratorService {
     const cleanTitle = this.cleanTitle(video.title);
     const videoId = video.youtube_id || video.id || '';
     const slug = this.generateSlug(cleanTitle, videoId);
-    const coverImage = video.thumbnail_max || video.thumbnail_high || 'https://hrvasthu.com/hero.png';
+    const coverImage = video.thumbnail_max || video.thumbnail_high || 'https://www.hrvasthu.com/hero.png';
     const inlineImages = this.getThematicImages(video.category || '', cleanTitle);
 
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;

@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 const INDEXNOW_KEY = 'a78f219c63b44e05b38d9f1234abcd56';
-const HOST = 'hrvasthu.com';
-const BASE_URL = 'https://hrvasthu.com';
+const HOST = 'www.hrvasthu.com';
+const BASE_URL = 'https://www.hrvasthu.com';
 
 export default async function handler(req: any, res: any) {
   // Allow POST or GET for quick ping trigger
@@ -19,10 +19,11 @@ export default async function handler(req: any, res: any) {
 
     // If no specific URLs provided, compile all published URLs (IndexNow supports up to 10,000 URLs per POST)
     if (urls.length === 0) {
-      const [blogsRes, videosRes, booksRes] = await Promise.all([
+      const [blogsRes, videosRes, booksRes, drawingsRes] = await Promise.all([
         supabase.from('blogs').select('slug').eq('is_published', true).order('created_at', { ascending: false }).limit(1000),
         supabase.from('videos').select('id, youtube_id').order('published_at', { ascending: false }).limit(1000),
-        supabase.from('books').select('id').limit(100)
+        supabase.from('books').select('id').limit(100),
+        supabase.from('drawings').select('id, slug').limit(200)
       ]);
 
       const staticUrls = [
@@ -44,11 +45,13 @@ export default async function handler(req: any, res: any) {
       const blogUrls = (blogsRes.data || []).map(b => `${BASE_URL}/blog/${b.slug}`);
       const videoUrls = (videosRes.data || []).map(v => `${BASE_URL}/videos/${v.youtube_id || v.id}`);
       const bookUrls = (booksRes.data || []).map(bk => `${BASE_URL}/books/${bk.id}`);
+      const drawingUrls = (drawingsRes.data || []).map(d => `${BASE_URL}/drawings/${d.slug || d.id}`);
 
       urls = [
         ...staticUrls,
         ...blogUrls,
         ...videoUrls,
+        ...drawingUrls,
         ...bookUrls
       ];
     }
@@ -57,7 +60,8 @@ export default async function handler(req: any, res: any) {
       submittedUrlsCount: urls.length,
       sampleUrls: urls.slice(0, 10),
       indexNow: null,
-      bingDirect: null
+      bingDirect: null,
+      sitemapPings: []
     };
 
     // 1. IndexNow API Broadcast (Bing, Yandex, Seznam, Naver)

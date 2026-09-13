@@ -26,9 +26,9 @@ const Home: React.FC = () => {
         "Dr. Kunchala Hanumantha Rao Vastu Siddanthi",
         "HR Vasthu"
       ],
-      "url": "https://hrvasthu.com",
-      "logo": "https://hrvasthu.com/logo.webp",
-      "image": "https://hrvasthu.com/hero.webp",
+      "url": "https://www.hrvasthu.com",
+      "logo": "https://www.hrvasthu.com/logo.webp",
+      "image": "https://www.hrvasthu.com/hero.webp",
       "description": "Connect with Dr. Kunchala Hanumanthu Rao — the most experienced Vasthu Siddanthi in Vizag and across all Andhra Pradesh & Telangana districts (Vijayawada, Guntur, Tirupati, Rajahmundry, Kakinada, Nellore, Kurnool, Hyderabad). 30+ years of authentic Vedic Vastu expertise.",
       "telephone": "+919246624248",
       "email": "hrvasthu9@gmail.com",
@@ -76,10 +76,10 @@ const Home: React.FC = () => {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "HR Vasthu",
-      "url": "https://hrvasthu.com",
+      "url": "https://www.hrvasthu.com",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://hrvasthu.com/videos?search={search_term_string}",
+        "target": "https://www.hrvasthu.com/videos?search={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
       <Helmet>
         <title>Best Vasthu Siddanthi in Vizag & AP | Dr. Hanumantha Rao</title>
         <meta name="description" content="Consult Dr. Kunchala Hanumantha Rao, leading Vasthu Siddanthi in Vizag & Andhra Pradesh. 30+ years experience, 100% Vedic house plans & non-demolition remedies." />
-        <link rel="canonical" href="https://hrvasthu.com/" />
+        <link rel="canonical" href="https://www.hrvasthu.com/" />
       </Helmet>
       {structuredSchemas.map((schema, index) => (
         <JsonLd key={index} data={schema} />

@@ -92,7 +92,7 @@ export const VastuAIOverview: React.FC<VastuAIOverviewProps> = ({ query, onClose
                     className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-stone-800 hover:border-gold-500 border border-stone-200 dark:border-stone-700 transition-colors group"
                   >
                     <img
-                      src={v.thumbnail_medium || 'https://hrvasthu.com/hero.png'}
+                      src={v.thumbnail_medium || 'https://www.hrvasthu.com/hero.png'}
                       alt={v.title}
                       className="w-16 aspect-video rounded-lg object-cover shrink-0"
                     />

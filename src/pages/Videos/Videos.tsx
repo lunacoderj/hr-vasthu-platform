@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { Container } from '../../shared/components/layout/Container';
 import Typography from '../../shared/components/content/Typography';
+import { SEOHead } from '../../shared/components/seo';
 import { Spinner, Button } from '../../shared/components/ui';
 import { VideoCard, VideoCardSkeleton } from './components/VideoCard';
 import { VideoFilters } from './components/VideoFilters';
@@ -61,6 +62,11 @@ export const Videos: React.FC = () => {
 
   return (
     <div className="video-page py-12">
+      <SEOHead
+        title="Vastu Video Lessons — 491+ Expert Guides by Dr. Hanumantha Rao"
+        description="Watch 491+ authentic Vedic Vastu video masterclasses by Dr. Kunchala Hanumantha Rao covering house plans, direction analysis, pooja room, kitchen, and non-demolition remedies."
+        path="/videos"
+      />
       <Container size="xl">
         <div className="mb-12">
           <Typography variant="display" className="mb-4">

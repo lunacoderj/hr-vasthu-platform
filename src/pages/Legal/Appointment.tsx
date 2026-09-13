@@ -143,7 +143,7 @@ export const Appointment: React.FC = () => {
       <Helmet>
         <title>Book Online Vastu Consultation (₹999) | Dr. Kunchala Hanumantha Rao</title>
         <meta name="description" content="Book 1-on-1 direct Online Vastu Consultation on WhatsApp Video Call or Google Meet with Dr. Kunchala Hanumantha Rao. Special ₹999 offer with free Vastu Book PDF." />
-        <link rel="canonical" href="https://hrvasthu.com/appointment" />
+        <link rel="canonical" href="https://www.hrvasthu.com/appointment" />
       </Helmet>
 
       <Container size="xl">

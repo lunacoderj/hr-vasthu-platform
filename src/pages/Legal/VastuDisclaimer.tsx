@@ -10,7 +10,7 @@ export const VastuDisclaimer: React.FC = () => {
       <Helmet>
         <title>Vastu Disclaimer | HR Vasthu Digital Platform</title>
         <meta name="description" content="Legal and advisory disclaimer for Vastu Shastra consultations and educational content on HR Vasthu." />
-        <link rel="canonical" href="https://hrvasthu.com/disclaimer" />
+        <link rel="canonical" href="https://www.hrvasthu.com/disclaimer" />
       </Helmet>
 
       <Container size="lg">

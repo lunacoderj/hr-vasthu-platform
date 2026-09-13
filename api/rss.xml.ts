@@ -5,7 +5,7 @@ export default async function handler(req: any, res: any) {
   const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxbGhjeXJhaWNjcnJoamZ4cWt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc4NzIsImV4cCI6MjA5OTY3Mzg3Mn0.wqemSrMZkuoN0LD_zIWCXzgxL41D6QK75Ur82X3X_fU';
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  const BASE_URL = 'https://hrvasthu.com';
+  const BASE_URL = 'https://www.hrvasthu.com';
 
   try {
     const [blogsRes, videosRes] = await Promise.all([

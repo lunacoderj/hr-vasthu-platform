@@ -73,11 +73,11 @@ export const BookReader: React.FC = () => {
   const isFreeToRead = book.isFree || book.id === 'english-book' || book.id === '1' || book.language === 'English' || book.language === 'en' || book.price === 0 || isUnlocked;
   const rawPdfUrl = book.pdfUrl || '/books/Vijayabata Vaasthu Book English.pdf';
   const cleanPdfUrl = encodeURI(rawPdfUrl);
-  const pageUrl = `https://hrvasthu.com/books/${book.id}`;
+  const pageUrl = `https://www.hrvasthu.com/books/${book.id}`;
   const priceText = '₹99';
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Dr. Rao, I would like to purchase the complete eBook edition of "${book.title}" (₹99) from hrvasthu.com.`
+    `Hello Dr. Rao, I would like to purchase the complete eBook edition of "${book.title}" (₹99) from www.hrvasthu.com.`
   );
 
   const bookSchema = {

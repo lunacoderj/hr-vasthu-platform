@@ -46,22 +46,22 @@ export default async function handler(req: any, res: any) {
     }
 
     // 3. Ping Google and IndexNow to index new URLs
-    const urls = pendingBlogs.map(b => `https://hrvasthu.com/blog/${b.slug}`);
+    const urls = pendingBlogs.map(b => `https://www.hrvasthu.com/blog/${b.slug}`);
     try {
       await fetch('https://api.indexnow.org/indexnow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify({
-          host: 'hrvasthu.com',
+          host: 'www.hrvasthu.com',
           key: 'a78f219c63b44e05b38d9f1234abcd56',
-          keyLocation: 'https://hrvasthu.com/a78f219c63b44e05b38d9f1234abcd56.txt',
-          urlList: [...urls, 'https://hrvasthu.com/blog']
+          keyLocation: 'https://www.hrvasthu.com/a78f219c63b44e05b38d9f1234abcd56.txt',
+          urlList: [...urls, 'https://www.hrvasthu.com/blog']
         })
       });
 
       await Promise.allSettled([
-        fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`),
-        fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent('https://hrvasthu.com/sitemap.xml')}`)
+        fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent('https://www.hrvasthu.com/sitemap.xml')}`),
+        fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent('https://www.hrvasthu.com/sitemap.xml')}`)
       ]);
     } catch (e: any) {
       console.warn('Sitemap ping warning:', e.message);

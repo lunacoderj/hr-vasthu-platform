@@ -10,7 +10,7 @@ export const TermsOfService: React.FC = () => {
       <Helmet>
         <title>Terms of Service | HR Vasthu Digital Platform</title>
         <meta name="description" content="Terms of Service and consultation agreements for HR Vasthu digital platform." />
-        <link rel="canonical" href="https://hrvasthu.com/terms" />
+        <link rel="canonical" href="https://www.hrvasthu.com/terms" />
       </Helmet>
 
       <Container size="lg">
@@ -30,7 +30,7 @@ export const TermsOfService: React.FC = () => {
             <section className="space-y-3">
               <h2 className="text-xl font-serif font-bold text-stone-900 dark:text-white">1. Agreement to Terms</h2>
               <p>
-                By accessing or using <strong>HR Vasthu</strong> (https://hrvasthu.com), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access the service.
+                By accessing or using <strong>HR Vasthu</strong> (https://www.hrvasthu.com), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access the service.
               </p>
             </section>
 

@@ -104,11 +104,14 @@ export const DrawingDetail: React.FC = () => {
     `Hello Dr. Hanumanthu Rao garu, I am reviewing the Vastu drawing: "${drawing.title}" (${drawing.facing} Facing, Price: ₹${price}). Please share more details.`
   )}`;
 
+  const canonicalUrl = `https://www.hrvasthu.com/drawings/${drawing.slug || slug || drawing.id}`;
+
   return (
     <>
       <Helmet>
         <title>{drawing.title} — 100% Vastu House Plan | HR Vasthu</title>
         <meta name="description" content={drawing.description || `${drawing.title} certified Vastu blueprint with 3D elevation and CAD download.`} />
+        <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
       <div className="min-h-screen bg-[#fbf9f5] dark:bg-[#0a0a0f] text-stone-900 dark:text-stone-100 pt-28 sm:pt-36 pb-20 font-['DM_Sans',sans-serif]">

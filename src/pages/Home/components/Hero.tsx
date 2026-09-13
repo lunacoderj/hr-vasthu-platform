@@ -55,7 +55,8 @@ export const Hero: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedIndex >= 0 && searchResults[selectedIndex]) {
-      navigate(`/video/${searchResults[selectedIndex].id}`);
+      const selected = searchResults[selectedIndex];
+      navigate(`/videos/${selected.youtube_id || selected.id}`);
     } else if (searchQuery.trim()) {
       navigate(`/videos?search=${encodeURIComponent(searchQuery.trim())}`);
     }

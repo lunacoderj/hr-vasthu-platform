@@ -349,7 +349,7 @@ export const BlogPost: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [parsedContent]);
 
-  const pageUrl = blog ? `https://hrvasthu.com/blog/${blog.slug || blog.id}` : 'https://hrvasthu.com/blog';
+  const pageUrl = blog ? `https://www.hrvasthu.com/blog/${blog.slug || blog.id}` : 'https://www.hrvasthu.com/blog';
   const heroImage = blog?.cover_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200';
   const faqs = parsedContent?.faqs || [];
   const readTime = parsedContent?.reading_time_minutes || 10;
@@ -846,7 +846,7 @@ export const BlogPost: React.FC = () => {
                     return (
                       <Link
                         key={vid.id}
-                        to={`/video/${videoSlug}`}
+                        to={`/videos/${vid.youtube_id || vid.id}`}
                         className="group block rounded-xl overflow-hidden hover:bg-orange-50/60 p-1 transition-colors"
                       >
                         <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-900 border border-[var(--border)] mb-1">

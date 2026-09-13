@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /rss.xml
+Disallow: /feed.xml
 
 # Google Search Console Crawler
 User-agent: Googlebot
@@ -13,4 +15,4 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
-Sitemap: https://hrvasthu.com/sitemap.xml
+Sitemap: https://www.hrvasthu.com/sitemap.xml

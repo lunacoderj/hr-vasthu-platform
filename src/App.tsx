@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from './shared/components/ui';
 import { MainLayout } from './shared/components/common';
@@ -41,6 +41,11 @@ const PageFallback = () => (
     <div className="w-8 h-8 rounded-full border-2 border-t-gold-500 border-r-transparent border-b-gold-500/20 border-l-transparent animate-spin" />
   </div>
 );
+
+const VideoRouteRedirect = () => {
+  const { id } = useParams();
+  return <Navigate to={`/videos/${id || ''}`} replace />;
+};
 
 const ResponsiveVideos = () => {
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
@@ -108,7 +113,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/videos" element={<ResponsiveVideos />} />
               <Route path="/videos/:id" element={<VideoDetail />} />
-              <Route path="/video/:id" element={<VideoDetail />} />
+              <Route path="/video/:id" element={<VideoRouteRedirect />} />
               <Route path="/books" element={<ResponsiveBooks />} />
               <Route path="/books/:id" element={<BookReader />} />
               <Route path="/blog" element={<BlogList />} />

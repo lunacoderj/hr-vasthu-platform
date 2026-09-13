@@ -90,8 +90,9 @@ export const ShortsModule: React.FC = () => {
   return (
     <div className="relative w-screen h-[100dvh] bg-black overflow-hidden flex flex-col">
       <Helmet>
-        <title>Shorts | HR Vasthu</title>
-        <meta name="description" content="Watch premium Vastu Shastra shorts." />
+        <title>Vastu Shorts | Quick Tips & Remedies | HR Vasthu</title>
+        <meta name="description" content="Watch bite-sized authentic Vedic Vastu Shastra video shorts, instant remedies, and directional tips by Dr. Kunchala Hanumantha Rao." />
+        <link rel="canonical" href="https://www.hrvasthu.com/shorts" />
       </Helmet>
 
       {/* 1. Mobile Top Navbar placeholder wrapper (occupies space in flex layout on mobile) */}

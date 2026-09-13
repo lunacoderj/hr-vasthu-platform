@@ -143,6 +143,7 @@ export const BlogList: React.FC = () => {
       <Helmet>
         <title>HR Vasthu Journal — 490+ Vedic Architecture Guides</title>
         <meta name="description" content="Explore complete Sthapatya Veda principles, 81-pada mandala guidelines, and non-demolition remedies by Dr. Kunchala Hanumantha Rao across 490+ research articles." />
+        <link rel="canonical" href="https://www.hrvasthu.com/blog" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet" />
       </Helmet>
 

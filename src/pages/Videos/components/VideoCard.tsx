@@ -51,12 +51,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
     setIsHovered(false);
   };
 
-  const thumbnailUrl = video.thumbnail_max || video.thumbnail_high || video.thumbnail_medium || video.thumbnail_default || 'https://hrvasthu.com/hero.png';
-  const videoSlug = getVideoSlug(video);
+  const thumbnailUrl = video.thumbnail_max || video.thumbnail_high || video.thumbnail_medium || video.thumbnail_default || 'https://www.hrvasthu.com/hero.png';
 
   return (
     <Link 
-      to={`/video/${videoSlug}`} 
+      to={`/videos/${video.youtube_id || video.id}`} 
       className="group flex flex-col w-full cursor-pointer select-none" 
       onClick={() => onClick && onClick(video)}
     >

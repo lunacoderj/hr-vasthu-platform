@@ -283,13 +283,13 @@ export const VastuAIAssistant: React.FC<VastuAIAssistantProps> = ({
                       </span>
                       {msg.recommendedVideos.map((video: any) => (
                         <Link
-                          to={`/video/${getVideoSlug(video)}`}
+                          to={`/videos/${video.youtube_id || video.id}`}
                           key={video.id}
                           onClick={() => setIsOpen(false)}
                           className="flex items-center gap-2 p-2 rounded-xl bg-stone-50 dark:bg-stone-800 hover:bg-gold-500/10 dark:hover:bg-gold-500/10 border border-stone-200/50 dark:border-stone-700 transition-colors group"
                         >
                           <img
-                            src={video.thumbnail_medium || video.thumbnail_max || 'https://hrvasthu.com/hero.png'}
+                            src={video.thumbnail_medium || video.thumbnail_max || 'https://www.hrvasthu.com/hero.png'}
                             alt={video.title}
                             className="w-14 aspect-video rounded-md object-cover shrink-0"
                           />

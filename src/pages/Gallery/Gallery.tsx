@@ -351,6 +351,7 @@ const Gallery: React.FC = () => {
       <Helmet>
         <title>Gallery — HR Vasthu | Awards, Certifications & Legacy</title>
         <meta name="description" content="Explore the prestigious awards, client certifications, and speaking engagements of Dr. Kunchala Hanumantha Rao — the Vastu Jnani and Kala Samrat." />
+        <link rel="canonical" href="https://www.hrvasthu.com/gallery" />
       </Helmet>
 
       {/* Cosmic Background */}

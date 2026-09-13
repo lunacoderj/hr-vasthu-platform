@@ -115,6 +115,7 @@ export const Drawings: React.FC = () => {
           name="description" 
           content="Certified 100% Vastu-compliant architectural house drawings, photorealistic 3D building elevations, and downloadable CAD PDFs with instant ₹99 unlock." 
         />
+        <link rel="canonical" href="https://www.hrvasthu.com/drawings" />
       </Helmet>
 
       <div className="min-h-screen bg-[#fbf9f5] dark:bg-[#0a0a0f] text-stone-900 dark:text-stone-100 transition-colors duration-300">
