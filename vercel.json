@@ -143,6 +143,17 @@
     },
     {
       "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.*\\.xml|rss.xml|feed.xml|ads.txt|manifest.json|.*\\..*).*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|w3c_validator|whatsapp|applebot|discordbot|telegrambot).*"
+        }
+      ],
+      "destination": "/api/prerender?path=/$1"
+    },
+    {
+      "source": "/((?!api/|_next/|assets/|favicon.ico|robots.txt|sitemap.*\\.xml|rss.xml|feed.xml|ads.txt|manifest.json|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
